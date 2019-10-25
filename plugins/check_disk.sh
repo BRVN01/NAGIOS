@@ -50,4 +50,4 @@ fi
 
 }
 
-test $# -eq 6 && check $1 $2 $3 $4 $5 $6 || test $# -lt 6 && help
+test $# -eq 6 && check $1 $2 $3 $4 $5 $6 || test $# -lt 6 && help || test $# -gt 6 && help
