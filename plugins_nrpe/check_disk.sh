@@ -7,7 +7,6 @@
 # $5 = -c = indicates value of Critical
 # $6 = Value of Critical
 
-
 help () {
 echo "
 usage: $0 -l [Device or Montage point] -w [0-100] -c [0-100]
@@ -25,13 +24,16 @@ $0 -l /backup -w 40 -c 60
 echo "Please, specify the parameters" && return 3
 }
 
-
 check () {
 
-storage=$(df -h -l $2 | tr -s ' ' | sed '1d')
+storage=$(sed '1d' <<< "$(tr -s ' ' <<< "$(df -m -l $2)")")
 
 montage_point=$(cut -d ' ' -f 6 <<< "$storage")
-percentage_of_use=$(tr -d '%' <<< $(cut -d ' ' -f 5 <<< $storage))
+total=$(tr -d '%' <<< $(cut -d ' ' -f 2 <<< $storage))
+used=$(tr -d '%' <<< $(cut -d ' ' -f 3 <<< $storage))
+
+
+percentage_of_use=$(($used*100/$total))
 
 message="${percentage_of_use}% of disk space used."
 
@@ -50,4 +52,11 @@ fi
 
 }
 
-test $# -eq 6 && check $1 $2 $3 $4 $5 $6 || test $# -lt 6 && help || test $# -gt 6 && help
+execution () {
+
+test $# -eq 6 && check $* || test $# -lt 6 && help || test $# -gt 6 && help
+
+}
+
+
+execution $*
