@@ -1,58 +1,116 @@
-Guia de instalação do Nagios:
+# Introdução
 
-https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html
+Este tutorial aborda o processo de instalação do Nagios Core e Nagios plugins no Ubuntu 18.04. O Nagios é um sistema de monitoramento que permite os administradores de rede e pessoal do NOC identificar e resolver problemas de infraestrutura de TI antes que eles afetem processos críticos da empresa. 
 
-https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/toc.html
+O Nagios é oficialmente patrocinado pela [Nagios Enterprises](https://www.nagios.com/), ele tem a função de monitorar toda a sua infraestrutura de TI para garantir que sistemas, aplicativos, serviços e processos de negócios estejam funcionando corretamente. Em caso de falha, o Nagios irá alertar a equipe responsável sobre o evento ocorrido para que eles possam atuar e corrigir o problema antes que isso venha impactar os processos de negócio.
+
+O Nagios possui algumas formas de alerta após ser detectado uma mudança de estado de um dispositivo gerenciado, o tipo mais comum é o alerta visual no dashboard do Nagios, mas você pode configurar para que seja enviado e-mail e até mesmo integrar o envio de mensagens no telegram usando Nagios.
+
+Todo processo de instalação foi realizado seguindo a [documentação oficial](https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html#Ubuntu) do Nagios.
 
 
 
-A instalação foi feita usando o Ubuntu 18.04
+- Links
+
+  [Nagios Core - Installing Nagios Core From Source](https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html)
+
+  [Table of Contents](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/toc.html)
 
 
 
-<span style="color:#d86c00">**Baixando os pacotes "DEVS"**</span>
+## <span style="color:#d86c00">**Preparando o ambiente**</span>
 
-Vamos baixar alguns pacotes que podemos precisar:
+Inicialmente vamos baixar alguns pacotes que vamos usar durante a utilização do servidor.
+
+
+
+Segue o comando usado:
 
 ```bash
-sudo apt-get install -y unzip zip tcpdump ntp tar bzip2 man openssh-server rsync traceroute nmap screen perl python python3 vim curl htop autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc snmp libnet-snmp-perl gettext
+sudo apt-get install -y unzip zip tcpdump openssh-server mtr nmap perl python python3 vim curl htop wget bc gawk snmp snmpd libnet-snmp-perl
+
+# Descrição das aplicações que vão ser instaladas:
+
+	# UNZIP = Desarquivador para arquivos .zip;
+	# ZIP = Arquivador para arquivos .zip;
+	# TCPDUMP = Analizador de tráfego de Rede;
+	# openssh-server = Servidor SSH (Secure Shell), para acesso seguro a partir de máquinas remotas;
+	# MTR = Ferramenta traceroute de tela cheia em ncurses e X11;
+	# NMAP = Mapeador de Rede (fazer verificação de portas;
+	# PERL = Linguagem de extração e relatórios prática de Larry Wall;
+	# PYTHON = Linguagem interativa de alto nível orientada a objetos (versão 2 - padrão);
+	# PYTHON3 = Linguagem interativa de alto nível orientada a objetos (versão 3 - padrão);
+	# VIM = Editor VI melhorado;
+	# CURL = Ferramenta de linha de comando para transferir dados com sintaxe de URL;
+	# HTOP = Visualizador de processos interativo;
+	# WGET = Gerenciador de download;
+	# BC = Calculadora de linha de comando;
+	# GAWK = Linguagem AWK;
+	# SNMP = Aplicação cliente para utilizar o protocolo SNMP (Gerenciamento de redes);
+	# SNMPD = Aplicação servidor para utilizar o protocolo SNMP (Gerenciamento de redes);
+	# LIBNET-SNMP-PERL = Script de conexões SNMP.
 ```
 
 
 
-<span style="color:#d86c00">**Baixando os pacotes**</span>
+## <span style="color:#d86c00">**Pré requisitos**</span>
 
-Vamos baixar os pacotes de compilação, necessários para compilaro o nagios.
+Para podermos compilar o Nagios precisamos atender aos pré requisitos, caso contrário, teremos erro durante a compilação, abaixo segue o comando que instala as dependências do Nagios.
 
 ```bash
-sudo apt-get install -y autoconf gcc libc6 php7.2 make wget unzip php libapache2-mod-php7.2 libgd-dev apache2 build-essential snmp snmpd libnet-snmp-perl libgd-tools xinetd
+sudo apt-get install -y autoconf gcc libc6 php7.2 php make libapache2-mod-php7.2 apache2 build-essential xinetd 
+
+autoconf gcc libc6 make wget unzip apache2 php libapache2-mod-php7.2 libgd-dev
+# Descrição das aplicações que vão ser instaladas:
+	# Pré requisitos informados na documentação do Nagios
+		# AUTOCONF = Construtor automático de script configure (necessário para compilar);
+		# GCC = Compilador C;
+		# LIBC6 = Biblioteca C: Bibliotecas compartilhadas;
+		# PHP = Linguagem de script incorporada em HTML do servidor (padrão);
+		# MAKE = Utilitário de compilação;
+		# LIBAPACHE2-MOD-PHP = linguagem de script incorporada em HTML do servidor (módulo Apache 2) (padrão);
+		# APACHE = Servidor Web;
+		# LIBGD-DEV = Biblioteca de gráficos GD (versão de desenvolvimento).
+		
+	# Outras aplicações de desenvolvimento
+		# XINETD = substituto para o inetd com muitas melhorias.
+		# BUILD-ESSENTIALS = O pacote build-essential é uma referência para todos os pacotes necessários para compilar um pacote Debian. Geralmente inclui os compiladores e bibliotecas GCC / g ++ e alguns outros utilitários;
 ```
 
 
 
-<span style="color:#d86c00">**Baixando o nagios core**</span>
+## <span style="color:#d86c00">**Baixando o Nagios Core**</span>
 
-Vamos baixar o Nagios propriamente dito e os plugins.
+Agora vamos baixar o pacote do Nagios para podermos compilá-lo.
 
 ```bash
+# Entra na pasta /tmp:
 cd /tmp
 
+# Baixa o pacote do Nagios Core renomeando o arquivo baixado para nagioscore.tar.gz:
 wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/nagios-4.4.5.tar.gz
 
+# Descompactar o nagioscore.tar.gz:
 tar xzvf nagioscore.tar.gz
-tar xzvf nagios-plugins-2.2.1.tar.gz
+
+# Entrar no nagioscore-nagios-4.4.5:
 cd nagioscore-nagios-4.4.5
 ```
 
 
 
-<span style="color:#d86c00">**Compilar o nagios core**</span>
+### <span style="color:#d86c00">**Compilar o nagios core**</span>
 
 ```bash
+# Explicação técnica: Ele combina as bibliotecas no computador do usuário com as exigidas pelo programa antes de compilá- lo a partir do código-fonte.
+# Vamos iniciar a preparação do ambiente para podermos compilar o pacote:
 sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+
 
 sudo make all
 ```
+
+
 
 
 
