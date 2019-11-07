@@ -205,12 +205,11 @@ sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 
 Caso tenha conseguido acessar, você vera que todos os checks para o localhost (servidor Nagios) estarão vermelhos, como na imagem abaixo:
 
-![1573130380552](/home/bruno/.config/Typora/typora-user-images/1573130380552.png) 
 ![1573130380552](IMG/1573130380552.png)
 
 Isso se deve ao motivo de não termos os plugins necessários para a verificação desses serviços, podemos ver isso clicando em alguns dos serviços que estão sendo verificados (vamos pegar como exemplo o Current Load), podemos verificar no campo **Status Information** que o erro é devido ao arquivo (plugin) não ter sido encontrado.
 
-![1573130571787](/home/bruno/.config/Typora/typora-user-images/1573130571787.png) 
+![1573130571787](IMG/1573130571787.png) 
 
 Para corrigir isso, vamos instalar os plugins padrões do Nagios.
 
@@ -289,9 +288,9 @@ Você pode verificar o arquivo de configuração do Nagios usando o comando `/us
 
 Após isso você pode dar um `Re-schedule the next check of this service` nos serviços para até que eles venham a ficar com status OK, como na imagem abaixo:
 
-![1573143150490](/home/bruno/.config/Typora/typora-user-images/1573143150490.png) 
+![1573143150490](IMG/1573143150490.png) 
 
 
 
 Dando um `Re-schedule the next check of this service` nos serviços:
-![1573143273027](/home/bruno/.config/Typora/typora-user-images/1573143273027.png) 
+![1573143273027](IMG/1573143273027.png) 
