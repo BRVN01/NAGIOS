@@ -206,6 +206,7 @@ sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 Caso tenha conseguido acessar, você vera que todos os checks para o localhost (servidor Nagios) estarão vermelhos, como na imagem abaixo:
 
 ![1573130380552](/home/bruno/.config/Typora/typora-user-images/1573130380552.png) 
+![1573130380552](IMG/1573130380552.png)
 
 Isso se deve ao motivo de não termos os plugins necessários para a verificação desses serviços, podemos ver isso clicando em alguns dos serviços que estão sendo verificados (vamos pegar como exemplo o Current Load), podemos verificar no campo **Status Information** que o erro é devido ao arquivo (plugin) não ter sido encontrado.
 
