@@ -1,5 +1,3 @@
-[TOC]
-
 # Introdução
 
 Este tutorial aborda o processo de instalação do Nagios Core e Nagios plugins no Ubuntu 18.04. O Nagios é um sistema de monitoramento que permite os administradores de rede e pessoal do NOC identificar e resolver problemas de infraestrutura de TI antes que eles afetem processos críticos da empresa. 
