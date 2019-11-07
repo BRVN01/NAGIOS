@@ -1,3 +1,5 @@
+[TOC]
+
 # Introdução
 
 Este tutorial aborda o processo de instalação do Nagios Core e Nagios plugins no Ubuntu 18.04. O Nagios é um sistema de monitoramento que permite os administradores de rede e pessoal do NOC identificar e resolver problemas de infraestrutura de TI antes que eles afetem processos críticos da empresa. 
@@ -60,7 +62,6 @@ Para podermos compilar o Nagios precisamos atender aos pré requisitos, caso con
 ```bash
 sudo apt-get install -y autoconf gcc libc6 php7.2 php make libapache2-mod-php7.2 apache2 build-essential xinetd 
 
-autoconf gcc libc6 make wget unzip apache2 php libapache2-mod-php7.2 libgd-dev
 # Descrição das aplicações que vão ser instaladas:
 	# Pré requisitos informados na documentação do Nagios
 		# AUTOCONF = Construtor automático de script configure (necessário para compilar);
@@ -102,324 +103,196 @@ cd nagioscore-nagios-4.4.5
 ### <span style="color:#d86c00">**Compilar o nagios core**</span>
 
 ```bash
-# Explicação técnica: Ele combina as bibliotecas no computador do usuário com as exigidas pelo programa antes de compilá- lo a partir do código-fonte.
-# Vamos iniciar a preparação do ambiente para podermos compilar o pacote:
+# Vamos iniciar a preparação do ambiente para podermos compilar o pacote, passamos como argumento o arquivo de configuração do Nagios para o Apache, onde irá ficar o arquivo de apontamento do Nagios para que possamos acessá-lo pelo navegador:
 sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
 
-
+# Vamos criar os binários para instalação futura:
 sudo make all
-```
 
+# Vamos criar o usuário e grupos do nagios (o grupo deve ser nagcmd).
+	# O comando 'make install-groups-users' irá criar uma conta do sistema e adicionar esse 	usuário no grupo do nagios:
+	sudo make install-groups-users
 
-
-
-
-<span style="color:#d86c00">**Criando o grupo e usuarios nagios**</span>
-
-Vamos criar o usuário e grupos do **nagios**, o grupo deve ser **nagcmd**.
-
-```bash
-sudo make install-groups-users
+# Adicionando o usuário www-data no grupo nagios como um grupo secundário:
 sudo usermod -a -G nagios www-data
-```
 
-
-
-<span style="color:#d86c00">**Install Binaries**</span>
-
-```
+# Instalando os binários, CGIs e arquivos HTML gerados pelo 'make all':
 sudo make install
-```
 
-
-
-<span style="color:#d86c00">**Install Service / Daemon**</span>
-
-```
+# Instalando os arquivos de serviço/daemon e habilitando o serviço para iniciar no boot:
 sudo make install-daemoninit
-```
 
-
-
-<span style="color:#d86c00">**Install Command Mode**</span>
-
-```
+# Instalar o arquivo para termos comando externo no Nagios:
 sudo make install-commandmode
-```
 
-
-
-<span style="color:#d86c00">**Install Configuration Files**</span>
-
-```
+# Instalando os arquivos de configuração SAMPLE, isso é necessário, pois, sem isso, o Nagios não irá iniciar, ele instala tudo que está dentro de '/usr/local/nagios/etc':
 sudo make install-config
 
-```
+# Instalando os arquivos de configuração do servidor web Apache e definindo as configurações do Apache:
+	# Instalando o arquivo de configuração do Apache para a interface da web do Nagios (/etc/apache2/sites-enabled/nagios.conf):
+	sudo make install-webconf
+		
+	# Ativando a reescrita do módulo:
+	sudo a2enmod rewrite
+	
+	# Ativando o módulo CGI:
+	sudo a2enmod cgi
 
-
-
-<span style="color:#d86c00">**Install Apache Config Files**</span>
-
-```
-sudo make install-webconf
-sudo a2enmod rewrite
-sudo a2enmod cgi
-
-```
-
-
-
-<span style="color:#d86c00">**Configure Firewall**</span>
-
-```
+# Liberando o apache no firewall do Ubuntu:
 sudo ufw allow Apache
+
+# Recarregando as regras do firewall:
 sudo ufw reload
-
 ```
 
+[Explicação rewrite](https://httpd.apache.org/docs/current/mod/mod_rewrite.html).
 
-
-<span style="color:#d86c00">**Create nagiosadmin User Account**</span>
-
-```
-sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
-sudo chown nagios. /usr/local/nagios/etc/htpasswd.users
-
-```
+[Explicação CGI](https://en.wikibooks.org/wiki/Apache/CGI).
 
 
 
-<span style="color:#d86c00">**Start Apache Web Server/Start Service / Daemon**</span>
+### <span style="color:#d86c00">**Criando uma conta de usuário no Nagios**</span>
 
-```
-sudo systemctl restart apache2.service
-sudo systemctl start nagios.service
-
-```
-
-
-
-<span style="color:#d86c00">**Copiando**</span>
-
-
+Agora vamos criar um usuário que poderá acessar a aplicação web do Nagios.
 
 ```bash
+# Criando um usuário chamado 'nagiosadmin'
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
+# Mudando Dono e Grupo dono do arquivo 'htpasswd.users':
+sudo chown nagios. /usr/local/nagios/etc/htpasswd.users
+```
+
+
+
+### <span style="color:#d86c00">**Manipuladores de eventos do Nagios**</span>
+
+Vamos copiar a pasta de notificação de eventos do Nagios para pasta de produção.
+
+```bash
+# Copiando a pasta 'eventhandlers' para '/usr/local/nagios/libexec/':
 sudo cp -R contrib/eventhandlers/ /usr/local/nagios/libexec/
 
+# Mudando usuário e dono da pasta 'eventhandlers':
 sudo chown -R nagios:nagios /usr/local/nagios/libexec/eventhandlers
+```
+
+
+
+### <span style="color:#d86c00">**Reiniciando o Nagios/Apache**</span>
+
+Vamos reiniciar o apache e o Nagios para "aplicar" as mudanças.
+
+```bash
+# Reiniciando o Apache2:
+sudo systemctl restart apache2.service
+
+# Reiniciando o Nagios:
+sudo systemctl start nagios.service
+```
+
+
+
+Agora precisamos acessar o IP do servidor do Nagios para verificar se conseguimos acessar a aplicação web do Nagios, o usuário é **nagiosadmin**, a senha é a senha que você definiu.
+
+
+
+Se você esqueceu a senha, pode adicionar o usuário novamente usando o comando abaixo e digitar uma nova senha.
+
+```bash
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+```
+
+
+
+Caso tenha conseguido acessar, você vera que todos os checks para o localhost (servidor Nagios) estarão vermelhos, como na imagem abaixo:
+
+![1573130380552](/home/bruno/.config/Typora/typora-user-images/1573130380552.png) 
+
+Isso se deve ao motivo de não termos os plugins necessários para a verificação desses serviços, podemos ver isso clicando em alguns dos serviços que estão sendo verificados (vamos pegar como exemplo o Current Load), podemos verificar no campo **Status Information** que o erro é devido ao arquivo (plugin) não ter sido encontrado.
+
+![1573130571787](/home/bruno/.config/Typora/typora-user-images/1573130571787.png) 
+
+Para corrigir isso, vamos instalar os plugins padrões do Nagios.
+
+
+
+## <span style="color:#d86c00">**Instalando os plugins padrões do Nagios**</span>
+
+Vamos instalar os plugins padrões do Nagios para que possamos ter uma monitoração default na ferramenta.
+
+
+
+### <span style="color:#d86c00">**Pré requisitos**</span>
+
+Boa parte dos pré requisitos do Nagios-Plugins já foi instalado anteriormente, vamos instalar apenas os que não foram instalados.
+
+```bash
+sudo apt install -y libmcrypt-dev libssl-dev dc gettext libmcrypt4
+
+# libmcrypt-dev = Arquivos de desenvolvimento da biblioteca de decriptografia/criptografia;
+# libssl-dev = Kit de ferramentas Secure Sockets Layer - arquivos de desenvolvimento;
+# dc = calculadora de precisão arbitrária polonesa-reversa dc GNU;
+# gettext = Utilitários de internacionalização GNU;
+# libmcrypt4 = Biblioteca de Des/Encriptação
 
 ```
 
 
 
-<span style="color:#d86c00">**Installing The Nagios Plugins**</span>
+### <span style="color:#d86c00">**Compilando os plugins**</span>
 
-
+Agora vamos baixar e compilar o pacote de plugins do Nagios.
 
 ```bash
+# Entrando no /tmp:
 cd /tmp
 
+# Baixando o pacote do Nagios-Plugins:
 wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
 
+# Descompactando o pacote baixado:
 tar zxf nagios-plugins.tar.gz
 
+# Entrando na pasta descompactada do Nagios-Plugins:
 cd /tmp/nagios-plugins-release-2.2.1/
 
+# Instala alguns scripts para auxiliar na compilação:
 sudo ./tools/setup
 
+# Preparando o ambiente para a compilação:
 sudo ./configure
 
+# Vamos criar os binários para instalação futura:
 sudo make
 
+# Instalando os binários, CGIs e arquivos HTML gerados pelo 'make all':
 sudo make install
 
 ```
 
 
 
-<span style="color:#d86c00">**Service / Daemon Commands**</span>
+### <span style="color:#d86c00">**Reiniciando o daemon do Nagios**</span>
 
 ```bash
-sudo systemctl start nagios.service
-
-sudo systemctl stop nagios.service
-
+# Reinicia o daemon do Nagios:
 sudo systemctl restart nagios.service
 
+# Mostra o estatus do serviço do Nagios:
 sudo systemctl status nagios.service
 
 ```
 
+Você pode verificar o arquivo de configuração do Nagios usando o comando `/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg`.
 
 
-<span style="color:#d86c00">**Checar as configurações**</span>
 
-```bash
-/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+Após isso você pode dar um `Re-schedule the next check of this service` nos serviços para até que eles venham a ficar com status OK, como na imagem abaixo:
 
+![1573143150490](/home/bruno/.config/Typora/typora-user-images/1573143150490.png) 
 
 
-```
 
-
-
-INSTALAÇÃO DO PNP4NAGIOS
-
-Ele é usado para criação de gráficos de performance.
-
-```bash
-sudo apt-get -y install rrdtool php7.2-gd php-rrd librrdtool-oo-perl
-
-
-wget http://ufpr.dl.sourceforge.net/project/pnp4nagios/PNP-0.6/pnp4nagios-0.6.26.tar.gz
-
-tar zxvf pnp4nagios-0.6.26.tar.gz 
-
-cd pnp4nagios-0.6.26
-
-```
-
-
-
-Iniciar a compilação e instalação
-
-```bash
-sudo ./configure 
-
-sudo make all 
-
-sudo make install
-     - This installs the main program and HTML files
-
-
-Please run 'sudo make install-webconf' to install the
-web configuration file
-
-Please run 'sudo make install-config' to install sample
-configuration files
-
-Please run 'sudo make install-init' if you want to use
-BULK Mode with NPCD
-
-
-
-sudo make fullinstall
-     - This installs the main program, runlevel scripts, config and HTML files
-
-- Adicione as linhas abaixo em nagios.cfg
-vim /usr/local/nagios/etc/nagios.cfg
-
-
-# HABILITAR PERFORMANCE_DATA 0 ou 1
-process_performance_data=1
-# SERVICE PERFORMANCE COM NAGIOS/PNP4NAGIOS
-service_perfdata_file=/usr/local/pnp4nagios/var/service-perfdata
-service_perfdata_file_template=DATATYPE::SERVICEPERFDATA\tTIMET::$TIMET$\tHOSTNAME::
-$HOSTNAME$\tSERVICEDESC::$SERVICEDESC$\tSERVICEPERFDATA::
-$SERVICEPERFDATA$\tSERVICECHECKCOMMAND::
-$SERVICECHECKCOMMAND$\tHOSTSTATE::$HOSTSTATE$\tHOSTSTATETYPE::
-$HOSTSTATETYPE$\tSERVICESTATE::$SERVICESTATE$\tSERVICESTATETYPE::
-$SERVICESTATETYPE$
-service_perfdata_file_mode=a
-service_perfdata_file_processing_interval=15
-service_perfdata_file_processing_command=process-service-perfdata-file
-# HOST PERFORMANCE COM NAGIOS/PNP4NAGIOS
-host_perfdata_file=/usr/local/pnp4nagios/var/host-perfdata
-host_perfdata_file_template=DATATYPE::HOSTPERFDATA\tTIMET::$TIMET$\tHOSTNAME::
-$HOSTNAME$\tHOSTPERFDATA::$HOSTPERFDATA$\tHOSTCHECKCOMMAND::
-$HOSTCHECKCOMMAND$\tHOSTSTATE::$HOSTSTATE$\tHOSTSTATETYPE::
-$HOSTSTATETYPE$
-host_perfdata_file_mode=a
-host_perfdata_file_processing_interval=15
-host_perfdata_file_processing_command=process-host-perfdata-file
-
-sudo cp contrib/ssi/status-header.ssi /usr/local/nagios/share/ssi/
-
-
-
-Renomear o install.php conforme abaixo
-mv /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/share/install.php.org
-
-Acrescentar novo comando para gerar gráficos com pnp4nagios
-vim /usr/local/nagios/etc/objects/commands.cfg
-
-# COMANDO PAR GERAR GRÁFICOS PARA O HOST
-define command{
-command_name process-service-perfdata-file
-command_line /usr/local/pnp4nagios/libexec/process_perfdata.pl
---bulk=/usr/local/pnp4nagios/var/service-perfdata
-}
-# COMANDO PAR GERAR GRAFICOS PARA OS SERVICOS
-define command{
-command_name process-host-perfdata-file
-command_line /usr/local/pnp4nagios/libexec/process_perfdata.pl
---bulk=/usr/local/pnp4nagios/var/host-perfdata
-}
-
-```
-
-
-
-<span style="color:#d86c00">****</span>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<span style="color:#d86c00">****</span>
+Dando um `Re-schedule the next check of this service` nos serviços:
+![1573143273027](/home/bruno/.config/Typora/typora-user-images/1573143273027.png) 
