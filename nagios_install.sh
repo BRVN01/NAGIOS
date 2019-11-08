@@ -120,7 +120,6 @@ sudo chown nagios. /usr/local/nagios/etc/htpasswd.users
 sudo systemctl restart apache2.service
 sudo systemctl start nagios.service
 sudo systemctl status apache2.service
-echo ""
 sudo systemctl status nagios.service'
 
 for var in "$commands"
@@ -190,7 +189,7 @@ if [ $cont -eq 0 ];then
 fi
 
 if [ $cont1 -eq 0 ];then
-	if [ -s /usr/local/nagios/libexec/* ];then
+	if [ -s /usr/local/nagios/libexec/check_load ];then
 		echo -e "\n\nPlugins já estão instalados!!\n\n"
 		exit 0
 	
