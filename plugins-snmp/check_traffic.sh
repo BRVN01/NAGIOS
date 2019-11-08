@@ -55,7 +55,7 @@ INPUT=$(((($in)/$INTERVAL)*8))
 OUTPUT=$(((($out)/$INTERVAL)*8))
 message="IN: ${INPUT} bps - OUT:${OUTPUT} bps"
 
-if [[ ${INPUT} -lt ${10} && ${OUTPUT} -lt ${10} ]];then
+if [[ ${INPUT} -lt ${8} && ${OUTPUT} -lt ${8} ]];then
     echo "OK - $message" && exit 0
 
 elif [[ ${INPUT} -gt ${8} && ${INPUT} -lt ${10} && ${OUTPUT} -gt ${8} && ${OUTPUT} -lt ${10} ]];then
