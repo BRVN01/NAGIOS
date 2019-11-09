@@ -27,7 +27,6 @@ usage: $0 -h [Host] -i [Interface] -C [Community] -w [0-XXX in bits] -c [0-XXX i
  -C =    SNMP Community
  -w =    Warning (Number, from 0 to XXX, number of bits for a Warning check)
  -c =    Critical (Number, from 0 to XXX, number of bits for a Critical check)
-
 Example:
 $0 -h 127.0.0.1 -i 2 -C public -w 5000 -c 7000
 $0 -h 192.168.0.100 -i 3 -C public -w 10000 -c 20000
@@ -58,11 +57,11 @@ message="IN: ${INPUT} bps - OUT:${OUTPUT} bps"
 if [[ ${INPUT} -lt ${8} && ${OUTPUT} -lt ${8} ]];then
     echo "OK - $message" && exit 0
 
-elif [[ ${INPUT} -gt ${8} && ${INPUT} -lt ${10} && ${OUTPUT} -gt ${8} && ${OUTPUT} -lt ${10} ]];then
-    echo "WARNING -  $message" && exit 1
-
-elif [[ ${INPUT} -ge ${8} && ${INPUT} -ge ${10} || ${OUTPUT} -ge ${8} && ${OUTPUT} -ge ${10} ]];then
+elif [[ ${INPUT} -ge ${10} || ${OUTPUT} -ge ${10} ]];then
     echo "CRITICAL 1 -  $message" && exit 2
+
+elif [[ ${INPUT} -gt ${8} && ${INPUT} -lt ${10} || ${OUTPUT} -gt ${8} && ${OUTPUT} -lt ${10} ]];then
+    echo "WARNING -  $message" && exit 1
 
 else
     echo "Unknown - $message" && exit 3
