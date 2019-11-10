@@ -4,6 +4,8 @@
 
 # Usar a OID .1.3.6.1.4.1.2021.11.11.0
 
+# exemplo: 127.0.0.1 v2c public .1.3.6.1.4.1.2021.11.11.0 10 30
+
 host=${1}
 version=${2}
 community=${3}
