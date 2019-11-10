@@ -51,8 +51,6 @@ for i in {1..50}
 do
         tam=$(wc -m <<< $2)
         echo -ne "\\r$2$(seq -s '.' "$(($i-$tam))" | tr -d [:digit:])"
-	
-        sleep 0.003
 done
 
 echo -ne "\\r$2$(seq -s '.' "$(($i-$tam))" | tr -d [:digit:])[$1]"
@@ -166,6 +164,7 @@ done
 test $? -eq 0 && cont2=0 || cont2="Error install plugins"
 }
 
+
 #......................................................INICIO.........................................................................#
 verification
 
@@ -173,14 +172,13 @@ if [ $? -eq 0 ];then
 	echo -e "\nVerificando Requisitos!\n"
 	prerequisites
 fi
-clear
 
 if [ $cont -eq 0 ];then
  	if [ $(systemctl is-enabled nagios 2>/dev/null) ];then
- 		clear && echo "Nagios já está instalado!!" && sleep 2
+ 		echo "" && pacotes "\033[0;32mOK\e[m" "NAGIOS" && sleep 0.003
  		cont1=0
  	else
- 		install_nagios
+ 		clear && install_nagios
  	fi
 
  else
@@ -190,11 +188,11 @@ fi
 
 if [ $cont1 -eq 0 ];then
 	if [ -s /usr/local/nagios/libexec/check_load ];then
-		echo -e "\n\nPlugins já estão instalados!!\n\n"
+		echo "" && pacotes "\033[0;32mOK\e[m" "PLUGINS" && sleep 0.003
 		exit 0
 	
 	else
-		install_plugins
+		clear && install_plugins
 	fi
 
 else
