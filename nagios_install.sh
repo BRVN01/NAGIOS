@@ -41,7 +41,8 @@ libmcrypt-dev
 libssl-dev
 dc
 gettext
-libmcrypt4"
+libmcrypt4
+libperl-dev"
 
 }
 
