@@ -147,6 +147,7 @@ sudo ./tools/setup
 sudo ./configure
 sudo make
 sudo make install
+chown nagios. /usr/local/nagios/libexec/*
 sudo systemctl restart nagios.service
 sudo systemctl status nagios.service'
 
