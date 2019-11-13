@@ -267,6 +267,9 @@ sudo make
 # Instalando os binários, CGIs e arquivos HTML gerados pelo 'make all':
 sudo make install
 
+# Mundando o usuário e grupo dos plugins para o Nagios:
+chown nagios. /usr/local/nagios/libexec/*
+
 ```
 
 
