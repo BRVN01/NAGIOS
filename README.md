@@ -295,5 +295,5 @@ Após isso você pode dar um `Re-schedule the next check of this service` nos se
 
 
 
-Dando um `Re-schedule the next check of this service` nos serviços:
+Aplicando o `Re-schedule the next check of this service` nos serviços:
 ![1573143273027](IMG/1573143273027.png) 
