@@ -345,11 +345,41 @@ Aplicando o `Re-schedule the next check of this service` nos serviços: [![15731
 
 
 
-#### Arquivo de configuração principal
+# Capítulo 4: Configurando o Nagios
 
-O arquivo de configuração principal contém várias diretivas que afetam como o daemon do Nagios Core opera. Este arquivo de configuração é lido pelo daemon do Nagios Core e pelos CGIs. É aqui que você deve começar suas aventuras de configuração.
+Nessa sesção vamos configurar manualmente o arquivo de configurações do Nagios para que possamos ter um arquivo mais customizado.
 
-A documentação para o arquivo de configuração principal pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html) .
+
+
+## Criando o arquivo de configuração principal
+
+O arquivo de configuração principal é chamado nagios.cfg e é o arquivo principal carregado durante a inicialização do Nagios. Ele contém várias diretivas que afetam como o daemon do Nagios Core opera. Este arquivo de configuração é lido pelo daemon do Nagios Core e pelos CGIs.
+
+Para acessar o link que leva a documentação oficial do arquivo de configuração principal do Nagios, basta clicar [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html) .
+
+Segue um exemplo do nagios.cfg
+
+``` bash
+# Arquivo de log
+log_file=/var/nagios/nagios.log
+
+# Diretório de configuração dos objetos
+cfg_dir=/etc/nagios/objects
+
+# Informações de armazenamento
+resource_file=/etc/nagios/resource.cfg
+status_file=/dev/null
+
+# resource_file é usado para especificar um arquivo de recurso opcional, que pode conter variáveis que serão reconhecidas apenas pelo Nagios ($USERn$). 
+# As variáveis '$USERn$' são úteis para armazenar nomes de usuário, senhas e itens comumente usados em definições de comando (como caminhos de diretório). 
+# Os CGIs não tentam ler os arquivos de recursos, portanto, você pode definir permissões restritivas (600 ou 660) para proteger informações confidenciais.
+
+# O status_file é o arquivo que o Nagios usa para armazenar as informações atuais de status, comentários e tempo de inatividade. Esse arquivo é usado pelos CGIs para que o status atual do monitoramento possa ser relatado por meio de uma interface da web. 
+# Os CGIs devem ter acesso de leitura a esse arquivo para funcionar corretamente. Este arquivo é excluído toda vez que o Nagios para e é recriado quando é iniciado. 
+# No Nagios Core 4, definir o caminho do status_flie como '/dev/null' fará com que o Nagios Core não armazene informações de status. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
+
+# A opção 'status_update_interval' determina com que frequência (em segundos) o Nagios atualizará os dados de status no arquivo de status (status_file). O intervalo mínimo de atualização é de 1 segundo.
+```
 
 
 
