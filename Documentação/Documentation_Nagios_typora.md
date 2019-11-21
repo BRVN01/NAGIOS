@@ -50,7 +50,7 @@ Para qualquer administrador, é óbvio que, se o roteador estiver inativo, todas
 
 Por exemplo, se um roteador que o conecta ao resto da sua rede estiver inoperante, o Nagios não executará verificações das máquinas subseqüentes (depois do roteador). Isso é ilustrado na figura a seguir:
 
-![1574354656894](/home/bruno/.config/Typora/typora-user-images/1574354656894.png)
+![1574354656894](../IMG/1574354656894.png)
 
 No caso acima, um dos links está fora, mesmo que os switchs e servidores estão funcionando, o Nagios não consegue chegar até eles, dessa forma, será retornado indisponibilidade pelo Nagios.
 
