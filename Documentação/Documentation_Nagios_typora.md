@@ -362,6 +362,7 @@ O arquivo nagios.cfg fica localizado no diretório /usr/local/nagios/etc/nagios.
 ``` bash
 # Arquivo de log, 
 # isso requer: 'mkdir /var/log/nagios/' e 'chown -R nagios. /var/log/nagios/' para LOG_FILE
+# (opção padrão do Nagios).
 log_file=/var/log/nagios/nagios.log
 log_rotation_method=d
 log_archive_path=/usr/local/nagios/var/archives
@@ -374,7 +375,7 @@ log_current_states=1
 log_external_commands=1
 log_passive_checks=0
 
-# Diretório de configuração dos objetos
+# Diretório de configuração dos objetos (opção padrão do Nagios).
 cfg_file=/usr/local/nagios/etc/objects/commands.cfg
 cfg_file=/usr/local/nagios/etc/objects/contacts.cfg
 cfg_file=/usr/local/nagios/etc/objects/timeperiods.cfg
@@ -383,39 +384,137 @@ cfg_file=/usr/local/nagios/etc/objects/localhost.cfg
 precached_object_file=/usr/local/nagios/var/objects.precache
 object_cache_file=/usr/local/nagios/var/objects.cache
 
-# Informações de armazenamento
+# Informações de armazenamento (opção padrão do Nagios).
 resource_file=/usr/local/nagios/etc/resource.cfg
 
-# Usuário e grupo Nagios
+# Usuário e grupo Nagios (opção padrão do Nagios).
 nagios_user=nagios
 nagios_group=nagios
 
 # Habilitando comandos externos (Re-schedule na interface do Nagios) 
 check_external_commands=1
 
-# Este é o arquivo que o Nagios verificará se há comandos externos para processar.
+# Este é o arquivo que o Nagios verificará se há comandos externos para processar
+# (opção padrão do Nagios).
 command_file=/usr/local/nagios/var/rw/nagios.cmd
 
-# Arquivo que irá conter o PID do Nagios.
+# Arquivo que irá conter o PID do Nagios (opção padrão do Nagios).
 lock_file=/run/nagios.lock
 
-# Arquivo(s) temporário(s).
+# Arquivo(s) temporário(s), (opções padrões do Nagios).
 temp_file=/usr/local/nagios/var/nagios.tmp
 temp_path=/tmp
 
-# Intervalo de verificações de host e serviço.
+# Intervalo de verificações de host e serviço (opções padrões do Nagios).
 service_inter_check_delay_method=s
 host_inter_check_delay_method=s
 
-# Distribuição máxima da verificação de serviço (em minutos).
+# Distribuição máxima da verificação de serviço (em minutos), (opção padrão do Nagios).
 max_service_check_spread=3
 
-# Fator de intercalação de serviço
+# Fator de intercalação de serviço (opção padrão do Nagios).
 service_interleave_factor=s
 
-# Verificações máximas de serviço simultâneo
+# Verificações máximas de serviço simultâneo (opção padrão do Nagios).
 max_concurrent_checks=0
 
+# Verificar resultado Reaper Frequency (segundos), (opções padrões do Nagios).
+check_result_reaper_frequency=10
+max_check_result_reaper_time=30
+
+# Armazenar resultado de host e serviço (opção padrão do Nagios).
+check_result_path=/usr/local/nagios/var/spool/checkresults
+
+# Tempo em que o arquivo de resultado de host e serviço ficara gravado
+# (opção padrão do Nagios)
+max_check_result_file_age=3600
+
+# Horizon de verificação de host/serviço em cache (opções padrões do Nagios).
+cached_host_check_horizon=15
+cached_service_check_horizon=15
+
+# Opção preditiva de dependência (opções padrões do Nagios).
+enable_predictive_host_dependency_checks=1
+enable_predictive_service_dependency_checks=1
+
+# Opção de reprogramação automática.
+auto_reschedule_checks=0
+auto_rescheduling_interval=15
+auto_rescheduling_window=90
+
+# Limite de verificação (opções padrões do Nagios).
+service_check_timeout=60
+host_check_timeout=30
+event_handler_timeout=30
+notification_timeout=30
+ocsp_timeout=5
+ochp_timeout=5
+perfdata_timeout=5
+
+# Retenção de Estado (opções padrões do Nagios).
+retain_state_information=1
+state_retention_file=/usr/local/nagios/var/retention.dat
+retention_update_interval=60
+use_retained_program_state=1
+use_retained_scheduling_info=1
+retained_host_attribute_mask=0
+retained_service_attribute_mask=0
+retained_process_host_attribute_mask=0
+retained_process_service_attribute_mask=0
+retained_contact_host_attribute_mask=0
+retained_contact_service_attribute_mask=0
+
+# Duração do intervalo de tempo
+interval_length=60
+
+# Checagem de atualizações do Nagios de forma automática.
+check_for_updates=1
+bare_update_check=0
+
+# Verificação agressiva de host.
+use_aggressive_host_checking=0
+
+# Execução de verificação de serviço
+execute_service_checks=1
+
+accept_passive_service_checks=1
+execute_host_checks=1
+accept_passive_host_checks=1
+enable_notifications=1
+enable_event_handlers=1
+process_performance_data=0
+obsess_over_services=0
+obsess_over_hosts=0
+translate_passive_host_checks=0
+passive_host_checks_are_soft=0
+check_for_orphaned_services=1
+check_for_orphaned_hosts=1
+check_service_freshness=1
+service_freshness_check_interval=60
+service_check_timeout_state=c
+check_host_freshness=0
+host_freshness_check_interval=60
+additional_freshness_latency=15
+enable_flap_detection=1
+low_service_flap_threshold=5.0
+high_service_flap_threshold=20.0
+low_host_flap_threshold=5.0
+high_host_flap_threshold=20.0
+date_format=us
+illegal_object_name_chars=`~!$%^&*|'"<>?,()=
+illegal_macro_output_chars=`~$&|'"<>
+use_regexp_matching=0
+use_true_regexp_matching=0
+admin_email=nagios@localhost
+admin_pager=pagenagios@localhost
+daemon_dumps_core=0
+use_large_installation_tweaks=0
+enable_environment_macros=0
+debug_level=0
+debug_verbosity=1
+debug_file=/usr/local/nagios/var/nagios.debug
+max_debug_file_size=1000000
+allow_empty_hostgroup_assignment=0
 ```
 
 Abaixo segue uma descrição de cada variável usada no arquivo principal:
@@ -497,6 +596,196 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
 - **MAX_CONCURRENT_CHECKS**
   Esta opção permite especificar o número máximo de verificações de serviço que podem ser executadas em paralelo a qualquer momento. A especificação de um valor 0 (padrão) não impõe restrições ao número de verificações simultâneas. Você precisará modificar esse valor com base nos recursos do sistema disponíveis na máquina que executa o Nagios, pois afeta diretamente a carga máxima que será imposta ao sistema (utilização do processador, memória, etc.).
 
+- **CHECK_RESULT_REAPER_FREQUENCY**
+  Determina com que frequência o Nagios deve verificar se há resultados de verificação de host e serviço que precisam ser processados. A quantidade máxima de tempo que ele pode gastar processando esses resultados é determinada pelo tempo máximo da ceifeira (veja abaixo). Se a frequência da sua ceifeira for muito alta (pouco frequente), você poderá ver altas latências nas verificações de host e serviço.
+
+- **MAX_CHECK_RESULT_REAPER_TIME**
+  Determinam a quantidade máxima de tempo que o daemon Nagios pode gastar processando os resultados das verificações de host e serviço antes de passar para outras coisas - como executar novas verificações de host e serviço. Um valor muito alto pode resultar em grandes latências para as verificações de host e serviço. Um valor muito baixo pode ter o mesmo efeito. Se você estiver enfrentando altas latências, ajuste essa variável e veja qual efeito ela tem.
+
+- **CHECK_RESULT_PATH**
+  Esta opção determina qual diretório o Nagios usará para armazenar temporariamente os resultados da verificação de host e serviço antes de serem processados. Este diretório não deve ser usado para armazenar outros arquivos, pois o Nagios limpará periodicamente esse diretório do arquivo antigo.
+
+- **MAX_CHECK_RESULT_FILE_AGE**
+  Esta opção determina a quanto tempo no máximo (em segundos), que o Nagios considerará válidos os arquivos de resultado da verificação encontrados no diretório `check_result_path`.
+
+- **CACHED_HOST_CHECK_HORIZON** e **CACHED_SERVICE_CHECK_HORIZON**
+  Esta opção determina a quantidade máxima de tempo (em segundos) em que o estado de uma verificação anterior do host/serviço é considerado atual. 
+  Os estados do host/serviço em cache (das verificações do host/serviço que foram executadas mais recentemente do que o tempo especificado por esse valor) podem melhorar imensamente o desempenho da verificação do host/serviço. Um valor muito alto para esta opção pode resultar em estados de host/serviço (temporariamente) imprecisos, enquanto um valor muito baixo pode resultar em um impacto no desempenho das verificações de host/serviço. Use um valor 0 se desejar desativar o cache de verificação do host/serviço.
+
+- **ENABLE_PREDICTIVE_HOST/SERVICE_DEPENDENCY_CHECKS**
+  Esta opção determina se o Nagios executará ou não verificações preditivas de hosts dos quais dependem (conforme definido nas [dependências do host](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#hostdependency)) para um host específico quando ele mudar de estado. As verificações preditivas ajudam a garantir que a lógica da dependência seja a mais precisa possível.
+
+- **AUTO_RESCHEDULE_CHECKS**
+  Esta opção determina se o Nagios tentará reagendar automaticamente as verificações de host e serviço ativas para "suavizá-las" ao longo do tempo. Isso pode ajudar a equilibrar a carga no servidor de monitoramento, pois ele tentará manter o tempo entre verificações consecutivas consistentes, às custas da execução de verificações em um planejamento mais rígido.
+
+- **AUTO_RESCHEDULING_INTERVAL**
+  Esta opção determina com que frequência (em segundos) o Nagios tentará reagendar automaticamente as verificações. Esta opção [terá](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#auto_reschedule_checks) efeito apenas se a opção auto_reschedule_checks estiver ativada. O padrão é 30 segundos.
+
+- **AUTO_RESCHEDULING_WINDOW**
+  Esta opção determina a "janela" de tempo (em segundos) que o Nagios observará ao reagendar automaticamente as verificações. Somente as verificações de host e serviço que ocorrem nos próximos X segundos (determinadas por esta variável) serão reagendadas. Esta opção [terá](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#auto_reschedule_checks) efeito apenas se a opção [auto_reschedule_checks](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#auto_reschedule_checks) estiver ativada. O padrão é 180 segundos (3 minutos).
+
+- **SERVICE_CHECK_TIMEOUT**
+  Este é o número máximo de segundos que o Nagios permitirá que as verificações de serviço sejam executadas. Se as verificações excederem esse limite, elas serão eliminadas e um estado CRÍTICO será retornado. Um erro de tempo limite também será registrado.
+
+  Muitas vezes há uma confusão generalizada sobre o que essa opção realmente faz. Ele deve ser usado como o último mecanismo para eliminar plug-ins que se comportam mal e não saem em tempo hábil. Ele deve ser definido como algo alto (como 60 segundos ou mais), para que cada verificação de serviço normalmente termine de executar dentro desse prazo. Se uma verificação de serviço for mais longa que esse limite, o Nagios o matará pensando que é um processo descontrolado.
+
+- **HOST_CHECK_TIMEOUT**
+  Este é o número máximo de segundos que o Nagios permitirá que as verificações de host sejam executadas. Se as verificações excederem esse limite, elas serão eliminadas e um estado CRÍTICO será retornado e o host será considerado BAIXO. Um erro de tempo limite também será registrado.
+
+- **EVENT_HANDLER_TIMEOUT**
+  Este é o número máximo de segundos que o Nagios permitirá [que os manipuladores de eventos](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/eventhandlers.html) sejam executados. Se um manipulador de eventos exceder esse limite de tempo, ele será eliminado e um aviso será registrado.
+  Manipuladores de eventos são comandos opcionais que podem ser executados sempre que um serviço ou host muda de estado.
+
+- **NOTIFICATION_TIMEOUT**
+  Este é o número máximo de segundos que o Nagios permitirá que comandos de notificação sejam executados. Se um comando de notificação exceder esse limite de tempo, ele será eliminado e um aviso será registrado.
+
+- **OCSP_TIMEOUT**
+  Este é o número máximo de segundos que o Nagios permitirá que um comando obsessivo do processador de serviço compulsivo seja executado. Se um comando exceder esse limite de tempo, ele será eliminado e um aviso será registrado.
+
+- **OCHP_TIMEOUT**
+  Esse é o número máximo de segundos que o Nagios permitirá que um comando obsessivo compulsivo do processador host seja executado. Se um comando exceder esse limite de tempo, ele será eliminado e um aviso será registrado.
+
+- **PERFDATA_TIMEOUT**
+  Este é o número máximo de segundos que o Nagios permitirá que um comando do processador de dados de desempenho do host ou um comando do processador de dados de desempenho do serviço seja executado. Se um comando exceder esse limite de tempo, ele será eliminado e um aviso será registrado.
+
+- **RETAIN_STATE_INFORMATION**
+  Esta opção determina se o Nagios manterá ou não as informações de estado para hosts e serviços entre as reinicializações do programa. Se você habilitar essa opção, deverá fornecer um valor para a variável state_retention_file. Quando ativado, o Nagios salva todas as informações de estado dos hosts e serviços antes de serem desligadas (ou reiniciadas) e lê as informações de estado salvas anteriormente quando reiniciadas.
+
+- **STATE_RETENTION_FILE**
+  Este é o arquivo que o Nagios usará para armazenar informações de status, tempo de inatividade e comentários antes de serem encerradas. Quando o Nagios é reiniciado, ele usa as informações armazenadas neste arquivo para definir os estados iniciais de serviços e hosts antes de começar a monitorar qualquer coisa. Para fazer com que o Nagios retenha as informações de estado entre as reinicializações do programa, você deve habilitar a opção reter_state_informações.
+
+- **RETENTION_UPDATE_INTERVAL**
+  Esta configuração determina com que frequência (em minutos) o Nagios salvará automaticamente os dados de retenção durante a operação normal. Se você definir esse valor como 0, o Nagios não salvará os dados de retenção em intervalos regulares, mas ainda salvará os dados de retenção antes de desligar ou reiniciar. Se você desativou a retenção de estado (com a opção reter_stato_informações ), essa opção não terá efeito.
+
+- **USE_RETAINED_PROGRAM_STATE**
+  Essa configuração determina se o Nagios definirá ou não várias variáveis de estado em todo o programa com base nos valores salvos no arquivo de retenção. Algumas dessas variáveis de estado de todo o programa que normalmente são salvas no reinício do programa se a retenção de estado estiver ativada incluem as opções enable_notifications, enable_flap_detection, enable_event_handlers, execute_service_checks e accept_passive_service_checks . Se você não tiver a retenção de estado ativada, essa opção não terá efeito.
+
+- **USE_RETAINED_SCHEDULING_INFO**
+  Essa configuração determina se o Nagios manterá ou não as informações de agendamento (próximas horas de verificação) para hosts e serviços quando reiniciar.<span style="color:red"> Se você estiver adicionando um grande número (ou porcentagem) de hosts e serviços, eu recomendaria desabilitar essa opção quando você reiniciar o Nagios, pois isso pode prejudicar a propagação das verificações iniciais</span>. Caso contrário, você provavelmente desejará deixá-lo ativado.
+
+- **RETAINED_HOST_ATTRIBUTE_MASK**
+  AVISO: Este é um recurso avançado. Você precisará ler o código fonte do Nagios para usar essa opção de maneira eficaz.
+
+  Essas opções determinam quais atributos de host ou serviço NÃO são retidos nas reinicializações do programa. Os valores para essas opções são AND, bit a bit dos valores especificados nas definições "MODATTR_" no arquivo de código-fonte include /common.h. Por padrão, todos os atributos de host e serviço são mantidos.
+
+- **RETAINED_SERVICE_ATTRIBUTE_MASK**
+  AVISO: Este é um recurso avançado. Você precisará ler o código fonte do Nagios para usar essa opção de maneira eficaz.
+
+  Essas opções determinam quais atributos de host ou serviço NÃO são retidos nas reinicializações do programa. Os valores para essas opções são AND, bit a bit dos valores especificados nas definições "MODATTR_" no arquivo de código-fonte include /common.h. Por padrão, todos os atributos de host e serviço são mantidos.
+
+- **RETAINED_PROCESS_HOST_ATTRIBUTE_MASK**
+  AVISO: Este é um recurso avançado. Você precisará ler o código fonte do Nagios para usar essa opção de maneira eficaz.
+
+  Essas opções determinam quais atributos do processo NÃO são retidos nas reinicializações do programa. Existem duas máscaras porque geralmente existem atributos de processo de host e serviço separados que podem ser alterados. Por exemplo, as verificações de host podem ser desativadas no nível do programa, enquanto as verificações de serviço ainda estão ativadas. Os valores para essas opções são AND bit a bit dos valores especificados nas definições "MODATTR_" no arquivo de código-fonte include /common.h. Por padrão, todos os atributos do processo são mantidos.
+
+- **RETAINED_PROCESS_SERVICE_ATTRIBUTE_MASK**
+  AVISO: Este é um recurso avançado. Você precisará ler o código fonte do Nagios para usar essa opção de maneira eficaz.
+
+  Essas opções determinam quais atributos do processo NÃO são retidos nas reinicializações do programa. Existem duas máscaras porque geralmente existem atributos de processo de host e serviço separados que podem ser alterados. Por exemplo, as verificações de host podem ser desativadas no nível do programa, enquanto as verificações de serviço ainda estão ativadas. Os valores para essas opções são AND bit a bit dos valores especificados nas definições "MODATTR_" no arquivo de código-fonte include /common.h. Por padrão, todos os atributos do processo são mantidos.
+
+- **RETAINED_CONTACT_HOST_ATTRIBUTE_MASK**
+  AVISO: Este é um recurso avançado. Você precisará ler o código fonte do Nagios para usar essa opção de maneira eficaz.
+
+  Essas opções determinam quais atributos de contato NÃO são retidos nas reinicializações do programa. Existem duas máscaras porque geralmente existem atributos de contato de host e serviço separados que podem ser alterados. Os valores para essas opções são AND bit a bit dos valores especificados nas definições "MODATTR_" no arquivo de código-fonte include /common.h. Por padrão, todos os atributos do processo são mantidos.
+
+- **RETAINED_CONTACT_SERVICE_ATTRIBUTE_MASK**
+  AVISO: Este é um recurso avançado. Você precisará ler o código fonte do Nagios para usar essa opção de maneira eficaz.
+
+  Essas opções determinam quais atributos de contato NÃO são retidos nas reinicializações do programa. Existem duas máscaras porque geralmente existem atributos de contato de host e serviço separados que podem ser alterados. Os valores para essas opções são AND bit a bit dos valores especificados nas definições "MODATTR_" no arquivo de código-fonte include /common.h. Por padrão, todos os atributos do processo são mantidos.
+
+- **INTERVAL_LENGTH**
+  Esse é o número de segundos por "intervalo de unidade" usado para cronometrar na fila de agendamento, re-notificações, etc. "Intervalos de unidades" são usados no arquivo de configuração do objeto para determinar com que freqüência executar uma verificação de serviço, com que frequência re-notificar um contato etc.
+
+- **BARE_UPDATE_CHECK**
+  Esta opção impede que dados o Nagios envie para o api.nagios.org quando procurar atualizações. Por padrão, o Nagios enviará informações sobre a versão atual do Nagios que você instalou, bem como um indicador sobre se essa foi uma nova instalação ou não. O Nagios Enterprises usa esses dados para determinar o número de usuários executando uma versão específica do Nagios. Habilite esta opção se não desejar que essas informações sejam enviadas.
+
+- **USE_AGGRESSIVE_HOST_CHECKING**
+  O Nagios tenta ser inteligente sobre como e quando verifica o status dos hosts. Em geral, desabilitar esta opção permitirá ao Nagios tomar algumas decisões mais inteligentes e verificar os hosts um pouco mais rápido. A ativação dessa opção aumentará a quantidade de tempo necessária para verificar os hosts, mas poderá melhorar um pouco a confiabilidade. A menos que você tenha problemas com o Nagios em não reconhecer que um host foi recuperado, sugiro **não** ativar esta opção.
+
+- **EXECUTE_SERVICE_CHECKS**
+  Esta opção determina se o Nagios executará ou não as verificações de serviço quando (re) iniciar inicialmente. Se esta opção estiver desabilitada, o Nagios não executará ativamente nenhuma verificação de serviço e permanecerá em uma espécie de modo " inativo " (ainda poderá aceitar verificações passivas, a menos que você as tenha desativado ). Essa opção é usada com mais freqüência ao configurar servidores de monitoramento de backup, conforme descrito na documentação sobre [redundância](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/redundancy.html), ou ao configurar um ambiente de monitoramento distribuído. 
+
+  Nota: Se você tiver a retenção de estado ativada, o Nagios ignorará essa configuração quando (re) iniciar e usará a última configuração conhecida para esta opção (conforme armazenada no arquivo de retenção de estado), a menos que você desativa a opção use_retained_program_state . Se você deseja alterar esta opção quando a retenção de estado estiver ativa (e o use_retained_program_state estiver ativado), será necessário usar o comando externo apropriado ou alterá-lo através da interface da web.
+
+- **ACCEPT_PASSIVE_SERVICE_CHECKS**
+  Esta opção determina se o Nagios aceitará ou não [as verificações passivas de serviço](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/passivechecks.html) quando (re) iniciar inicialmente. Se esta opção estiver desabilitada, o Nagios não aceitará nenhuma verificação passiva de serviço. Nota: Se você tiver a [retenção de estado](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information) ativada, o Nagios ignorará essa configuração quando (re) iniciar e usará a última configuração conhecida para esta opção (conforme armazenada no [arquivo de retenção de estado](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#state_retention_file) ), a *menos que* você desative a opção [use_retained_program_state](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#use_retained_program_state) . Se você deseja alterar esta opção quando a retenção de estado estiver ativa (e o [use_retained_program_state](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#use_retained_program_state) estiver ativado), será necessário usar o [comando externo](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/extcommands.html) apropriado ou alterá-lo através da interface da web. Os valores são os seguintes:
+
+- **EXECUTE_HOST_CHECKS**
+  Esta opção determina se o Nagios executará ou não verificações de host sob demanda e agendadas regularmente quando for (re) iniciado inicialmente. Se esta opção estiver desabilitada, o Nagios não executará nenhuma verificação de host ativamente, embora ainda possa aceitar [verificações passivas de host, a](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/passivechecks.html) menos que você as tenha [desativado](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#accept_passive_host_checks) . Essa opção é usada com mais freqüência ao configurar servidores de monitoramento de backup, conforme descrito na documentação sobre [redundância](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/redundancy.html) , ou ao configurar um ambiente de monitoramento [distribuído](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/distributed.html) . Nota: Se você tiver a [retenção de estado](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information) ativada, o Nagios ignorará essa configuração quando (re) iniciar e usará a última configuração conhecida para esta opção (conforme armazenada no [arquivo de retenção de estado](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#state_retention_file) ), a *menos que*você desativa a opção [use_retained_program_state](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#use_retained_program_state) . Se você deseja alterar esta opção quando a retenção de estado estiver ativa (e o [use_retained_program_state](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#use_retained_program_state) estiver ativado), será necessário usar o [comando externo](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/extcommands.html) apropriado ou alterá-lo através da interface da web.
+
+- **ACCEPT_PASSIVE_HOST_CHECKS**
+  Esta opção determina se o Nagios aceitará ou não verificações passivas de host quando (re) iniciar inicialmente. Se esta opção estiver desabilitada, o Nagios não aceitará nenhuma verificação passiva de host. Nota: Se você tiver a retenção de estado ativada, o Nagios ignorará essa configuração quando (re) iniciar e usará a última configuração conhecida para esta opção (conforme armazenada no arquivo de retenção de estado ), a menos que você desative a opção use_retained_program_state . Se você quiser alterar essa opção quando a retenção de estado estiver ativa (e o use_retained_program_state estiver ativado), será necessário usar o comando externo apropriado ou alterá-lo através da interface da web.
+
+- **ENABLE_NOTIFICATIONS**
+
+- **ENABLE_EVENT_HANDLERS**
+
+- **PROCESS_PERFORMANCE_DATA**
+
+- **OBSESS_OVER_SERVICES**
+
+- **OBSESS_OVER_HOSTS**
+
+- **TRANSLATE_PASSIVE_HOST_CHECKS**
+
+- **PASSIVE_HOST_CHECKS_ARE_SOFT**
+
+- **CHECK_FOR_ORPHANED_SERVICES**
+
+- **CHECK_FOR_ORPHANED_HOSTS**
+
+- **CHECK_SERVICE_FRESHNESS**
+
+- **SERVICE_FRESHNESS_CHECK_INTERVAL**
+
+- **SERVICE_CHECK_TIMEOUT_STATE**
+
+- **CHECK_HOST_FRESHNESS**
+
+- **HOST_FRESHNESS_CHECK_INTERVAL**
+
+- **ADDITIONAL_FRESHNESS_LATENCY**
+
+- **ENABLE_FLAP_DETECTION**
+
+- **LOW_SERVICE_FLAP_THRESHOLD**
+
+- **HIGH_SERVICE_FLAP_THRESHOLD**
+
+- **LOW_HOST_FLAP_THRESHOLD**
+
+- **HIGH_HOST_FLAP_THRESHOLD**
+
+- **DATE_FORMAT**
+
+- **ILLEGAL_OBJECT_NAME_CHARS**
+
+- **ILLEGAL_MACRO_OUTPUT_CHARS**
+
+- **USE_REGEXP_MATCHING**
+
+- **USE_TRUE_REGEXP_MATCHING**
+
+- **ADMIN_EMAIL**
+
+- **ADMIN_PAGER**
+
+- **DAEMON_DUMPS_CORE**
+
+- **USE_LARGE_INSTALLATION_TWEAKS**
+
+- **ENABLE_ENVIRONMENT_MACROS**
+
+- **DEBUG_LEVEL**
+
+- **DEBUG_VERBOSITY**
+
+- **DEBUG_FILE**
+
+- **MAX_DEBUG_FILE_SIZE**
+
+- **ALLOW_EMPTY_HOSTGROUP_ASSIGNMENT**
+
 #### Arquivo (s) de Recursos
 
 Os arquivos de recursos podem ser usados para armazenar macros definidas pelo usuário. O ponto principal de ter arquivos de recursos é usá-los para armazenar informações confidenciais de configuração (como senhas), sem disponibilizá-las aos CGIs.
@@ -521,38 +810,6 @@ A documentação para o arquivo de configuração CGI pode ser encontrada [aqui]
 
 
 
-check_result_reaper_frequency=10
-max_check_result_reaper_time=30
-check_result_path=/usr/local/nagios/var/spool/checkresults
-max_check_result_file_age=3600
-cached_host_check_horizon=15
-cached_service_check_horizon=15
-enable_predictive_host_dependency_checks=1
-enable_predictive_service_dependency_checks=1
-soft_state_dependencies=0
-auto_reschedule_checks=0
-auto_rescheduling_interval=30
-auto_rescheduling_window=180
-service_check_timeout=60
-host_check_timeout=30
-event_handler_timeout=30
-notification_timeout=30
-ocsp_timeout=5
-ochp_timeout=5
-perfdata_timeout=5
-retain_state_information=1
-state_retention_file=/usr/local/nagios/var/retention.dat
-retention_update_interval=60
-use_retained_program_state=1
-use_retained_scheduling_info=1
-retained_host_attribute_mask=0
-retained_service_attribute_mask=0
-retained_process_host_attribute_mask=0
-retained_process_service_attribute_mask=0
-retained_contact_host_attribute_mask=0
-retained_contact_service_attribute_mask=0
-interval_length=60
-check_for_updates=1
 bare_update_check=0
 use_aggressive_host_checking=0
 execute_service_checks=1
