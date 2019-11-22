@@ -357,28 +357,97 @@ O arquivo de configuração principal é chamado nagios.cfg e é o arquivo princ
 
 Para acessar o link que leva a documentação oficial do arquivo de configuração principal do Nagios, basta clicar [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html) .
 
-Segue um exemplo do nagios.cfg
+O arquivo nagios.cfg fica localizado no diretório /usr/local/nagios/etc/nagios.cfg, segue um exemplo:
 
 ``` bash
-# Arquivo de log
-log_file=/var/nagios/nagios.log
+# Arquivo de log, 
+# isso requer: 'mkdir /var/log/nagios/' e 'chown -R nagios. /var/log/nagios/' para LOG_FILE
+log_file=/var/log/nagios/nagios.log
+log_rotation_method=d
+log_archive_path=/usr/local/nagios/var/archives
+use_syslog=1
+log_notifications=1
+log_service_retries=1
+log_host_retries=1
+log_event_handlers=1
+log_current_states=1
+log_external_commands=1
+log_passive_checks=0
 
 # Diretório de configuração dos objetos
-cfg_dir=/etc/nagios/objects
+cfg_file=/usr/local/nagios/etc/objects/commands.cfg
+cfg_file=/usr/local/nagios/etc/objects/contacts.cfg
+cfg_file=/usr/local/nagios/etc/objects/timeperiods.cfg
+cfg_file=/usr/local/nagios/etc/objects/templates.cfg
+cfg_file=/usr/local/nagios/etc/objects/localhost.cfg
+precached_object_file=/usr/local/nagios/var/objects.precache
+object_cache_file=/usr/local/nagios/var/objects.cache
 
 # Informações de armazenamento
-resource_file=/etc/nagios/resource.cfg
-status_file=/dev/null
+resource_file=/usr/local/nagios/etc/resource.cfg
 
-# resource_file é usado para especificar um arquivo de recurso opcional, que pode conter variáveis que serão reconhecidas apenas pelo Nagios ($USERn$). 
+# Usuário e grupo Nagios
+nagios_user=nagios
+nagios_group=nagios
+
+# Habilitando comandos externos (Re-schedule na interface do Nagios) 
+check_external_commands=1
+
+# Este é o arquivo que o Nagios verificará se há comandos externos para processar.
+command_file=/usr/local/nagios/var/rw/nagios.cmd
+
+# Arquivo que irá conter o PID do Nagios.
+lock_file=/run/nagios.lock
+
+# Arquivo(s) temporário(s)
+temp_file=/usr/local/nagios/var/nagios.tmp
+temp_path=/tmp
+
+# CFG_LOG especifica onde o Nagios deve criar seu arquivo de log principal. Essa deve ser a primeira variável que você define no seu arquivo de configuração, pois o Nagios tentará gravar neste arquivo os erros que encontrar nos demais dados de configuração.
+
+# LOG_ROTATION_METHOD é de quanto em quanto tempo o arquivo de log será sobrescrito (d= todo dia).
+
+# LOG_ARCHIVE_PATH diretório onde ficará os logs que foram rotacionados.
+
+# USE_SYSLOG determina se as mensagem vão ser registradas no SysLog (1 = SIM).
+
+# LOG_NOTIFICATIONS informa se as mensagens de notificação serão registradas (1 = sim).
+
+# LOG_SERVICE_RETRIES informa se as verificações 'softs' serão registradas (1 = sim) para os serviços.
+
+# LOG_HOST_RETRIES informa se as verificações 'softs' serão registradas (1 = sim) para os hosts.
+
+# LOG_EVENT_HANDLERS determina se os manipuladores de eventos de serviço e host serão ou não registrados. Manipuladores de eventos são comandos opcionais que podem ser executados sempre que um serviço ou host muda de estado.
+
+# LOG_CURRENT_STATES faz com que o Nagios grave o estado atual dos dispositivos gerenciados após rotacionar um log.
+
+# LOG_EXTERNAL_COMMANDS registra ou não comandos externos (através da CGI).
+
+# LOG_PASSIVE_CHECKS define que quando você da um comando externo num check passivo ele irá registrar, só que, o Nagios não pode verificar checks passivos, isso porque, esses checks são feitos por outros NMSs, o Nagios apenas recebe um informação do estado, portanto não é interessante colocar (1 = padrão, 0 = desabilitado).
+
+# CFG_FILE é usada para especificar um arquivo de configuração de objeto contendo definições de objeto que o Nagios deve usar para monitorar. Os arquivos de configuração de objeto contêm definições para hosts, grupos de hosts, contatos, grupos de contatos, serviços, comandos etc.
+
+# OBJECT_CACHE_FILE especifica um arquivo no qual uma cópia em cache das definições de objetos deve ser armazenada. O arquivo de cache é (re) criado toda vez que o Nagios é (re) iniciado e é usado pelos CGIs. 
+# O objetivo é acelerar o cache do arquivo de configuração nos CGIs e permitir que você edite os arquivos de configuração do objeto de origem enquanto o Nagios estiver em execução sem afetar a saída exibida nos CGIs. 
+# No Nagios Core 4, configurar o caminho do arquivo object_cache_file como '/dev/null' fará com que o Nagios Core não armazene em cache as informações do objeto. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
+
+# PRECACHED_OBJECT_FILE especifica um arquivo no qual uma cópia pré-processada e pré-armazenada em cache das definições de objetos deve ser armazenada. Este arquivo pode ser usado para melhorar drasticamente os tempos de inicialização em instalações Nagios grandes/complexas.
+
+# RESOURCE_FILE é usado para especificar um arquivo de recurso opcional, que pode conter variáveis que serão reconhecidas apenas pelo Nagios ($USERn$). 
 # As variáveis '$USERn$' são úteis para armazenar nomes de usuário, senhas e itens comumente usados em definições de comando (como caminhos de diretório). 
 # Os CGIs não tentam ler os arquivos de recursos, portanto, você pode definir permissões restritivas (600 ou 660) para proteger informações confidenciais.
 
-# O status_file é o arquivo que o Nagios usa para armazenar as informações atuais de status, comentários e tempo de inatividade. Esse arquivo é usado pelos CGIs para que o status atual do monitoramento possa ser relatado por meio de uma interface da web. 
+# O STATUS_FILE é o arquivo que o Nagios usa para armazenar as informações atuais de status, comentários e tempo de inatividade. Esse arquivo é usado pelos CGIs para que o status atual do monitoramento possa ser relatado por meio de uma interface da web. 
 # Os CGIs devem ter acesso de leitura a esse arquivo para funcionar corretamente. Este arquivo é excluído toda vez que o Nagios para e é recriado quando é iniciado. 
 # No Nagios Core 4, definir o caminho do status_flie como '/dev/null' fará com que o Nagios Core não armazene informações de status. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
 
-# A opção 'status_update_interval' determina com que frequência (em segundos) o Nagios atualizará os dados de status no arquivo de status (status_file). O intervalo mínimo de atualização é de 1 segundo.
+# NAGIOS USER e GROUP especifica o usuário e grupo que o Nagios vai utilizar após ser inicializado.
+
+# TEMP_FILE arquivo temporário que o Nagios cria periodicamente para usar na atualização de dados de comentários, status, etc. O arquivo é excluído quando não é mais necessário.
+
+# TEMP_PATH é um diretório que o Nagios pode usar como espaço temporário para criar arquivos temporários usados durante o processo de monitoramento.
+
+
 ```
 
 
@@ -404,3 +473,85 @@ Uma introdução às definições de objetos e como elas se relacionam entre si 
 O arquivo de configuração CGI contém várias diretivas que afetam a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html) . Ele também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas.
 
 A documentação para o arquivo de configuração CGI pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configcgi.html) .
+
+
+
+service_inter_check_delay_method=s
+max_service_check_spread=30
+service_interleave_factor=s
+host_inter_check_delay_method=s
+max_host_check_spread=30
+max_concurrent_checks=0
+check_result_reaper_frequency=10
+max_check_result_reaper_time=30
+check_result_path=/usr/local/nagios/var/spool/checkresults
+max_check_result_file_age=3600
+cached_host_check_horizon=15
+cached_service_check_horizon=15
+enable_predictive_host_dependency_checks=1
+enable_predictive_service_dependency_checks=1
+soft_state_dependencies=0
+auto_reschedule_checks=0
+auto_rescheduling_interval=30
+auto_rescheduling_window=180
+service_check_timeout=60
+host_check_timeout=30
+event_handler_timeout=30
+notification_timeout=30
+ocsp_timeout=5
+ochp_timeout=5
+perfdata_timeout=5
+retain_state_information=1
+state_retention_file=/usr/local/nagios/var/retention.dat
+retention_update_interval=60
+use_retained_program_state=1
+use_retained_scheduling_info=1
+retained_host_attribute_mask=0
+retained_service_attribute_mask=0
+retained_process_host_attribute_mask=0
+retained_process_service_attribute_mask=0
+retained_contact_host_attribute_mask=0
+retained_contact_service_attribute_mask=0
+interval_length=60
+check_for_updates=1
+bare_update_check=0
+use_aggressive_host_checking=0
+execute_service_checks=1
+accept_passive_service_checks=1
+execute_host_checks=1
+accept_passive_host_checks=1
+enable_notifications=1
+enable_event_handlers=1
+process_performance_data=0
+obsess_over_services=0
+obsess_over_hosts=0
+translate_passive_host_checks=0
+passive_host_checks_are_soft=0
+check_for_orphaned_services=1
+check_for_orphaned_hosts=1
+check_service_freshness=1
+service_freshness_check_interval=60
+service_check_timeout_state=c
+check_host_freshness=0
+host_freshness_check_interval=60
+additional_freshness_latency=15
+enable_flap_detection=1
+low_service_flap_threshold=5.0
+high_service_flap_threshold=20.0
+low_host_flap_threshold=5.0
+high_host_flap_threshold=20.0
+date_format=us
+illegal_object_name_chars=`~!$%^&*|'"<>?,()=
+illegal_macro_output_chars=`~$&|'"<>
+use_regexp_matching=0
+use_true_regexp_matching=0
+admin_email=nagios@localhost
+admin_pager=pagenagios@localhost
+daemon_dumps_core=0
+use_large_installation_tweaks=0
+enable_environment_macros=0
+debug_level=0
+debug_verbosity=1
+debug_file=/usr/local/nagios/var/nagios.debug
+max_debug_file_size=1000000
+allow_empty_hostgroup_assignment=0
