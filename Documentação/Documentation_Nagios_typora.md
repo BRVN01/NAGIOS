@@ -522,34 +522,34 @@ allow_empty_hostgroup_assignment=0
 
 Abaixo segue uma descrição de cada variável usada no arquivo principal:
 
-- **CFG_LOG **
+- **CFG_LOG**
   Especifica onde o Nagios deve criar seu arquivo de log principal. Essa deve ser a primeira variável que você define no seu arquivo de configuração, pois o Nagios tentará gravar neste arquivo os erros que - encontrar nos demais dados de configuração.
 
-- **LOG_ROTATION_METHOD **
+- **LOG_ROTATION_METHOD**
   É de quanto em quanto tempo o arquivo de log será sobrescrito (d= todo dia).
 
-- **LOG_ARCHIVE_PATH **
+- **LOG_ARCHIVE_PATH**
   Diretório onde ficará os logs que foram rotacionados.
 
-- **USE_SYSLOG **
+- **USE_SYSLOG**
   Determina se as mensagem vão ser registradas no SysLog (1 = SIM).
 
-- **LOG_NOTIFICATIONS **
+- **LOG_NOTIFICATIONS**
   Informa se as mensagens de notificação serão registradas (1 = sim).
 
-- **LOG_SERVICE_RETRIES **
+- **LOG_SERVICE_RETRIES**
   Informa se as verificações 'softs' serão registradas para os serviços (1 = sim) .
 
-- **LOG_HOST_RETRIES **
+- **LOG_HOST_RETRIES**
   Informa se as verificações 'softs' serão registradas para os hosts (1 = sim) .
 
-- **LOG_EVENT_HANDLERS **
+- **LOG_EVENT_HANDLERS**
   Determina se os manipuladores de eventos de serviço e host serão ou não registrados. Manipuladores de eventos são comandos opcionais que podem ser executados sempre que um serviço ou host muda de estado.
 
-- **LOG_CURRENT_STATES **
+- **LOG_CURRENT_STATES**
   Faz com que o Nagios grave o estado atual dos dispositivos gerenciados após rotacionar um log.
 
-- **LOG_EXTERNAL_COMMANDS **
+- **LOG_EXTERNAL_COMMANDS**
   Registra ou não comandos externos (através da CGI).
 
 - **LOG_PASSIVE_CHECKS**
@@ -563,15 +563,15 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
   O objetivo é acelerar o cache do arquivo de configuração nos CGIs e permitir que você edite os arquivos de configuração do objeto de origem enquanto o Nagios estiver em execução sem afetar a saída exibida nos CGIs. 
   No Nagios Core 4, configurar o caminho do arquivo object_cache_file como '/dev/null' fará com que o Nagios Core não armazene em cache as informações do objeto. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
 
-- **PRECACHED_OBJECT_FILE **
+- **PRECACHED_OBJECT_FILE**
   Especifica um arquivo no qual uma cópia pré-processada e pré-armazenada em cache das definições de objetos deve ser armazenada. Este arquivo pode ser usado para melhorar drasticamente os tempos de inicialização em instalações Nagios grandes/complexas.
 
-- **RESOURCE_FILE **
+- **RESOURCE_FILE**
   É usado para especificar um arquivo de recurso opcional, que pode conter variáveis que serão reconhecidas apenas pelo Nagios ($USERn$). 
   As variáveis '$USERn$' são úteis para armazenar nomes de usuário, senhas e itens comumente usados em definições de comando (como caminhos de diretório). 
   Os CGIs não tentam ler os arquivos de recursos, portanto, você pode definir permissões restritivas (600 ou 660) para proteger informações confidenciais.
 
-- **STATUS_FILE **
+- **STATUS_FILE**
   É o arquivo que o Nagios usa para armazenar as informações atuais de status, comentários e tempo de inatividade. Esse arquivo é usado pelos CGIs para que o status atual do monitoramento possa ser relatado por meio de uma interface da web. 
   Os CGIs devem ter acesso de leitura a esse arquivo para funcionar corretamente. Este arquivo é excluído toda vez que o Nagios para e é recriado quando é iniciado. 
   No Nagios Core 4, definir o caminho do status_flie como '/dev/null' fará com que o Nagios Core não armazene informações de status. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
@@ -581,10 +581,10 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
 - **NAGIOS USER e GROUP** 
   Especifica o usuário e grupo que o Nagios vai utilizar após ser inicializado.
 
-- **TEMP_FILE **
+- **TEMP_FILE**
   Arquivo temporário que o Nagios cria periodicamente para usar na atualização de dados de comentários, status, etc. O arquivo é excluído quando não é mais necessário.
 
-- **TEMP_PATH **
+- **TEMP_PATH**
   É um diretório que o Nagios pode usar como espaço temporário para criar arquivos temporários usados durante o processo de monitoramento.
 
 - **SERVICE_INTER_CHECK_DELAY_METHOD** e **HOST_INTER_CHECK_DELAY_METHOD**
