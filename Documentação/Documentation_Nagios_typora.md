@@ -381,11 +381,14 @@ cfg_file=/usr/local/nagios/etc/objects/contacts.cfg
 cfg_file=/usr/local/nagios/etc/objects/timeperiods.cfg
 cfg_file=/usr/local/nagios/etc/objects/templates.cfg
 cfg_file=/usr/local/nagios/etc/objects/localhost.cfg
-precached_object_file=/usr/local/nagios/var/objects.precache
 object_cache_file=/usr/local/nagios/var/objects.cache
+precached_object_file=/usr/local/nagios/var/objects.precache
 
 # Informações de armazenamento (opção padrão do Nagios).
 resource_file=/usr/local/nagios/etc/resource.cfg
+
+# Arquivo de status
+status_file=/usr/local/nagios/var/status.dat
 
 # Usuário e grupo Nagios (opção padrão do Nagios).
 nagios_user=nagios
@@ -468,8 +471,8 @@ retained_contact_service_attribute_mask=0
 interval_length=60
 
 # Checagem de atualizações do Nagios de forma automática.
-check_for_updates=1
-bare_update_check=0
+check_for_updates=0
+bare_update_check=1
 
 # Verificação agressiva de host.
 use_aggressive_host_checking=0
@@ -515,118 +518,6 @@ debug_verbosity=1
 debug_file=/usr/local/nagios/var/nagios.debug
 max_debug_file_size=1000000
 allow_empty_hostgroup_assignment=0
-
-# Teste
-log_file=/usr/local/nagios/var/nagios.log
-cfg_file=/usr/local/nagios/etc/objects/commands.cfg
-cfg_file=/usr/local/nagios/etc/objects/contacts.cfg
-cfg_file=/usr/local/nagios/etc/objects/timeperiods.cfg
-cfg_file=/usr/local/nagios/etc/objects/templates.cfg
-cfg_file=/usr/local/nagios/etc/objects/localhost.cfg
-object_cache_file=/usr/local/nagios/var/objects.cache
-precached_object_file=/usr/local/nagios/var/objects.precache
-resource_file=/usr/local/nagios/etc/resource.cfg
-status_file=/usr/local/nagios/var/status.dat
-status_update_interval=10
-nagios_user=nagios
-nagios_group=nagios
-check_external_commands=1
-command_file=/usr/local/nagios/var/rw/nagios.cmd
-lock_file=/run/nagios.lock
-temp_file=/usr/local/nagios/var/nagios.tmp
-temp_path=/tmp
-event_broker_options=-1
-log_rotation_method=d
-log_archive_path=/usr/local/nagios/var/archives
-use_syslog=1
-log_notifications=1
-log_service_retries=1
-log_host_retries=1
-log_event_handlers=1
-log_initial_states=0
-log_current_states=1
-log_external_commands=1
-log_passive_checks=1
-service_inter_check_delay_method=s
-max_service_check_spread=30
-service_interleave_factor=s
-host_inter_check_delay_method=s
-max_host_check_spread=30
-max_concurrent_checks=0
-check_result_reaper_frequency=10
-max_check_result_reaper_time=30
-check_result_path=/usr/local/nagios/var/spool/checkresults
-max_check_result_file_age=3600
-cached_host_check_horizon=15
-cached_service_check_horizon=15
-enable_predictive_host_dependency_checks=1
-enable_predictive_service_dependency_checks=1
-soft_state_dependencies=0
-auto_reschedule_checks=0
-auto_rescheduling_interval=30
-auto_rescheduling_window=180
-service_check_timeout=60
-host_check_timeout=30
-event_handler_timeout=30
-notification_timeout=30
-ocsp_timeout=5
-ochp_timeout=5
-perfdata_timeout=5
-retain_state_information=1
-state_retention_file=/usr/local/nagios/var/retention.dat
-retention_update_interval=60
-use_retained_program_state=1
-use_retained_scheduling_info=1
-retained_host_attribute_mask=0
-retained_service_attribute_mask=0
-retained_process_host_attribute_mask=0
-retained_process_service_attribute_mask=0
-retained_contact_host_attribute_mask=0
-retained_contact_service_attribute_mask=0
-interval_length=60
-check_for_updates=1
-bare_update_check=0
-use_aggressive_host_checking=0
-execute_service_checks=1
-accept_passive_service_checks=1
-execute_host_checks=1
-accept_passive_host_checks=1
-enable_notifications=1
-enable_event_handlers=1
-process_performance_data=0
-obsess_over_services=0
-obsess_over_hosts=0
-translate_passive_host_checks=0
-passive_host_checks_are_soft=0
-check_for_orphaned_services=1
-check_for_orphaned_hosts=1
-check_service_freshness=1
-service_freshness_check_interval=60
-service_check_timeout_state=c
-check_host_freshness=0
-host_freshness_check_interval=60
-additional_freshness_latency=15
-enable_flap_detection=1
-low_service_flap_threshold=5.0
-high_service_flap_threshold=20.0
-low_host_flap_threshold=5.0
-high_host_flap_threshold=20.0
-date_format=us
-illegal_object_name_chars=`~!$%^&*|'"<>?,()=
-illegal_macro_output_chars=`~$&|'"<>
-use_regexp_matching=0
-use_true_regexp_matching=0
-admin_email=nagios@localhost
-admin_pager=pagenagios@localhost
-daemon_dumps_core=0
-use_large_installation_tweaks=0
-enable_environment_macros=0
-debug_level=0
-debug_verbosity=1
-debug_file=/usr/local/nagios/var/nagios.debug
-max_debug_file_size=1000000
-allow_empty_hostgroup_assignment=0
-
 ```
 
 Abaixo segue uma descrição de cada variável usada no arquivo principal:
@@ -684,6 +575,8 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
   É o arquivo que o Nagios usa para armazenar as informações atuais de status, comentários e tempo de inatividade. Esse arquivo é usado pelos CGIs para que o status atual do monitoramento possa ser relatado por meio de uma interface da web. 
   Os CGIs devem ter acesso de leitura a esse arquivo para funcionar corretamente. Este arquivo é excluído toda vez que o Nagios para e é recriado quando é iniciado. 
   No Nagios Core 4, definir o caminho do status_flie como '/dev/null' fará com que o Nagios Core não armazene informações de status. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
+- **STATUS_FILE**
+  Este é o arquivo que o Nagios usa para armazenar as informações atuais de status, comentários e tempo de inatividade. Esse arquivo é usado pelos CGIs para que o status atual do monitoramento possa ser relatado por meio de uma interface da web (sem isso o Nagios não irá reportar nada no dashboard). Os CGIs devem ter acesso de leitura a esse arquivo para funcionar corretamente. Este arquivo é excluído toda vez que o Nagios para e é recriado quando é iniciado. No Nagios Core 4, definir o caminho do status_flie como '/dev/null' fará com que o Nagios Core não armazene informações de status. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
 
 - **NAGIOS USER e GROUP** 
   Especifica o usuário e grupo que o Nagios vai utilizar após ser inicializado.
@@ -898,6 +791,10 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
 
 - **ALLOW_EMPTY_HOSTGROUP_ASSIGNMENT**
 
+  
+
+
+
 #### Arquivo (s) de Recursos
 
 Os arquivos de recursos podem ser usados para armazenar macros definidas pelo usuário. O ponto principal de ter arquivos de recursos é usá-los para armazenar informações confidenciais de configuração (como senhas), sem disponibilizá-las aos CGIs.
@@ -919,47 +816,3 @@ Uma introdução às definições de objetos e como elas se relacionam entre si 
 O arquivo de configuração CGI contém várias diretivas que afetam a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html) . Ele também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas.
 
 A documentação para o arquivo de configuração CGI pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configcgi.html) .
-
-
-
-bare_update_check=0
-use_aggressive_host_checking=0
-execute_service_checks=1
-accept_passive_service_checks=1
-execute_host_checks=1
-accept_passive_host_checks=1
-enable_notifications=1
-enable_event_handlers=1
-process_performance_data=0
-obsess_over_services=0
-obsess_over_hosts=0
-translate_passive_host_checks=0
-passive_host_checks_are_soft=0
-check_for_orphaned_services=1
-check_for_orphaned_hosts=1
-check_service_freshness=1
-service_freshness_check_interval=60
-service_check_timeout_state=c
-check_host_freshness=0
-host_freshness_check_interval=60
-additional_freshness_latency=15
-enable_flap_detection=1
-low_service_flap_threshold=5.0
-high_service_flap_threshold=20.0
-low_host_flap_threshold=5.0
-high_host_flap_threshold=20.0
-date_format=us
-illegal_object_name_chars=`~!$%^&*|'"<>?,()=
-illegal_macro_output_chars=`~$&|'"<>
-use_regexp_matching=0
-use_true_regexp_matching=0
-admin_email=nagios@localhost
-admin_pager=pagenagios@localhost
-daemon_dumps_core=0
-use_large_installation_tweaks=0
-enable_environment_macros=0
-debug_level=0
-debug_verbosity=1
-debug_file=/usr/local/nagios/var/nagios.debug
-max_debug_file_size=1000000
-allow_empty_hostgroup_assignment=0
