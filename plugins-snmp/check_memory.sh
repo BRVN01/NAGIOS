@@ -34,3 +34,30 @@ do
 	fi
 done
 
+memory_free=$(($memory_free-$memory_total_swap))
+
+used=$(($memory_total-($memory_free+$memory_buff+$memory_cache+70)))
+
+}
+
+verify () {
+if [[ ${used} -ge ${critical} ]]; then
+	echo "CRITICAL: Memory usage is ${used} MB"
+	exit 2
+
+elif [[ ${used} -ge ${warning} ]]; then
+	echo "WARNING: Memory usage is ${used} MB"
+	exit 1
+
+elif [[ ${used} -lt ${warning} ]];then
+	echo "OK: Memory usage is ${used} MB"
+	exit 0
+
+else
+	echo ""
+	exit 3
+fi
+}
+
+SNMP
+verify
