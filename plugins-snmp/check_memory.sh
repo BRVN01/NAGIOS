@@ -21,25 +21,16 @@ memory_total_swap"
 
 count="0"
 
+SNMP () {
+
 for i in $loop
 do
-    eval $i="$($CMD ${OIDs[$count]} | sed 's/kB//')"
-    eval $i="$(($i/1024))"
-    count=$(($count+1))
+	if [[ "$($CMD ${OIDs[$count]})" ]];then
+		eval $i="$($CMD ${OIDs[$count]} | sed 's/kB//')"
+		eval $i="$(($i/1024))"
+		count=$(($count+1))
+	else
+		exit 3
+	fi
 done
 
-memory_free=$(($memory_free-$memory_total_swap))
-
-used=$(($memory_total-($memory_free+$memory_buff+$memory_cache+70)))
-
-if [ ${used} -ge ${critical} ]; then
-	echo "CRITICAL: CPU usage is ${used} MB"
-	exit 2
-
-elif [ ${used} -ge ${warning} ]; then
-	echo "WARNING: CPU usage is ${used} MB"
-	exit 1
-fi
-
-echo "OK: Memory usage is ${used} MB"
-exit 0
