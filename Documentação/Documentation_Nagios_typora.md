@@ -6,7 +6,7 @@ FAZER
 
 
 
-# Capítulo 1: Introdução ao Nagios
+# <span style="color:#d86c00">**Capítulo 1: Introdução ao Nagios**</span>
 
 Nagios é uma ferramenta para monitoramento de rede/sistema, isso significa que o Nagios verifica computadores e/ou dispositivos na sua rede e garante que eles estejam funcionando como deveriam. 
 
@@ -22,7 +22,7 @@ O Nagios já vem com um conjunto de plugins padrão, mas caso você tenha necess
 
 
 
-## Principais características
+## <span style="color:#d86c00">**Principais características**</span>
 
 O Nagios é uma ferramenta muito flexível, ele pode ser configurado para monitorar sua infraestrutura de TI da maneira que você deseja. Também possui um mecanismo para reagir automaticamente a problemas e possui um poderoso sistema de notificação. Tudo isso é baseado em um sistema de definição de objeto, como explicado a seguir:
 
@@ -44,7 +44,7 @@ No caso acima, um dos links está fora, mesmo que os switchs e servidores esteja
 
 
 
-## Estados Soft e hard
+## <span style="color:#d86c00">**Estados Soft e hard**</span>
 
 O Nagios funciona verificando se um host ou serviço específico está funcionando corretamente e armazenando seu status. Para evitar a detecção de falhas aleatórias e temporárias, o Nagios usa estados *soft* e *hard* para descrever qual é o status atual de um host ou serviço.
 
@@ -56,7 +56,7 @@ Cada verificação de host e serviço define o número de tentativas a serem exe
 
 
 
-# Capítulo 2: Instalando o Nagios 4
+# <span style="color:#d86c00">**Capítulo 2: Instalando o Nagios 4**</span>
 
 Todo processo de instalação foi realizado seguindo a [documentação oficial](https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html#Ubuntu) do Nagios, usando o sistema operacional do Ubuntu 18.08 LTS.
 
@@ -68,7 +68,7 @@ Todo processo de instalação foi realizado seguindo a [documentação oficial](
 
 
 
-## Preparando o ambiente
+## <span style="color:#d86c00">**Preparando o ambiente**</span>
 
 Inicialmente vamos baixar alguns pacotes que vamos usar durante a utilização do servidor.
 
@@ -99,9 +99,7 @@ sudo apt-get install -y unzip zip tcpdump openssh-server mtr nmap perl python py
 	# LIBNET-SNMP-PERL = Script de conexões SNMP.
 ```
 
-## 
-
-## Pré requisitos
+## <span style="color:#d86c00">**Pré requisitos**</span>
 
 Para podermos compilar o Nagios precisamos atender aos pré  requisitos, caso contrário, teremos erro durante a compilação, abaixo  segue o comando que instala as dependências do Nagios.
 
@@ -126,7 +124,7 @@ sudo apt-get install -y autoconf gcc libc6 php7.2 php make libapache2-mod-php7.2
 
 ## 
 
-## Baixando o Nagios Core
+## <span style="color:#d86c00">**Baixando o Nagios Core**</span>
 
 Agora vamos baixar o pacote do Nagios para podermos compilá-lo.
 
@@ -146,7 +144,7 @@ cd nagioscore-nagios-4.4.5
 
 
 
-### Compilar o nagios core
+### <span style="color:#d86c00">**Compilar o nagios core**</span>
 
 ```
 # Vamos iniciar a preparação do ambiente para podermos compilar o pacote, passamos como argumento o arquivo de configuração do Nagios para o Apache, onde irá ficar o arquivo de apontamento do Nagios para que possamos acessá-lo pelo navegador:
@@ -197,7 +195,7 @@ sudo ufw reload
 
 
 
-#### Criando uma conta de usuário no Nagios
+#### <span style="color:#d86c00">**Criando uma conta de usuário no Nagios**</span>
 
 Agora vamos criar um usuário que poderá acessar a aplicação web do Nagios.
 
@@ -211,7 +209,7 @@ sudo chown nagios. /usr/local/nagios/etc/htpasswd.users
 
 
 
-#### Manipuladores de eventos do Nagios
+#### <span style="color:#d86c00">**Manipuladores de eventos do Nagios**</span>
 
 Vamos copiar a pasta de notificação de eventos do Nagios para pasta de produção.
 
@@ -225,7 +223,7 @@ sudo chown -R nagios:nagios /usr/local/nagios/libexec/eventhandlers
 
 
 
-#### Reiniciando o Nagios/Apache
+#### <span style="color:#d86c00">**Reiniciando o Nagios/Apache**</span>
 
 Vamos reiniciar o apache e o Nagios para "aplicar" as mudanças.
 
@@ -267,20 +265,20 @@ Para corrigir isso, vamos instalar os plugins padrões do Nagios.
 
 
 
-# Capítulo 3: Instalando o Nagios Plugins
+# <span style="color:#d86c00">**Capítulo 3: Instalando o Nagios Plugins**</span>
 
 Vamos instalar os plugins padrões do Nagios para que possamos ter uma monitoração padrão da ferramenta.
 
  
 
-## Pré requisitos
+## <span style="color:#d86c00">**Pré requisitos**</span>
 
 Boa parte dos pré requisitos do Nagios-Plugins já foi instalado  anteriormente, vamos instalar apenas os que não foram instalados.
 
 ```
 sudo apt install -y libmcrypt-dev libssl-dev dc gettext libmcrypt4
 
-# libmcrypt-dev = Arquivos de desenvolvimento da biblioteca de decriptografia/criptografia;
+# libmcrypt-dev = Arquivos de desenvolvimento da biblioteca de descriptografia/criptografia;
 # libssl-dev = Kit de ferramentas Secure Sockets Layer - arquivos de desenvolvimento;
 # dc = calculadora de precisão arbitrária polonesa-reversa dc GNU;
 # gettext = Utilitários de internacionalização GNU;
@@ -289,7 +287,7 @@ sudo apt install -y libmcrypt-dev libssl-dev dc gettext libmcrypt4
 
 
 
-## Compilando os plugins
+## <span style="color:#d86c00">**Compilando os plugins**</span>
 
 Agora vamos baixar e compilar o pacote de plugins do Nagios.
 
@@ -318,19 +316,19 @@ sudo make
 # Instalando os binários, CGIs e arquivos HTML gerados pelo 'make all':
 sudo make install
 
-# Mundando o usuário e grupo dos plugins para o Nagios:
+# Mudando o usuário e grupo dos plugins para o Nagios:
 chown nagios. /usr/local/nagios/libexec/*
 ```
 
 
 
-## Reiniciando o daemon do Nagios
+## <span style="color:#d86c00">**Reiniciando o daemon do Nagios**</span>
 
 ```
 # Reinicia o daemon do Nagios:
 sudo systemctl restart nagios.service
 
-# Mostra o estatus do serviço do Nagios:
+# Mostra o status do serviço do Nagios:
 sudo systemctl status nagios.service
 ```
 
@@ -356,13 +354,13 @@ Aplicando o `Re-schedule the next check of this service` nos serviços:
 
 
 
-# Capítulo 4: Configurando o Nagios
+# <span style="color:#d86c00">**Capítulo 4: Configurando o Nagios**</span>
 
-Nessa sessão vamos configurar manualmente o arquivo de configurações do Nagios para que possamos ter um arquivo mais customizado.
+Nessa sessão vamos ver os alguns dos principais arquivos de configuração do Nagios, para que eles servem e vamos configurar manualmente o arquivo de configurações principal do Nagios para que possamos ter um arquivo mais customizado.
 
 
 
-## Criando o arquivo de configuração principal
+## <span style="color:#d86c00">**Criando o arquivo de configuração principal**</span>
 
 O arquivo de configuração principal é chamado *nagios.cfg*, é o arquivo principal carregado durante a inicialização do Nagios. Ele contém várias diretivas que afetam como o daemon do Nagios Core opera. Este arquivo de configuração é lido pelo daemon do Nagios Core e pelos CGIs.
 
@@ -578,11 +576,11 @@ high_host_flap_threshold=20.0
 
 # Formato de data (padrão 'us')
 
-#Option	        Output Format	       Sample Output
-#us	            MM/DD/YYYY HH:MM:SS	   06/30/2002 03:15:00
-#euro	        DD/MM/YYYY HH:MM:SS	   30/06/2002 03:15:00
-#iso8601	        YYYY-MM-DD HH:MM:SS	   2002-06-30 03:15:00
-#strict-iso8601	YYYY-MM-DDTHH:MM:SS	   2002-06-30T03:15:00
+#Option	         Output Format	           Sample Output
+#us	             MM/DD/YYYY HH:MM:SS	   06/30/2002 03:15:00
+#euro	         DD/MM/YYYY HH:MM:SS	   30/06/2002 03:15:00
+#iso8601	     YYYY-MM-DD HH:MM:SS	   2002-06-30 03:15:00
+#strict-iso8601	 YYYY-MM-DDTHH:MM:SS	   2002-06-30T03:15:00
 date_format=euro
 
 # Caracteres ilegais de nome de objeto
@@ -822,9 +820,7 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
 - **INTERVAL_LENGTH**
   Esse é o número de segundos por "intervalo de unidade" usado para cronometrar na fila de agendamento, renotificação, etc. "Intervalos de unidades" são usados no arquivo de configuração do objeto para determinar com que frequência executar uma verificação de serviço, com que frequência irá ocorrer a renotificação de um contato etc.
 
-- **
-
-- BARE_UPDATE_CHECK**
+- **BARE_UPDATE_CHECK**
   Esta opção impede que dados o Nagios envie para o api.nagios.org quando procurar atualizações. Por padrão, o Nagios enviará informações sobre a versão atual do Nagios que você instalou, bem como um indicador sobre se essa foi uma nova instalação ou não. O Nagios Enterprises usa esses dados para determinar o número de usuários executando uma versão específica do Nagios. Habilite esta opção se não desejar que essas informações sejam enviadas.
 
 - **USE_AGGRESSIVE_HOST_CHECKING**
@@ -843,28 +839,72 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
 
 - **ACCEPT_PASSIVE_HOST_CHECKS**
   Esta opção determina se o Nagios aceitará ou não verificações passivas de host quando reiniciado/iniciado inicialmente. Se esta opção estiver desabilitada, o Nagios não aceitará nenhuma verificação passiva de host. Nota: Se você tiver a retenção de estado ativada, o Nagios ignorará essa configuração quando reiniciado/iniciado e usará a última configuração conhecida para esta opção (conforme armazenada no arquivo de retenção de estado ), a menos que você desative a opção use_retained_program_state . Se você quiser alterar essa opção quando a retenção de estado estiver ativa (e o use_retained_program_state estiver ativado), será necessário usar o comando externo apropriado ou alterá-lo através da interface da web.
-<<<<<<< HEAD
-  
-=======
 
-- **ENABLE_NOTIFICATIONS**
-
-- **ENABLE_EVENT_HANDLERS**
->>>>>>> 11a0fc7fbd6524f9aabaa21697adbd1147198c4b
-
-O resto das configurações vou deixar para que você possa conferir no [neste link](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html), dessa forma quero evitar que o conteúdo fique muito maçante.
+<span style="color:red">**Para as outras explicações de cada configuração, vou deixar um link  onde você possa verificar cada opção que possa ser utilizada no arquivo de configuração principal, acesse  [neste link](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html), dessa forma evitamos que o conteúdo fique muito maçante.**</span>
 
 
 
-#### Arquivo (s) de Recursos
+#### <span style="color:#d86c00">**Arquivo(s) de Recursos**</span>
 
-Os arquivos de recursos podem ser usados para armazenar macros definidas pelo usuário. O ponto principal de ter arquivos de recursos é usá-los para armazenar informações confidenciais de configuração (como senhas), sem disponibilizá-las aos CGIs.
+Os arquivos de recursos no geral, podem ser usados para armazenar macros definidas pelo usuário. O foco principal de usarmos arquivos de recursos, é poder armazenar informações confidenciais (como senhas), sem exibi-las aos CGIs.
 
-Você pode especificar um ou mais arquivos de recursos opcionais usando a diretiva [resource_file](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#resource_file) no seu arquivo de configuração principal. 
+Você pode especificar um ou mais arquivos de recursos opcionais usando a diretiva [resource_file](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#resource_file), que fica no arquivo de configuração princial. Em uma instalação rápida do Nagios, o padrão para *resource_file* é o arquivo `/usr/local/nagios/etc/resource.cfg`.
+
+Conteúdo de *resource.cfg*:
+
+```
+# Configurações padrões do Nagios.
+# Seta $USER1$ com o caminho para os plugins:
+$USER1$=/usr/local/nagios/libexec
+
+# Seta $USER2$ com o caminho para os manipuladores de eventos (essa opção está
+comentada, ou seja, não entrará em vigor no funcionamento do sistema):
+#$USER2$=/usr/local/nagios/libexec/eventhandlers
+
+# Aqui temos um exemplo de como poderiamos colocar usuário e senha para sere usados em comandos do Nagios (também não entrará em vigor no funcionamento do sistema):
+#$USER3$=someuser
+#$USER4$=somepassword
+```
+
+Os arquivos de recursos geralmente contêm dados confidenciais, pois só podem ser usados em definições de objetos e não é possível ler seus valores na interface da web. Isso torna possível ocultar senhas para vários serviços confidenciais dos administradores do Nagios sem privilégios adequados. Podemos ter até 32 macros (variáveis), denominadas $USER1$, $USER2$ ... $USER32$.
 
 
 
-#### Arquivos de definição de objeto
+#### <span style="color:#d86c00">**Arquivos de definição de objeto**</span>
+
+Arquivos de objetos servem para que possamos definir `hosts`, `serviços`, `grupos de hosts`, `contatos`, `grupos de contatos`, `comandos`  e etc. Todos esses arquivos serão usados pelo Nagios quando ele estiver em funcionamento. Esses arquivos de objetos são definidos usando as diretivas cfg_dir (para definir um diretório) e cfg_file (para definir um arquivo), segue um exemplo padrão de diretivas do Nagios:
+
+```bash
+# Define o arquivo que conterá os comandos usado pelo Nagios,
+# aqui se tem o caminho dos plugins, parâmetros, entre outras informações:
+cfg_file=/usr/local/nagios/etc/objects/commands.cfg
+
+# Define o arquivo que conterá os contatos usado pelo Nagios,
+# aqui se tem o os parâmetros para notificação, seja por e-mail ou algum outro tipo
+# de notificação que tenha sido criado:
+cfg_file=/usr/local/nagios/etc/objects/contacts.cfg
+
+# Define o arquivo que conterá os períodos para notificação, usado pelo Nagios,
+# os períodos de notificações servem para verificações de checks, notificações 
+# de problemas entre outras ciosas. Dessa forma, poderemos notificar
+# uma equipe específica sempre num período em que estão trabalhando.
+cfg_file=/usr/local/nagios/etc/objects/timeperiods.cfg
+
+# Define o arquivo que conterá os exemplos de diretivas como: 
+#	contact (contatos); 
+#	host (criação de uma máquina);
+#	service (que serviços eu vou monitorar).
+cfg_file=/usr/local/nagios/etc/objects/templates.cfg
+
+# Aqui nós temos o arquivo de configuração no nosso servidor Nagios.
+# Aqui temos a criação do host (localhost), alguns serviços que serão
+# monitorados nele, dentre outras informações.
+cfg_file=/usr/local/nagios/etc/objects/localhost.cfg
+```
+
+
+
+
 
 Os arquivos de definição de objeto são usados para definir hosts, serviços, grupos de hosts, contatos, grupos de contatos, comandos etc. É aqui que você define todas as coisas que deseja monitorar e como deseja monitorá-las.
 
