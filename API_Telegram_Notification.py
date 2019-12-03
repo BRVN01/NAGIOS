@@ -17,7 +17,10 @@ groudip = sys.argv[1]
 token = sys.argv[2]
 DESCR = sys.argv[3]
 
-def log(arquivo_log, menssagem):
+def log(arquivo_log, menssagem, groudip, token):
+
+    menssagem = ("Group ID: " + groudip + "  Token: " + token + '\n' + menssagem + '\n' + '\n')
+
     try:
         log = open(arquivo_log)
 
@@ -64,8 +67,8 @@ def api(group_id, Token, arquivo_log, DESCR):
     get_api = requests.get(UrlAPI + Token + QueryEnv + group_id + QueryText + MSG)
     verify_error_connection(get_api)
 
-    log(arquivo_log, MSG)
+    log(arquivo_log, MSG, groudip, token)
 
 
-a = api(groudip, token, 'telegram_env.log', DESCR)
+a = api(groudip, token, '/var/log/icinga/telegram.log', DESCR)
 # a = api('-274508757', '909408437:AAFOsjr1-xyM3dzvQPBc7awseEXagN-qQdY', 'telegram_env.log', 'Description')

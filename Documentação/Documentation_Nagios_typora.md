@@ -27,17 +27,11 @@ O Nagios já vem com um conjunto de plugins padrão, mas caso você tenha necess
 O Nagios é uma ferramenta muito flexível, ele pode ser configurado para monitorar sua infraestrutura de TI da maneira que você deseja. Também possui um mecanismo para reagir automaticamente a problemas e possui um poderoso sistema de notificação. Tudo isso é baseado em um sistema de definição de objeto, como explicado a seguir:
 
 - **Comandos**: É a forma que o Nagios vai executar as verificações. Sendo uma parte importante da comunicação do Nagios com os plugins.
-
 - **Períodos de tempo**: São períodos de data e hora em que uma operação deve ou não ser executada. Por exemplo, de segunda a sexta-feira, das 09:00 às 17:00.
-
 - **Hosts e grupos de hosts**: São dispositivos, além da possibilidade de agrupar hosts. Um único host pode ser membro de mais de um grupo.
-
 - **Serviços**: São várias funcionalidades ou recursos para monitorar em um host específico. Por exemplo, uso da CPU, espaço de armazenamento ou servidor da Web e etc.
-
 - **Contatos e grupos de contatos**: São as pessoas que devem ser notificadas com informações sobre um evento no host ou serviço, os contatos podem ser agrupados, e um único contato pode ser membro de mais de um grupo.
-
 - **Notificações**: Definem quem deve ser notificado sobre o que, por exemplo, todos os erros do grupo de servidores Windows devem ir para o grupo de contatos do windows-administration durante o horário de trabalho e para o grupo de contatos da equipe nível 2 fora do horário de trabalho.
-
 - **Escalações**: São extensões de notificações; eles definem que depois que um objeto está no mesmo estado por um período específico de tempo, outras pessoas devem ser notificadas de determinados eventos, por exemplo, um servidor crítico que esteja inativo por mais de 4 horas deve alertar o gerenciamento de TI para que eles acompanhem o problema.
 
 Para qualquer administrador, é óbvio que, se o roteador estiver inativo, todas as máquinas acessadas por ele falharão. Caso você não leve isso em consideração, e esse roteador venha a ficar indisponível, você receberá uma lista de várias máquinas e serviços com falha. O Nagios permite definir dependências entre hosts para refletir a topologia de rede real e permite relações entre dispositivos para impedir que sua caixa de mensagem fique lotada de alertas. 
@@ -75,7 +69,6 @@ Todo processo de instalação foi realizado seguindo a [documentação oficial](
 
 
 ## Preparando o ambiente
-
 
 Inicialmente vamos baixar alguns pacotes que vamos usar durante a utilização do servidor.
 
@@ -379,7 +372,7 @@ Para acessar o link que leva a documentação oficial do arquivo de configuraç�
 
 O arquivo nagios.cfg fica localizado no diretório /usr/local/nagios/etc/nagios.cfg, segue um exemplo:
 
-``` bash
+```bash
 # Sessão de logs, 
 # Mudar a pasta padrão dos logs necessita que seja aplicado as devidas permissões para a nova pasta, como os comandos: 'mkdir /var/log/nagios/' e 'chown -R nagios. /var/log/nagios/', somente para a variável LOG_FILE. (opções padrões do Nagios).
 log_file=/var/log/nagios/nagios.log
@@ -702,7 +695,7 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
   É o arquivo que o Nagios usa para armazenar as informações atuais de status, comentários e tempo de inatividade. Esse arquivo é usado pelos CGIs para que o status atual do monitoramento possa ser relatado por meio de uma interface da web. 
   Os CGIs devem ter acesso de leitura a esse arquivo para funcionar corretamente. Este arquivo é excluído toda vez que o Nagios para e é recriado quando é iniciado. 
   No Nagios Core 4, definir o caminho do status_flie como '/dev/null' fará com que o Nagios Core não armazene informações de status. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
-  
+
 - **STATUS_FILE**
   Este é o arquivo que o Nagios usa para armazenar as informações atuais de status, comentários e tempo de inatividade. Esse arquivo é usado pelos CGIs para que o status atual do monitoramento possa ser relatado por meio de uma interface da web (sem isso o Nagios não irá reportar nada no dashboard). Os CGIs devem ter acesso de leitura a esse arquivo para funcionar corretamente. Este arquivo é excluído toda vez que o Nagios para e é recriado quando é iniciado. No Nagios Core 4, definir o caminho do status_flie como '/dev/null' fará com que o Nagios Core não armazene informações de status. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
 
@@ -830,7 +823,7 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
   Esse é o número de segundos por "intervalo de unidade" usado para cronometrar na fila de agendamento, renotificação, etc. "Intervalos de unidades" são usados no arquivo de configuração do objeto para determinar com que frequência executar uma verificação de serviço, com que frequência irá ocorrer a renotificação de um contato etc.
 
 - **
-  
+
 - BARE_UPDATE_CHECK**
   Esta opção impede que dados o Nagios envie para o api.nagios.org quando procurar atualizações. Por padrão, o Nagios enviará informações sobre a versão atual do Nagios que você instalou, bem como um indicador sobre se essa foi uma nova instalação ou não. O Nagios Enterprises usa esses dados para determinar o número de usuários executando uma versão específica do Nagios. Habilite esta opção se não desejar que essas informações sejam enviadas.
 
@@ -850,7 +843,14 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
 
 - **ACCEPT_PASSIVE_HOST_CHECKS**
   Esta opção determina se o Nagios aceitará ou não verificações passivas de host quando reiniciado/iniciado inicialmente. Se esta opção estiver desabilitada, o Nagios não aceitará nenhuma verificação passiva de host. Nota: Se você tiver a retenção de estado ativada, o Nagios ignorará essa configuração quando reiniciado/iniciado e usará a última configuração conhecida para esta opção (conforme armazenada no arquivo de retenção de estado ), a menos que você desative a opção use_retained_program_state . Se você quiser alterar essa opção quando a retenção de estado estiver ativa (e o use_retained_program_state estiver ativado), será necessário usar o comando externo apropriado ou alterá-lo através da interface da web.
+<<<<<<< HEAD
   
+=======
+
+- **ENABLE_NOTIFICATIONS**
+
+- **ENABLE_EVENT_HANDLERS**
+>>>>>>> 11a0fc7fbd6524f9aabaa21697adbd1147198c4b
 
 O resto das configurações vou deixar para que você possa conferir no [neste link](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html), dessa forma quero evitar que o conteúdo fique muito maçante.
 
