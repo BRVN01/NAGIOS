@@ -499,76 +499,184 @@ use_aggressive_host_checking=0
 # Execução de verificação de serviço
 execute_service_checks=1
 
+# Opção para aceitar verificação de serviço passivo
 accept_passive_service_checks=1
+
+# Opção para execução de verificação de host
 execute_host_checks=1
+
+# Opção para aceitar a verificação de host passivo
 accept_passive_host_checks=1
+
+# Opção Notificações, caso a retenção de estado esteja ativada, 
+# essa opção é desconsiderada no inicio/reinicio do Nagios.
 enable_notifications=1
+
+# Opção de manipulador de eventos, caso a retenção de estado esteja ativada, 
+# essa opção é desconsiderada no inicio/reinicio do Nagios.
 enable_event_handlers=1
+
+# Opção de processamento de dados de desempenho
 process_performance_data=0
+
+# Opção de obsessão por serviços, só use em caso de monitoramento distribuído para serviços.
 obsess_over_services=0
+
+# Opção de obsessão por serviços, só use em caso de monitoramento distribuído para Hosts.
 obsess_over_hosts=0
+
+# Opção Traduzir verificações de host passivas
 translate_passive_host_checks=0
+
+# As verificações passivas de host são tratadas com SOFT (Não)
 passive_host_checks_are_soft=0
+
+# Opção de verificação de serviço órfão
 check_for_orphaned_services=1
+
+# Opção de verificação de host órfão
 check_for_orphaned_hosts=1
+
+#
 check_service_freshness=1
+
+# Opção de verificação de atualização de serviço (em segundos)
 service_freshness_check_interval=60
+
+## Estado de tempo limite da verificação do serviço
+# Essa configuração determina o estado em que o Nagios relatará, quando o tempo limite 
+# de uma verificação de serviço expirar, ou seja, não responderá em (segundos) 
+# 'service_check_timeout'. Isso pode ser útil se uma máquina estiver executando 
+# uma carga muito alta e você não desejar considerar crítico uma verificação 
+# de serviço (o padrão).
+
+## As configurações válidas são:
+
+# c - Crítico (padrão)
+# u - Desconhecido
+# w - Aviso
+# o - OK
 service_check_timeout_state=c
-check_host_freshness=0
-host_freshness_check_interval=60
+
+# Opção adicional de latência de limite de atualização
 additional_freshness_latency=15
+
+## Opção de detecção de retalho
+# Esta opção determina se o Nagios tentará ou não detectar hosts e 
+# serviços que estão "flapando". O flap ocorre quando um host ou 
+# serviço muda entre estados com muita frequência, resultando em uma 
+# enxurrada de notificações sendo enviadas (com isso o Nagios não notificará). 
+# Quando o Nagios detecta que um host ou serviço está flapando, 
+# ele suprime temporariamente as notificações desse host/serviço 
+# até que ele pare de flapar.
 enable_flap_detection=1
+
+# Limite baixo de flap de serviço (em %)
 low_service_flap_threshold=5.0
+
+# Limite alto de flap de serviço (em %)
 high_service_flap_threshold=20.0
+
+# Limite baixo de flap de host (em %)
 low_host_flap_threshold=5.0
+
+# Limite alto de flap de host (em %)
 high_host_flap_threshold=20.0
-date_format=us
+
+# Formato de data (padrão 'us')
+
+#Option	        Output Format	       Sample Output
+#us	            MM/DD/YYYY HH:MM:SS	   06/30/2002 03:15:00
+#euro	        DD/MM/YYYY HH:MM:SS	   30/06/2002 03:15:00
+#iso8601	        YYYY-MM-DD HH:MM:SS	   2002-06-30 03:15:00
+#strict-iso8601	YYYY-MM-DDTHH:MM:SS	   2002-06-30T03:15:00
+date_format=euro
+
+# Caracteres ilegais de nome de objeto
 illegal_object_name_chars=`~!$%^&*|'"<>?,()=
+
+# Caracteres ilegais de saída de macro (variáveis como $HOSTOUTPUT$)
 illegal_macro_output_chars=`~$&|'"<>
+
+# Opção de correspondência de expressão regular
 use_regexp_matching=0
+
+# Opção de correspondência de expressão regular verdadeira
 use_true_regexp_matching=0
+
+# Endereço de e-mail do administrador
 admin_email=nagios@localhost
+
+# Pager do administrador
 admin_pager=pagenagios@localhost
+
+# https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux_OpenStack_Platform/3/html/Getting_Started_Guide/ch08s02.html
 daemon_dumps_core=0
+
+# Opção de ajustes grandes na instalação
 use_large_installation_tweaks=0
+
+## Opção de macros de ambiente
+# Esta opção determina se o daemon Nagios disponibilizará todas as macros
+# padrão como variáveis de ambiente para seus comandos de verificação, 
+# notificação, manipulador de eventos, etc. 
+# Em instalações grandes do Nagios, isso pode ser problemático, 
+# pois requer memória adicional e (mais importante) CPU para calcular os valores 
+# de todas as macros e disponibilizá-las ao ambiente.
 enable_environment_macros=0
+
+# Nível de depuração
 debug_level=0
+
+# Verbosidade de Depuração
 debug_verbosity=1
+
+# Arquivo de depuração
 debug_file=/usr/local/nagios/var/nagios.debug
+
+# Tamanho máximo do arquivo de depuração (em linhas)
 max_debug_file_size=1000000
+
+## Permitir atribuição de grupo de hosts vazia
+#  opção booleana determina se serviços, dependências de serviço ou dependências 
+# de host atribuídas a grupos de hosts vazios (grupos de hosts sem membros do host) 
+# farão com que o Nagios saia com erro na inicialização (ou durante uma verificação 
+# de configuração) ou não. O comportamento padrão, se a opção não estiver presente no 
+# arquivo de configuração principal, é que o Nagios saia com erro se algum desses 
+# objetos estiver associado a grupos de hosts que não possuem hosts associados a eles.
 allow_empty_hostgroup_assignment=0
 ```
 
 Abaixo segue uma descrição de cada variável usada no arquivo principal:
 
-- **CFG_LOG**
+- **CFG_LOG **
   Especifica onde o Nagios deve criar seu arquivo de log principal. Essa deve ser a primeira variável que você define no seu arquivo de configuração, pois o Nagios tentará gravar neste arquivo os erros que - encontrar nos demais dados de configuração.
 
-- **LOG_ROTATION_METHOD**
+- **LOG_ROTATION_METHOD **
   É de quanto em quanto tempo o arquivo de log será sobrescrito (d= todo dia).
 
-- **LOG_ARCHIVE_PATH**
+- **LOG_ARCHIVE_PATH **
   Diretório onde ficará os logs que foram rotacionados.
 
-- **USE_SYSLOG**
+- **USE_SYSLOG **
   Determina se as mensagem vão ser registradas no SysLog (1 = SIM).
 
-- **LOG_NOTIFICATIONS**
+- **LOG_NOTIFICATIONS **
   Informa se as mensagens de notificação serão registradas (1 = sim).
 
-- **LOG_SERVICE_RETRIES**
+- **LOG_SERVICE_RETRIES **
   Informa se as verificações 'softs' serão registradas para os serviços (1 = sim) .
 
-- **LOG_HOST_RETRIES**
+- **LOG_HOST_RETRIES **
   Informa se as verificações 'softs' serão registradas para os hosts (1 = sim) .
 
-- **LOG_EVENT_HANDLERS**
+- **LOG_EVENT_HANDLERS **
   Determina se os manipuladores de eventos de serviço e host serão ou não registrados. Manipuladores de eventos são comandos opcionais que podem ser executados sempre que um serviço ou host muda de estado.
 
-- **LOG_CURRENT_STATES**
+- **LOG_CURRENT_STATES **
   Faz com que o Nagios grave o estado atual dos dispositivos gerenciados após rotacionar um log.
 
-- **LOG_EXTERNAL_COMMANDS**
+- **LOG_EXTERNAL_COMMANDS **
   Registra ou não comandos externos (através da CGI).
 
 - **LOG_PASSIVE_CHECKS**
@@ -582,20 +690,15 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
   O objetivo é acelerar o cache do arquivo de configuração nos CGIs e permitir que você edite os arquivos de configuração do objeto de origem enquanto o Nagios estiver em execução sem afetar a saída exibida nos CGIs. 
   No Nagios Core 4, configurar o caminho do arquivo object_cache_file como '/dev/null' fará com que o Nagios Core não armazene em cache as informações do objeto. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
 
-<<<<<<< HEAD
 - **PRECACHED_OBJECT_FILE **
   Especifica um arquivo no qual uma cópia pré processada e pré armazenada em cache das definições de objetos deve ser armazenada. Este arquivo pode ser usado para melhorar drasticamente os tempos de inicialização em instalações Nagios grandes/complexas.
-=======
-- **PRECACHED_OBJECT_FILE**
-  Especifica um arquivo no qual uma cópia pré-processada e pré-armazenada em cache das definições de objetos deve ser armazenada. Este arquivo pode ser usado para melhorar drasticamente os tempos de inicialização em instalações Nagios grandes/complexas.
->>>>>>> e240aa5158bd0aed6302d0f176486a7f0071a8e1
 
-- **RESOURCE_FILE**
+- **RESOURCE_FILE **
   É usado para especificar um arquivo de recurso opcional, que pode conter variáveis que serão reconhecidas apenas pelo Nagios ($USERn$). 
   As variáveis '$USERn$' são úteis para armazenar nomes de usuário, senhas e itens comumente usados em definições de comando (como caminhos de diretório). 
   Os CGIs não tentam ler os arquivos de recursos, portanto, você pode definir permissões restritivas (600 ou 660) para proteger informações confidenciais.
 
-- **STATUS_FILE**
+- **STATUS_FILE **
   É o arquivo que o Nagios usa para armazenar as informações atuais de status, comentários e tempo de inatividade. Esse arquivo é usado pelos CGIs para que o status atual do monitoramento possa ser relatado por meio de uma interface da web. 
   Os CGIs devem ter acesso de leitura a esse arquivo para funcionar corretamente. Este arquivo é excluído toda vez que o Nagios para e é recriado quando é iniciado. 
   No Nagios Core 4, definir o caminho do status_flie como '/dev/null' fará com que o Nagios Core não armazene informações de status. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
@@ -606,10 +709,10 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
 - **NAGIOS USER e GROUP** 
   Especifica o usuário e grupo que o Nagios vai utilizar após ser inicializado.
 
-- **TEMP_FILE**
+- **TEMP_FILE **
   Arquivo temporário que o Nagios cria periodicamente para usar na atualização de dados de comentários, status, etc. O arquivo é excluído quando não é mais necessário.
 
-- **TEMP_PATH**
+- **TEMP_PATH **
   É um diretório que o Nagios pode usar como espaço temporário para criar arquivos temporários usados durante o processo de monitoramento.
 
 - **SERVICE_INTER_CHECK_DELAY_METHOD** e **HOST_INTER_CHECK_DELAY_METHOD**
@@ -748,77 +851,8 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
 - **ACCEPT_PASSIVE_HOST_CHECKS**
   Esta opção determina se o Nagios aceitará ou não verificações passivas de host quando reiniciado/iniciado inicialmente. Se esta opção estiver desabilitada, o Nagios não aceitará nenhuma verificação passiva de host. Nota: Se você tiver a retenção de estado ativada, o Nagios ignorará essa configuração quando reiniciado/iniciado e usará a última configuração conhecida para esta opção (conforme armazenada no arquivo de retenção de estado ), a menos que você desative a opção use_retained_program_state . Se você quiser alterar essa opção quando a retenção de estado estiver ativa (e o use_retained_program_state estiver ativado), será necessário usar o comando externo apropriado ou alterá-lo através da interface da web.
   
-- **ENABLE_NOTIFICATIONS**
 
-- **ENABLE_EVENT_HANDLERS**
-
-- **PROCESS_PERFORMANCE_DATA**
-
-- **OBSESS_OVER_SERVICES**
-
-- **OBSESS_OVER_HOSTS**
-
-- **TRANSLATE_PASSIVE_HOST_CHECKS**
-
-- **PASSIVE_HOST_CHECKS_ARE_SOFT**
-
-- **CHECK_FOR_ORPHANED_SERVICES**
-
-- **CHECK_FOR_ORPHANED_HOSTS**
-
-- **CHECK_SERVICE_FRESHNESS**
-
-- **SERVICE_FRESHNESS_CHECK_INTERVAL**
-
-- **SERVICE_CHECK_TIMEOUT_STATE**
-
-- **CHECK_HOST_FRESHNESS**
-
-- **HOST_FRESHNESS_CHECK_INTERVAL**
-
-- **ADDITIONAL_FRESHNESS_LATENCY**
-
-- **ENABLE_FLAP_DETECTION**
-
-- **LOW_SERVICE_FLAP_THRESHOLD**
-
-- **HIGH_SERVICE_FLAP_THRESHOLD**
-
-- **LOW_HOST_FLAP_THRESHOLD**
-
-- **HIGH_HOST_FLAP_THRESHOLD**
-
-- **DATE_FORMAT**
-
-- **ILLEGAL_OBJECT_NAME_CHARS**
-
-- **ILLEGAL_MACRO_OUTPUT_CHARS**
-
-- **USE_REGEXP_MATCHING**
-
-- **USE_TRUE_REGEXP_MATCHING**
-
-- **ADMIN_EMAIL**
-
-- **ADMIN_PAGER**
-
-- **DAEMON_DUMPS_CORE**
-
-- **USE_LARGE_INSTALLATION_TWEAKS**
-
-- **ENABLE_ENVIRONMENT_MACROS**
-
-- **DEBUG_LEVEL**
-
-- **DEBUG_VERBOSITY**
-
-- **DEBUG_FILE**
-
-- **MAX_DEBUG_FILE_SIZE**
-
-- **ALLOW_EMPTY_HOSTGROUP_ASSIGNMENT**
-
-  
+O resto das configurações vou deixar para que você possa conferir no [neste link](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html), dessa forma quero evitar que o conteúdo fique muito maçante.
 
 
 
@@ -843,3 +877,9 @@ Uma introdução às definições de objetos e como elas se relacionam entre si 
 O arquivo de configuração CGI contém várias diretivas que afetam a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html) . Ele também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas.
 
 A documentação para o arquivo de configuração CGI pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configcgi.html) .
+
+
+
+
+
+https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/eventhandlers.html
