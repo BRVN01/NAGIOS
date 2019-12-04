@@ -808,6 +808,8 @@ define host {
 
 
 
+<span style="color:#d86c00">**Impedir herança de variável**</span>
+
 Caso você não queira que alguma variável seja herdada, pode especificar seu valor como NULL, assim como no exemplo abaixo:
 ```bash
 # Criando um modelo de Host com variáveis customizadas:
@@ -839,11 +841,34 @@ define host {
 
 
 
+<span style="color:#d86c00">**Usando valores herdados mais valores locais**</span>
 
+As vezes podemos querer usar os valores herdados juntamente com valores locais, para isso precisamos adicionar um `+` para ele adicionar a mais o valor, isso só está disponível para variáveis padrão do Nagios.
 
+```
+define host {
+    hostgroups      all-servers
+    name            generichosttemplate
+    register        0
+}
 
+define host {
+    host_name       Server1
+    hostgroups      +linux-servers,web-servers
+    use             generichosttemplate
+}
+```
 
+Nesse caso, o host *Server1* acrescentará o valor de sua variável local de *hostgroups* ao valor de *generichosttemplate*. A definição efetiva resultante de *Server1* é a seguinte:
 
+```bash
+define host {
+    host_name       linuxserver1
+    hostgroups      all-servers,linux-servers,web-servers
+}
+# all-servers veio de generichosttemplate;
+# linux-servers e web-servers foram adicionadas localmente.
+```
 
 
 
