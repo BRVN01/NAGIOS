@@ -902,15 +902,30 @@ cfg_file=/usr/local/nagios/etc/objects/templates.cfg
 cfg_file=/usr/local/nagios/etc/objects/localhost.cfg
 ```
 
+Ai você me pergunta, O que serial um objeto?
 
+Objetos são todos os elementos envolvidos na lógica de monitoramento e notificação do Nagios, como:
 
+- Serviços criados;
+- Grupos de Serviço;
+- Hosts criados;
+- Grupos de Hosts;
+- Contatos
+- Grupos de Contato
+- Comandos
+- Períodos de tempo
+- Escalações de notificação
+- Dependências de notificação e execução
 
+Basicamente, tudo que criamos ou usamos o padrão para poder monitorar os dispositivos em nossa Infraestrutura.
 
-Os arquivos de definição de objeto são usados para definir hosts, serviços, grupos de hosts, contatos, grupos de contatos, comandos etc. É aqui que você define todas as coisas que deseja monitorar e como deseja monitorá-las.
+https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/toc.html
 
-Você pode especificar um ou mais arquivos de definição de objeto usando as [diretivas cfg_file](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#cfg_file) e / ou [cfg_dir](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#cfg_dir) em seu arquivo de configuração principal.
+https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/config.html
 
-Uma introdução às definições de objetos e como elas se relacionam entre si pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configobject.html) .
+https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configobject.html
+
+https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html
 
 #### Arquivo de configuração CGI
 
