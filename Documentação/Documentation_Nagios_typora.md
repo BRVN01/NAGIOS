@@ -806,7 +806,37 @@ define host {
 }
 ```
 
-a
+
+
+Caso você não queira que alguma variável seja herdada, pode especificar seu valor como NULL, assim como no exemplo abaixo:
+```bash
+# Criando um modelo de Host com variáveis customizadas:
+define host {
+    _customvar1         somevalue   ; <-- Variável de host personalizada 
+    _snmp_community     public      ; <-- CVariável de host personalizada 
+    name                generichosttemplate
+    register            0
+}
+
+# Criando um host que herdará as propriedades de 'generichosttemplate':
+define host {
+    host_name       Server1
+    address         192.168.1.3
+    _customvar1     null
+    use             generichosttemplate
+}
+
+# O host Server1 herdará a variável personalizada '_snmp_community', 
+# bem como seus respectivos valores, impedindo que ele herde a variável '_customvar1',
+# já que impedimos isso passando valor de 'null' para ela.
+# O resultado efetivo é uma definição para Server1 que se parece com isso:
+define host {
+    host_name           Server1
+    address             192.168.1.3
+    _snmp_community     public
+}
+```
+
 
 
 
