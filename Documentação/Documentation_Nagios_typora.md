@@ -647,17 +647,26 @@ Aqui vamos verificar como definir objetos no Nagios. Todo objeto terá 3 diretiv
 
     Nesse caso, vamos herdar as propriedades do objeto ***generic-host*** (***generic-host*** é o nome de um objeto que já foi criado anteriormente).
 
-  Para que você possa herdar as propriedades, a variável ***register*** não pode estar desativada (setada com a opção **0**).
-
   
 
 - **register**
 
-É usada para indicar se a definição do objeto deve ou não ser "registrada" no Nagios, isso significa que se você não registrar como modelo, não poderá usar as opções definidas nesse objeto em outros objetos. 
+É usada para indicar se a definição do objeto deve ou não ser "registrada" no Nagios, o não registro é muito usado para criação de modelos, caso contrário o Nagios tentará registrar tal objeto como algo válido.
 
-Caso seja definida como registrada, as opções desse objeto poderão ser usados em outros objetos através da variável ***use***. Por padrão, todas as definições de objetos são registradas, para que não seja registrada, você deve especificar o valor zero nela. 
+```bash
+# Exemplo de objeto modelo para um Host.
+definir host {
+    check_command check-host-alive
+    notification_options d, u, r
+    max_check_attempts 5
+    nome generichosttemplate 
+    register 0
+}
+```
 
-Se você estiver usando uma definição parcial de objeto como um modelo, convém impedir que ela seja registrada (um modelo que não tem todas as opções definidas). 
+A variável faltante acima seria o ***host_name***, mas esse objeto só irá nos servir como um modelo para ser herdado, não precisamos registra-lo (como um host válido), porque ele está incompleto, sendo assim dessa forma ele não será um host e sim um modelo em outras palavras.
+
+
 Os valores são os seguintes: 
 
 - **0 = NÃO registra a definição do objeto**; 
@@ -705,9 +714,99 @@ definir host {
 
 Perceba que no host *Server2* foram herdados apenas a propriedade `check_command` do host *Server1*, variáveis como `notification_options` e `max_check_attempts` não foram herdadas porque foram definidas localmente.
 
+
+
+### <span style="color:#d86c00">**Encadeamento de herança**</span>
+
+Um *objeto X* pode herdar propriedades de um *objeto Y*, isso nós já vimos acima, mas um *objeto X* que herdou propriedades de um *objeto Y* pode dar essas propriedades para um outro *objeto Z* (um pouco confuso, não?), vamos aos exemplos:
+
+```bash
+# Vamos criar um objeto para uma máquina que será um servidor:
+definir host {
+    host_name Server1
+    check_command check-host-alive
+    notification_options d, u, r
+    max_check_attempts 5
+    nome servidores_nutela
+}
+
+# Vamos criar um outro objeto para uma máquina que será um servidor e que irá herdar
+# propriedades do 'Servidor 1':
+definir host {
+    host_name Server2
+    max_check_attempts 3
+    use servidores_nutela
+    nome servidores2
+}
+
+# Vamos criar um outro objeto para uma máquina que será um servidor e que irá herdar
+# propriedades do 'Servidor 2':
+definir host {
+    host_name Server3
+    use servidores_nutela
+}
+
+# Você observará que a definição para host Server1 foi definida como tendo servidores_nutela
+# como o nome do modelo. A definição para o host Server2 está usando a definição de 
+# servidores_nutela (de Server1) como seu objeto de modelo. 
+#
+# A definição para o host Server3 está usando a definição de 
+# servidores2 (de Server2) como seu objeto de modelo.
+#
+# Depois que o Nagios processa esses dados, a definição resultante do host Server3 
+# seria equivalente a esta definição:
+definir host {
+    host_name Server3
+    check_command check-host-alive
+    notification_options d, u, r
+    max_check_attempts 3
+}
+```
+
+Dessa forma, o host *Server3* herda variáveis da definição de host *Server2*, que por sua vez herda variáveis da definição de host *Server1*.
+
+
+
+<span style="color:#d86c00">**E porque entender isso é importante?**</span>
+
+Na maioria dos casos, vamos herdar propriedades do modelo `generic-host` ou `linux-server` (caso esteja trabalhando com máquinas Linux), isso facilita muito não só a criação de novos objetos, como poupa muito tempo de nós.
+
+Dessa forma, pegamos algo pronto, ou criamos um modelo customizado e apenas vamos herdando desse modelo.
+
+
+
+### <span style="color:#d86c00">**Variáveis de objeto personalizadas**</span>
+
+Qualquer variável criada e que seja definida em modelos de hosts, modelos de serviços ou modelos de contatos serão herdadas como qualquer outra variável.
+
+```bash
+# Criando um modelo de Host com variáveis customizadas:
+define host {
+    _customvar1         somevalue   ; <-- Variável de host personalizada 
+    _snmp_community     public      ; <-- CVariável de host personalizada 
+    name                generichosttemplate
+    register            0
+}
+
+# Criando um host que herdará as propriedades de 'generichosttemplate':
+define host {
+    host_name       Server1
+    address         192.168.1.3
+    use           generichosttemplate
+}
+
+# O host Server1 herdará as variáveis personalizadas, que são: _customvar1 e 
+# _snmp_community, bem como seus respectivos valores.
+# O resultado efetivo é uma definição para Server1 que se parece com isso:
+define host {
+    host_name           Server1
+    address             192.168.1.3
+    _customvar1         somevalue
+    _snmp_community     public
+}
+```
+
 a
-
-
 
 
 
