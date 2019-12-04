@@ -65,6 +65,8 @@ Tudo isso é baseado em um sistema de definição de objetos (objetos são todos
 
 [Mais sobre objetos e como definir arquivos de objetos](#<span style="color:#d86c00">**Arquivos de definição de objeto**</span>)
 
+
+
 # <span style="color:#d86c00">**Capítulo 2: Configurando o Nagios**</span>
 
 Nessa sessão vamos ver alguns dos principais arquivos de configuração do Nagios, para que eles servem e vamos configurar manualmente o arquivo de configurações principal do Nagios para que possamos ter um arquivo mais customizado.
@@ -564,7 +566,7 @@ Você pode especificar um ou mais arquivos de recursos opcionais usando a direti
 
 Conteúdo de *resource.cfg*:
 
-```
+```bash
 # Configurações padrões do Nagios.
 # Seta $USER1$ com o caminho para os plugins:
 $USER1$=/usr/local/nagios/libexec
@@ -579,6 +581,14 @@ comentada, ou seja, não entrará em vigor no funcionamento do sistema):
 ```
 
 Os arquivos de recursos geralmente contêm dados confidenciais, pois só podem ser usados em definições de objetos e não é possível ler seus valores na interface da web. Isso torna possível ocultar senhas para vários serviços confidenciais dos administradores do Nagios sem privilégios adequados. Podemos ter até 32 macros (variáveis), denominadas $USER1$, $USER2$ ... $USER32$.
+
+
+
+## <span style="color:#d86c00">**Arquivo de configuração CGI**</span>
+
+O arquivo de configuração CGI contém várias diretivas que afetam a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html). Ele também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas, esses scripts CGI alteram a funcionalidade do Nagios quando utilizada por navegadores (dashboard do Nagios), caso você não use CGI, a interação na monitoração será feita apenas por linha de comando.
+
+A documentação para o arquivo de configuração CGI pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configcgi.html) .
 
 
 
@@ -619,15 +629,83 @@ resource_file=/usr/local/nagios/etc/resource.cfg
 
 
 
-## <span style="color:#d86c00">**Arquivo de configuração CGI**</span>
+## <span style="color:#d86c00">**Definições de Objetos**</span>
 
-O arquivo de configuração CGI contém várias diretivas que afetam a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html) . Ele também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas.
+Aqui vamos verificar como definir objetos no Nagios. Todo objeto terá 3 diretivas em comum, são elas: 
 
-A documentação para o arquivo de configuração CGI pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configcgi.html) .
+- **name**
+
+  É o nome do objeto;
+
+  
+
+- **use **
+
+  Esta variável faz com que seu objeto atual, possa herdar valores de outro objetos, apenas se a opção ***use*** for usada no objeto atual, para isso, basta passar o **name** do objeto que você quer herdar as propriedades como valor da variável ***use***, exemplo: 
+
+  - use                             generic-host
+
+    Nesse caso, vamos herdar as propriedades do objeto ***generic-host*** (***generic-host*** é o nome de um objeto que já foi criado anteriormente).
+
+  Para que você possa herdar as propriedades, a variável ***register*** não pode estar desativada (setada com a opção **0**).
+
+  
+
+- **register**
+
+É usada para indicar se a definição do objeto deve ou não ser "registrada" no Nagios, isso significa que se você não registrar como modelo, não poderá usar as opções definidas nesse objeto em outros objetos. 
+
+Caso seja definida como registrada, as opções desse objeto poderão ser usados em outros objetos através da variável ***use***. Por padrão, todas as definições de objetos são registradas, para que não seja registrada, você deve especificar o valor zero nela. 
+
+Se você estiver usando uma definição parcial de objeto como um modelo, convém impedir que ela seja registrada (um modelo que não tem todas as opções definidas). 
+Os valores são os seguintes: 
+
+- **0 = NÃO registra a definição do objeto**; 
+
+- **1 = registra a definição do objeto** (<span style="color:red">**esse é o padrão**</span>). 
+
+  Essa variável NÃO é herdada na opção ***use***, toda definição de objeto (que seja parcial) usada como modelo deve definir explicitamente a diretiva de *registro* como *0*, caso contrário ela será registrada.
 
 
 
+### <span style="color:#d86c00">**Variáveis locais versus variáveis herdadas**</span>
 
+A variável local ***SEMPRE*** terá prioridade sobre a variável herdada, isso significa que, se você definir uma variável num *objeto X*, e herdar propriedades do *objeto Y*, que possui a mesma variável setada, a variável que será utilizada será a que for especificada no *objeto X*, porque ele da prioridade para variáveis locais, exemplo:
+
+```bash
+# Vamos criar um objeto para uma máquina que será um servidor:
+definir host {
+    host_name Server1
+    check_command check-host-alive
+    notification_options d, u, r
+    max_check_attempts 5
+    nome servidores_nutela
+}
+
+# Vamos criar um outro objeto para uma máquina que será um servidor e que irá herdar
+# propriedades do 'Servidor 1':
+definir host {
+    host_name Server2
+    max_check_attempts 3
+    use servidores_nutela
+}
+
+# Você observará que a definição para host Server1 foi definida como tendo servidores_nutela
+# como o nome do modelo. A definição para o host Server2 está usando a definição de 
+# servidores_nutela como seu objeto de modelo. 
+# Depois que o Nagios processa esses dados, a definição resultante do host Server2 
+# seria equivalente a esta definição:
+definir host {
+    host_name Server2
+    check_command check-host-alive
+    notification_options d, u, r
+    max_check_attempts 3
+}
+```
+
+Perceba que no host *Server2* foram herdados apenas a propriedade `check_command` do host *Server1*, variáveis como `notification_options` e `max_check_attempts` não foram herdadas porque foram definidas localmente.
+
+a
 
 
 
