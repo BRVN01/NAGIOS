@@ -2,7 +2,7 @@
 
 # Prefácio
 
-FAZER
+Esse documento tenta passar ao leitor o conhecimento mais aprofundado da ferramenta de monitoramento conhecida como Nagios, o documento começa abordando a parte didática e após mostrar ao leitor tudo o que a ferramenta tem a oferecer, avançamos para parte prática, onde o leitor já terá conhecimentos de como funciona a ferramenta e passará a colocar o conhecimento em prática.
 
 
 
@@ -22,353 +22,65 @@ O Nagios já vem com um conjunto de plugins padrão, mas caso você tenha necess
 
 
 
+## <span style="color:#d86c00">**Requisitos do sistema**</span>
+
+O único requisito para executar o Nagios Core é uma máquina executando Linux (ou variante UNIX) que tenha acesso à rede e um compilador C instalado (se estiver instalando a partir do código-fonte).
+
+Você *não precisa* usar os CGIs (Uso do Nagios a partir de um navegador, onde scripts que rodam em backend passam informações e interagem com frontend) incluídos no Nagios Core. No entanto, se você decidir usá-los, precisará ter o seguinte software instalado:
+
+- Um servidor web (preferencialmente [Apache](http://www.apache.org/)).
+
+
+
+## <span style="color:#d86c00">**Licença do Nagios**</span>
+
+O Nagios Core está licenciado sob os termos da [GNU General Public License](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html) Versão 2, publicada pela [Free Software Foundation](http://www.fsf.org/). Isso lhe dá permissão legal para copiar, distribuir e/ou modificar o Nagios sob certas condições. Leia o arquivo 'LICENSE' [versão online da licença](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html) para obter mais detalhes.
+
+O Nagios Core é fornecido COMO ESTÁ SEM GARANTIA DE QUALQUER TIPO, INCLUINDO A GARANTIA DE PROJETO, COMERCIALIZAÇÃO E ADEQUAÇÃO A UM OBJETIVO ESPECÍFICO.
+
+
+
+## <span style="color:#d86c00">**Apoio**</span>
+
+Como uma ferramenta amplamente conhecida, o Nagios conta com dicas, tutoriais, documentação e manuais do Nagios de forma gratuita, para quem adquirir a versão paga do Nagios também ganha uma licença que lhe da direito ao suporte a ferramenta por uma equipe especializada.
+
+[Dicas, tutoriais, documentação e manuais do Nagios](https://library.nagios.com/)
+[Fórum de suporte da comunidade e do Nagios](https://support.nagios.com/forum/)
+
+
+
+
 ## <span style="color:#d86c00">**Principais características**</span>
 
-O Nagios é uma ferramenta muito flexível, ele pode ser configurado para monitorar sua infraestrutura de TI da maneira que você deseja. Também possui um mecanismo para reagir automaticamente a problemas e possui um poderoso sistema de notificação. Tudo isso é baseado em um sistema de definição de objeto, como explicado a seguir:
+O Nagios é uma ferramenta muito flexível, ele pode ser configurado para monitorar sua infraestrutura de TI da maneira que você deseja. Também possui um mecanismo para reagir automaticamente a problemas e possui um poderoso sistema de notificação. 
+Tudo isso é baseado em um sistema de definição de objetos (objetos são todos os elementos envolvidos na lógica de monitoramento e notificação do Nagios), como explicado a seguir:
 
 - **Comandos**: É a forma que o Nagios vai executar as verificações. Sendo uma parte importante da comunicação do Nagios com os plugins.
 - **Períodos de tempo**: São períodos de data e hora em que uma operação deve ou não ser executada. Por exemplo, de segunda a sexta-feira, das 09:00 às 17:00.
-- **Hosts e grupos de hosts**: São dispositivos, além da possibilidade de agrupar hosts. Um único host pode ser membro de mais de um grupo.
-- **Serviços**: São várias funcionalidades ou recursos para monitorar em um host específico. Por exemplo, uso da CPU, espaço de armazenamento ou servidor da Web e etc.
+- **Hosts e grupos de hosts**: São dispositivos (servidores, impressoras, roteadores, switchs etc), além da possibilidade de agrupar hosts. Um único host pode ser membro de mais de um grupo.
+- **Serviços e grupo de serviços**: São várias funcionalidades ou recursos para monitorar em um host específico. Por exemplo, uso da CPU, espaço de armazenamento ou servidor da Web e etc.
 - **Contatos e grupos de contatos**: São as pessoas que devem ser notificadas com informações sobre um evento no host ou serviço, os contatos podem ser agrupados, e um único contato pode ser membro de mais de um grupo.
 - **Notificações**: Definem quem deve ser notificado sobre o que, por exemplo, todos os erros do grupo de servidores Windows devem ir para o grupo de contatos do windows-administration durante o horário de trabalho e para o grupo de contatos da equipe nível 2 fora do horário de trabalho.
 - **Escalações**: São extensões de notificações; eles definem que depois que um objeto está no mesmo estado por um período específico de tempo, outras pessoas devem ser notificadas de determinados eventos, por exemplo, um servidor crítico que esteja inativo por mais de 4 horas deve alertar o gerenciamento de TI para que eles acompanhem o problema.
 
-Para qualquer administrador, é óbvio que, se o roteador estiver inativo, todas as máquinas acessadas por ele falharão. Caso você não leve isso em consideração, e esse roteador venha a ficar indisponível, você receberá uma lista de várias máquinas e serviços com falha. O Nagios permite definir dependências entre hosts para refletir a topologia de rede real e permite relações entre dispositivos para impedir que sua caixa de mensagem fique lotada de alertas. 
+[Mais sobre objetos e como definir arquivos de objetos](#<span style="color:#d86c00">**Arquivos de definição de objeto**</span>)
 
-Por exemplo, se um switch L3 que o conecta parte da sua rede estiver inoperante, o Nagios não executará verificações das máquinas subsequentes (depois do roteador). Isso é ilustrado na figura a seguir:
+# <span style="color:#d86c00">**Capítulo 2: Configurando o Nagios**</span>
 
-![1574354656894](../IMG/1574354656894.png)
-
-No caso acima, um dos links está fora, mesmo que os switchs e servidores estejam funcionando, o Nagios não consegue chegar até eles, dessa forma, será retornado indisponibilidade de todos os dispositivos atrás do link com problema, se a configuração correta do Nagios for feita, receberemos apenas um alerta do switch L3, e não de todos os dispositivos atrás do switch L3.
-
-
-
-## <span style="color:#d86c00">**Estados Soft e hard**</span>
-
-O Nagios funciona verificando se um host ou serviço específico está funcionando corretamente e armazenando seu status. Para evitar a detecção de falhas aleatórias e temporárias, o Nagios usa estados *soft* e *hard* para descrever qual é o status atual de um host ou serviço.
-
-Imagine que um administrador esteja reiniciando um servidor da Web e essa operação torne a conexão com as páginas da Web indisponível por 5 segundos. Como essas reinicializações geralmente são feitas à noite para diminuir o número de usuários afetados, esse é um período aceitável. No entanto, um problema pode ser que o Nagios tente se conectar ao servidor e observe que ele está realmente inoperante. Se depender apenas de um único resultado, o Nagios poderá acionar um alerta de que um servidor da Web está inoperante. Na verdade, ele voltaria a funcionar em alguns segundos, mas levaria alguns minutos para Nagios descobrir isso.
-
-Para situações onde o serviço ficou inativo por um curto período de tempo ou ou foi um falha momentânea, foram introduzidos estados de verificações *soft*. Quando um status é desconhecido ou é diferente de um status anterior (para o mesmo host/serviço), o Nagios testará novamente o host ou o serviço algumas vezes para garantir que a alteração seja permanente, ou seja, para garantir que o evento não tenha sido momentâneo. Assim o Nagios assume que o novo resultado é um estado *soft*. Após alguns testes *softs*, se o evento continuar acusando o mesmo status, isso significa que o novo estado é permanente (está mesmo com algum problema), então ele é considerado um estado *hard*.
-
-Cada verificação de host e serviço define o número de tentativas a serem executadas antes de assumir que uma alteração é permanente. Isso permite mais flexibilidade sobre quantas falhas devem ser tratadas como um problema real em vez de temporário. Definir o número de verificações como 1 fará com que todas as alterações sejam tratadas como um problema real (isso pode causar falsos alertas). 
-
-
-
-# <span style="color:#d86c00">**Capítulo 2: Instalando o Nagios 4**</span>
-
-Todo processo de instalação foi realizado seguindo a [documentação oficial](https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html#Ubuntu) do Nagios, usando o sistema operacional do Ubuntu 18.08 LTS.
-
-- Links
-
-  [Nagios Core - Installing Nagios Core From Source](https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html)
-
-  [Table of Contents](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/toc.html)
-
-
-
-## <span style="color:#d86c00">**Preparando o ambiente**</span>
-
-Inicialmente vamos baixar alguns pacotes que vamos usar durante a utilização do servidor.
-
-Segue o comando usado:
-
-```
-sudo apt-get install -y unzip zip tcpdump openssh-server mtr nmap perl python python3 vim curl htop wget bc gawk snmp snmpd libnet-snmp-perl
-
-# Descrição das aplicações que vão ser instaladas:
-
-	# UNZIP = Desarquivador para arquivos .zip;
-	# ZIP = Arquivador para arquivos .zip;
-	# TCPDUMP = Analisador de tráfego de Rede;
-	# openssh-server = Servidor SSH (Secure Shell), para acesso seguro a partir de máquinas remotas;
-	# MTR = Ferramenta traceroute de tela cheia em ncurses e X11;
-	# NMAP = Mapeador de Rede (fazer verificação de portas;
-	# PERL = Linguagem de extração e relatórios prática de Larry Wall;
-	# PYTHON = Linguagem interativa de alto nível orientada a objetos (versão 2 - padrão);
-	# PYTHON3 = Linguagem interativa de alto nível orientada a objetos (versão 3 - padrão);
-	# VIM = Editor VI melhorado;
-	# CURL = Ferramenta de linha de comando para transferir dados com sintaxe de URL;
-	# HTOP = Visualizador de processos interativo;
-	# WGET = Gerenciador de download;
-	# BC = Calculadora de linha de comando;
-	# GAWK = Linguagem AWK;
-	# SNMP = Aplicação cliente para utilizar o protocolo SNMP (Gerenciamento de redes);
-	# SNMPD = Aplicação servidor para utilizar o protocolo SNMP (Gerenciamento de redes);
-	# LIBNET-SNMP-PERL = Script de conexões SNMP.
-```
-
-## <span style="color:#d86c00">**Pré requisitos**</span>
-
-Para podermos compilar o Nagios precisamos atender aos pré  requisitos, caso contrário, teremos erro durante a compilação, abaixo  segue o comando que instala as dependências do Nagios.
-
-```
-sudo apt-get install -y autoconf gcc libc6 php7.2 php make libapache2-mod-php7.2 apache2 build-essential xinetd 
-
-# Descrição das aplicações que vão ser instaladas:
-	# Pré requisitos informados na documentação do Nagios
-		# AUTOCONF = Construtor automático de script configure (necessário para compilar);
-		# GCC = Compilador C;
-		# LIBC6 = Biblioteca C: Bibliotecas compartilhadas;
-		# PHP = Linguagem de script incorporada em HTML do servidor (padrão);
-		# MAKE = Utilitário de compilação;
-		# LIBAPACHE2-MOD-PHP = linguagem de script incorporada em HTML do servidor (módulo Apache 2) (padrão);
-		# APACHE = Servidor Web;
-		# LIBGD-DEV = Biblioteca de gráficos GD (versão de desenvolvimento).
-		
-	# Outras aplicações de desenvolvimento
-		# XINETD = substituto para o inetd com muitas melhorias.
-		# BUILD-ESSENTIALS = O pacote build-essential é uma referência para todos os pacotes necessários para compilar um pacote Debian. Geralmente inclui os compiladores e bibliotecas GCC / g ++ e alguns outros utilitários;
-```
-
-## 
-
-## <span style="color:#d86c00">**Baixando o Nagios Core**</span>
-
-Agora vamos baixar o pacote do Nagios para podermos compilá-lo.
-
-```
-# Entra na pasta /tmp:
-cd /tmp
-
-# Baixa o pacote do Nagios Core renomeando o arquivo baixado para nagioscore.tar.gz:
-wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/nagios-4.4.5.tar.gz
-
-# Descompactar o nagioscore.tar.gz:
-tar xzvf nagioscore.tar.gz
-
-# Entrar no nagioscore-nagios-4.4.5:
-cd nagioscore-nagios-4.4.5
-```
-
-
-
-### <span style="color:#d86c00">**Compilar o nagios core**</span>
-
-```
-# Vamos iniciar a preparação do ambiente para podermos compilar o pacote, passamos como argumento o arquivo de configuração do Nagios para o Apache, onde irá ficar o arquivo de apontamento do Nagios para que possamos acessá-lo pelo navegador:
-sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
-
-# Vamos criar os binários para instalação futura:
-sudo make all
-
-# Vamos criar o usuário e grupos do nagios (o grupo deve ser nagcmd, mas o comando abaixo cria o usuário NAGIOS e grupo NAGIOS).
-	# O comando 'make install-groups-users' irá criar uma conta do sistema e adicionar esse usuário no grupo do nagios:
-	sudo make install-groups-users
-
-# Adicionando o usuário www-data no grupo nagios como um grupo secundário:
-sudo usermod -a -G nagios www-data
-
-# Instalando os binários, CGIs e arquivos HTML gerados pelo 'make all':
-sudo make install
-
-# Instalando os arquivos de serviço/daemon e habilitando o serviço para iniciar no boot:
-sudo make install-daemoninit
-
-# Instalar o arquivo para termos comando externo no Nagios:
-sudo make install-commandmode
-
-# Instalando os arquivos de configuração SAMPLE, isso é necessário, pois, sem isso, o Nagios não irá iniciar, ele instala tudo que está dentro de '/usr/local/nagios/etc':
-sudo make install-config
-
-# Instalando os arquivos de configuração do servidor web Apache e definindo as configurações do Apache:
-	# Instalando o arquivo de configuração do Apache para a interface da web do Nagios (/etc/apache2/sites-enabled/nagios.conf):
-	sudo make install-webconf
-		
-	# Ativando a reescrita do módulo:
-	sudo a2enmod rewrite
-	
-	# Ativando o módulo CGI:
-	sudo a2enmod cgi
-
-# Liberando o apache no firewall do Ubuntu:
-sudo ufw allow Apache
-
-# Recarregando as regras do firewall:
-sudo ufw reload
-```
-
-[Explicação rewrite](https://httpd.apache.org/docs/current/mod/mod_rewrite.html).
-
-[Explicação CGI](https://en.wikibooks.org/wiki/Apache/CGI).
-
-
-
-#### <span style="color:#d86c00">**Criando uma conta de usuário no Nagios**</span>
-
-Agora vamos criar um usuário que poderá acessar a aplicação web do Nagios.
-
-```
-# Criando um usuário chamado 'nagiosadmin'
-sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
-
-# Mudando Dono e Grupo dono do arquivo 'htpasswd.users':
-sudo chown nagios. /usr/local/nagios/etc/htpasswd.users
-```
-
-
-
-#### <span style="color:#d86c00">**Manipuladores de eventos do Nagios**</span>
-
-Vamos copiar a pasta de notificação de eventos do Nagios para pasta de produção.
-
-```
-# Copiando a pasta 'eventhandlers' para '/usr/local/nagios/libexec/':
-sudo cp -R contrib/eventhandlers/ /usr/local/nagios/libexec/
-
-# Mudando usuário e dono da pasta 'eventhandlers':
-sudo chown -R nagios:nagios /usr/local/nagios/libexec/eventhandlers
-```
-
-
-
-#### <span style="color:#d86c00">**Reiniciando o Nagios/Apache**</span>
-
-Vamos reiniciar o apache e o Nagios para "aplicar" as mudanças.
-
-```
-# Reiniciando o Apache2:
-sudo systemctl restart apache2.service
-
-# Reiniciando o Nagios:
-sudo systemctl start nagios.service
-```
-
-
-
-Agora precisamos acessar o IP do servidor do Nagios para verificar se conseguimos acessar a aplicação web do Nagios, o usuário é **nagiosadmin**, a senha é a senha que você definiu.
-
-
-
-Se você esqueceu a senha, pode adicionar o usuário novamente usando o comando abaixo e digitar uma nova senha.
-
-```
-sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
-```
-
-
-
-Caso tenha conseguido acessar, você vera que todos os checks para o  localhost (servidor Nagios) estarão vermelhos, como na imagem abaixo:
-
-[![1573130380552](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1573130380552.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1573130380552.png)
-
-
-
-Isso se deve ao motivo de não termos os plugins necessários para a  verificação desses serviços, podemos ver isso clicando em alguns dos  serviços que estão sendo verificados (vamos pegar como exemplo o Current Load), podemos verificar no campo **Status Information** que o erro é devido ao arquivo (plugin) não ter sido encontrado.
-
-[![1573130571787](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1573130571787.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1573130571787.png)
-
-
-
-Para corrigir isso, vamos instalar os plugins padrões do Nagios.
-
-
-
-# <span style="color:#d86c00">**Capítulo 3: Instalando o Nagios Plugins**</span>
-
-Vamos instalar os plugins padrões do Nagios para que possamos ter uma monitoração padrão da ferramenta.
-
- 
-
-## <span style="color:#d86c00">**Pré requisitos**</span>
-
-Boa parte dos pré requisitos do Nagios-Plugins já foi instalado  anteriormente, vamos instalar apenas os que não foram instalados.
-
-```
-sudo apt install -y libmcrypt-dev libssl-dev dc gettext libmcrypt4
-
-# libmcrypt-dev = Arquivos de desenvolvimento da biblioteca de descriptografia/criptografia;
-# libssl-dev = Kit de ferramentas Secure Sockets Layer - arquivos de desenvolvimento;
-# dc = calculadora de precisão arbitrária polonesa-reversa dc GNU;
-# gettext = Utilitários de internacionalização GNU;
-# libmcrypt4 = Biblioteca de Des/Encriptação
-```
-
-
-
-## <span style="color:#d86c00">**Compilando os plugins**</span>
-
-Agora vamos baixar e compilar o pacote de plugins do Nagios.
-
-```
-# Entrando no /tmp:
-cd /tmp
-
-# Baixando o pacote do Nagios-Plugins:
-wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
-
-# Descompactando o pacote baixado:
-tar zxf nagios-plugins.tar.gz
-
-# Entrando na pasta descompactada do Nagios-Plugins:
-cd /tmp/nagios-plugins-release-2.2.1/
-
-# Instala alguns scripts para auxiliar na compilação:
-sudo ./tools/setup
-
-# Preparando o ambiente para a compilação:
-sudo ./configure
-
-# Vamos criar os binários para instalação futura:
-sudo make
-
-# Instalando os binários, CGIs e arquivos HTML gerados pelo 'make all':
-sudo make install
-
-# Mudando o usuário e grupo dos plugins para o Nagios:
-chown nagios. /usr/local/nagios/libexec/*
-```
-
-
-
-## <span style="color:#d86c00">**Reiniciando o daemon do Nagios**</span>
-
-```
-# Reinicia o daemon do Nagios:
-sudo systemctl restart nagios.service
-
-# Mostra o status do serviço do Nagios:
-sudo systemctl status nagios.service
-```
-
-
-
-Você pode verificar o arquivo de configuração do Nagios usando o comando `/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg`.
-
-
-
-Após isso você pode dar um `Re-schedule the next check of this service` nos serviços, até que eles venham a ficar com status OK, como na imagem abaixo:
-
-
-
-[![1573143150490](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1573143150490.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1573143150490.png)
-
-
-
-Aplicando o `Re-schedule the next check of this service` nos serviços: 
-
-
-
-[![1573143273027](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1573143273027.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1573143273027.png) 
-
-
-
-# <span style="color:#d86c00">**Capítulo 4: Configurando o Nagios**</span>
-
-Nessa sessão vamos ver os alguns dos principais arquivos de configuração do Nagios, para que eles servem e vamos configurar manualmente o arquivo de configurações principal do Nagios para que possamos ter um arquivo mais customizado.
+Nessa sessão vamos ver alguns dos principais arquivos de configuração do Nagios, para que eles servem e vamos configurar manualmente o arquivo de configurações principal do Nagios para que possamos ter um arquivo mais customizado.
 
 
 
 ## <span style="color:#d86c00">**Criando o arquivo de configuração principal**</span>
 
-O arquivo de configuração principal é chamado *nagios.cfg*, é o arquivo principal carregado durante a inicialização do Nagios. Ele contém várias diretivas que afetam como o daemon do Nagios Core opera. Este arquivo de configuração é lido pelo daemon do Nagios Core e pelos CGIs.
+O arquivo de configuração principal é chamado ***nagios.cfg***, é o arquivo principal carregado durante a inicialização do Nagios, ele contém várias diretivas que afetam como o daemon do Nagios Core opera. 
+Este arquivo de configuração é lido pelo daemon do Nagios Core e pelos CGIs (que fazem a comunicação com frontend do Nagios, em outras palavras, o "navegador" usado para visualizar eventos no dashboard do nagios).
 
-Não precisamos necessariamente editar ou recriar esse arquivo, o arquivo original já vem com todas as funcionalidades prontas e funcionais, a edição seria mais passar um pente fino, melhorando a performance das verificações do Nagios, mas isso depende muito da infraestrutura de TI usada, portanto, vamos explicar cada linha usada no arquivo *nagios.cfg*.
+Não precisamos necessariamente editar ou recriar esse arquivo, o arquivo original já vem com todas as funcionalidades prontas e funcionais, a edição seria mais passar um pente fino, melhorando a performance das verificações do Nagios, mas isso depende muito da infraestrutura de TI usada, portanto, vamos explicar algumas linha usada no arquivo ***nagios.cfg***.
 
 Para acessar o link que leva a documentação oficial do arquivo de configuração principal do Nagios, basta clicar [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html) .
 
-O arquivo nagios.cfg fica localizado no diretório /usr/local/nagios/etc/nagios.cfg, segue um exemplo:
+O arquivo ***nagios.cfg*** fica localizado no diretório `/usr/local/nagios/etc/nagios.cfg`:
 
 ```bash
 # Sessão de logs, 
@@ -844,7 +556,7 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
 
 
 
-#### <span style="color:#d86c00">**Arquivo(s) de Recursos**</span>
+## <span style="color:#d86c00">**Arquivo(s) de Recursos**</span>
 
 Os arquivos de recursos no geral, podem ser usados para armazenar macros definidas pelo usuário. O foco principal de usarmos arquivos de recursos, é poder armazenar informações confidenciais (como senhas), sem exibi-las aos CGIs.
 
@@ -870,9 +582,9 @@ Os arquivos de recursos geralmente contêm dados confidenciais, pois só podem s
 
 
 
-#### <span style="color:#d86c00">**Arquivos de definição de objeto**</span>
+## <span style="color:#d86c00">**Arquivos de definição de objeto**</span>
 
-Arquivos de objetos servem para que possamos definir `hosts`, `serviços`, `grupos de hosts`, `contatos`, `grupos de contatos`, `comandos`  e etc. Todos esses arquivos serão usados pelo Nagios quando ele estiver em funcionamento. Esses arquivos de objetos são definidos usando as diretivas cfg_dir (para definir um diretório) e cfg_file (para definir um arquivo), segue um exemplo padrão de diretivas do Nagios:
+Arquivos de objetos servem para que possamos definir `hosts`, `serviços`, `grupos de hosts`, `contatos`, `grupos de contatos`, `comandos`  etc. Todos esses arquivos serão usados pelo Nagios quando ele estiver em funcionamento. Esses arquivos de objetos são definidos usando as diretivas **cfg_dir** (para definir um diretório) e **cfg_file** (para definir um arquivo), segue um exemplo padrão de diretivas do Nagios:
 
 ```bash
 # Define o arquivo que conterá os comandos usado pelo Nagios,
@@ -900,34 +612,14 @@ cfg_file=/usr/local/nagios/etc/objects/templates.cfg
 # Aqui temos a criação do host (localhost), alguns serviços que serão
 # monitorados nele, dentre outras informações.
 cfg_file=/usr/local/nagios/etc/objects/localhost.cfg
+
+# Definição do arquivo de recursos que será usado.
+resource_file=/usr/local/nagios/etc/resource.cfg
 ```
 
-Ai você me pergunta, O que serial um objeto?
 
-Objetos são todos os elementos envolvidos na lógica de monitoramento e notificação do Nagios, como:
 
-- Serviços criados;
-- Grupos de Serviço;
-- Hosts criados;
-- Grupos de Hosts;
-- Contatos
-- Grupos de Contato
-- Comandos
-- Períodos de tempo
-- Escalações de notificação
-- Dependências de notificação e execução
-
-Basicamente, tudo que criamos ou usamos o padrão para poder monitorar os dispositivos em nossa Infraestrutura.
-
-https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/toc.html
-
-https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/config.html
-
-https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configobject.html
-
-https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html
-
-#### Arquivo de configuração CGI
+## <span style="color:#d86c00">**Arquivo de configuração CGI**</span>
 
 O arquivo de configuração CGI contém várias diretivas que afetam a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html) . Ele também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas.
 
@@ -937,4 +629,377 @@ A documentação para o arquivo de configuração CGI pode ser encontrada [aqui]
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/eventhandlers.html
+
+
+
+# <span style="color:#d86c00">**Instalando o Nagios 4**</span>
+
+Todo processo de instalação foi realizado seguindo a [documentação oficial](https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html#Ubuntu) do Nagios, usando o sistema operacional do Ubuntu 18.08 LTS.
+
+- Links
+
+  [Nagios Core - Installing Nagios Core From Source](https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html)
+
+  [Table of Contents](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/toc.html)
+
+
+
+## <span style="color:#d86c00">**Preparando o ambiente**</span>
+
+Inicialmente vamos baixar alguns pacotes que vamos usar durante a utilização do servidor.
+
+Segue o comando usado:
+
+```
+sudo apt-get install -y unzip zip tcpdump openssh-server mtr nmap perl python python3 vim curl htop wget bc gawk snmp snmpd libnet-snmp-perl
+
+# Descrição das aplicações que vão ser instaladas:
+
+	# UNZIP = Desarquivador para arquivos .zip;
+	# ZIP = Arquivador para arquivos .zip;
+	# TCPDUMP = Analisador de tráfego de Rede;
+	# openssh-server = Servidor SSH (Secure Shell), para acesso seguro a partir de máquinas remotas;
+	# MTR = Ferramenta traceroute de tela cheia em ncurses e X11;
+	# NMAP = Mapeador de Rede (fazer verificação de portas;
+	# PERL = Linguagem de extração e relatórios prática de Larry Wall;
+	# PYTHON = Linguagem interativa de alto nível orientada a objetos (versão 2 - padrão);
+	# PYTHON3 = Linguagem interativa de alto nível orientada a objetos (versão 3 - padrão);
+	# VIM = Editor VI melhorado;
+	# CURL = Ferramenta de linha de comando para transferir dados com sintaxe de URL;
+	# HTOP = Visualizador de processos interativo;
+	# WGET = Gerenciador de download;
+	# BC = Calculadora de linha de comando;
+	# GAWK = Linguagem AWK;
+	# SNMP = Aplicação cliente para utilizar o protocolo SNMP (Gerenciamento de redes);
+	# SNMPD = Aplicação servidor para utilizar o protocolo SNMP (Gerenciamento de redes);
+	# LIBNET-SNMP-PERL = Script de conexões SNMP.
+```
+
+## <span style="color:#d86c00">**Pré requisitos**</span>
+
+Para podermos compilar o Nagios precisamos atender aos pré  requisitos, caso contrário, teremos erro durante a compilação, abaixo  segue o comando que instala as dependências do Nagios.
+
+```
+sudo apt-get install -y autoconf gcc libc6 php7.2 php make libapache2-mod-php7.2 apache2 build-essential xinetd 
+
+# Descrição das aplicações que vão ser instaladas:
+	# Pré requisitos informados na documentação do Nagios
+		# AUTOCONF = Construtor automático de script configure (necessário para compilar);
+		# GCC = Compilador C;
+		# LIBC6 = Biblioteca C: Bibliotecas compartilhadas;
+		# PHP = Linguagem de script incorporada em HTML do servidor (padrão);
+		# MAKE = Utilitário de compilação;
+		# LIBAPACHE2-MOD-PHP = linguagem de script incorporada em HTML do servidor (módulo Apache 2) (padrão);
+		# APACHE = Servidor Web;
+		# LIBGD-DEV = Biblioteca de gráficos GD (versão de desenvolvimento).
+		
+	# Outras aplicações de desenvolvimento
+		# XINETD = substituto para o inetd com muitas melhorias.
+		# BUILD-ESSENTIALS = O pacote build-essential é uma referência para todos os pacotes necessários para compilar um pacote Debian. Geralmente inclui os compiladores e bibliotecas GCC / g ++ e alguns outros utilitários;
+```
+
+## 
+
+## <span style="color:#d86c00">**Baixando o Nagios Core**</span>
+
+Agora vamos baixar o pacote do Nagios para podermos compilá-lo.
+
+```
+# Entra na pasta /tmp:
+cd /tmp
+
+# Baixa o pacote do Nagios Core renomeando o arquivo baixado para nagioscore.tar.gz:
+wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/nagios-4.4.5.tar.gz
+
+# Descompactar o nagioscore.tar.gz:
+tar xzvf nagioscore.tar.gz
+
+# Entrar no nagioscore-nagios-4.4.5:
+cd nagioscore-nagios-4.4.5
+```
+
+
+
+### <span style="color:#d86c00">**Compilar o nagios core**</span>
+
+```
+# Vamos iniciar a preparação do ambiente para podermos compilar o pacote, passamos como argumento o arquivo de configuração do Nagios para o Apache, onde irá ficar o arquivo de apontamento do Nagios para que possamos acessá-lo pelo navegador:
+sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+
+# Vamos criar os binários para instalação futura:
+sudo make all
+
+# Vamos criar o usuário e grupos do nagios (o grupo deve ser nagcmd, mas o comando abaixo cria o usuário NAGIOS e grupo NAGIOS).
+	# O comando 'make install-groups-users' irá criar uma conta do sistema e adicionar esse usuário no grupo do nagios:
+	sudo make install-groups-users
+
+# Adicionando o usuário www-data no grupo nagios como um grupo secundário:
+sudo usermod -a -G nagios www-data
+
+# Instalando os binários, CGIs e arquivos HTML gerados pelo 'make all':
+sudo make install
+
+# Instalando os arquivos de serviço/daemon e habilitando o serviço para iniciar no boot:
+sudo make install-daemoninit
+
+# Instalar o arquivo para termos comando externo no Nagios:
+sudo make install-commandmode
+
+# Instalando os arquivos de configuração SAMPLE, isso é necessário, pois, sem isso, o Nagios não irá iniciar, ele instala tudo que está dentro de '/usr/local/nagios/etc':
+sudo make install-config
+
+# Instalando os arquivos de configuração do servidor web Apache e definindo as configurações do Apache:
+	# Instalando o arquivo de configuração do Apache para a interface da web do Nagios (/etc/apache2/sites-enabled/nagios.conf):
+	sudo make install-webconf
+		
+	# Ativando a reescrita do módulo:
+	sudo a2enmod rewrite
+	
+	# Ativando o módulo CGI:
+	sudo a2enmod cgi
+
+# Liberando o apache no firewall do Ubuntu:
+sudo ufw allow Apache
+
+# Recarregando as regras do firewall:
+sudo ufw reload
+```
+
+[Explicação rewrite](https://httpd.apache.org/docs/current/mod/mod_rewrite.html).
+
+[Explicação CGI](https://en.wikibooks.org/wiki/Apache/CGI).
+
+
+
+#### <span style="color:#d86c00">**Criando uma conta de usuário no Nagios**</span>
+
+Agora vamos criar um usuário que poderá acessar a aplicação web do Nagios.
+
+```
+# Criando um usuário chamado 'nagiosadmin'
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
+# Mudando Dono e Grupo dono do arquivo 'htpasswd.users':
+sudo chown nagios. /usr/local/nagios/etc/htpasswd.users
+```
+
+
+
+#### <span style="color:#d86c00">**Manipuladores de eventos do Nagios**</span>
+
+Vamos copiar a pasta de notificação de eventos do Nagios para pasta de produção.
+
+```
+# Copiando a pasta 'eventhandlers' para '/usr/local/nagios/libexec/':
+sudo cp -R contrib/eventhandlers/ /usr/local/nagios/libexec/
+
+# Mudando usuário e dono da pasta 'eventhandlers':
+sudo chown -R nagios:nagios /usr/local/nagios/libexec/eventhandlers
+```
+
+
+
+#### <span style="color:#d86c00">**Reiniciando o Nagios/Apache**</span>
+
+Vamos reiniciar o apache e o Nagios para "aplicar" as mudanças.
+
+```
+# Reiniciando o Apache2:
+sudo systemctl restart apache2.service
+
+# Reiniciando o Nagios:
+sudo systemctl start nagios.service
+```
+
+
+
+Agora precisamos acessar o IP do servidor do Nagios para verificar se conseguimos acessar a aplicação web do Nagios, o usuário é **nagiosadmin**, a senha é a senha que você definiu.
+
+
+
+Se você esqueceu a senha, pode adicionar o usuário novamente usando o comando abaixo e digitar uma nova senha.
+
+```
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+```
+
+
+
+Caso tenha conseguido acessar, você vera que todos os checks para o  localhost (servidor Nagios) estarão vermelhos, como na imagem abaixo:
+
+[![1573130380552](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1573130380552.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1573130380552.png)
+
+
+
+Isso se deve ao motivo de não termos os plugins necessários para a  verificação desses serviços, podemos ver isso clicando em alguns dos  serviços que estão sendo verificados (vamos pegar como exemplo o Current Load), podemos verificar no campo **Status Information** que o erro é devido ao arquivo (plugin) não ter sido encontrado.
+
+[![1573130571787](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1573130571787.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1573130571787.png)
+
+
+
+Para corrigir isso, vamos instalar os plugins padrões do Nagios.
+
+
+
+# <span style="color:#d86c00">**Instalando o Nagios Plugins**</span>
+
+Vamos instalar os plugins padrões do Nagios para que possamos ter uma monitoração padrão da ferramenta.
+
+ 
+
+## <span style="color:#d86c00">**Pré requisitos**</span>
+
+Boa parte dos pré requisitos do Nagios-Plugins já foi instalado  anteriormente, vamos instalar apenas os que não foram instalados.
+
+```
+sudo apt install -y libmcrypt-dev libssl-dev dc gettext libmcrypt4
+
+# libmcrypt-dev = Arquivos de desenvolvimento da biblioteca de descriptografia/criptografia;
+# libssl-dev = Kit de ferramentas Secure Sockets Layer - arquivos de desenvolvimento;
+# dc = calculadora de precisão arbitrária polonesa-reversa dc GNU;
+# gettext = Utilitários de internacionalização GNU;
+# libmcrypt4 = Biblioteca de Des/Encriptação
+```
+
+
+
+## <span style="color:#d86c00">**Compilando os plugins**</span>
+
+Agora vamos baixar e compilar o pacote de plugins do Nagios.
+
+```
+# Entrando no /tmp:
+cd /tmp
+
+# Baixando o pacote do Nagios-Plugins:
+wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
+
+# Descompactando o pacote baixado:
+tar zxf nagios-plugins.tar.gz
+
+# Entrando na pasta descompactada do Nagios-Plugins:
+cd /tmp/nagios-plugins-release-2.2.1/
+
+# Instala alguns scripts para auxiliar na compilação:
+sudo ./tools/setup
+
+# Preparando o ambiente para a compilação:
+sudo ./configure
+
+# Vamos criar os binários para instalação futura:
+sudo make
+
+# Instalando os binários, CGIs e arquivos HTML gerados pelo 'make all':
+sudo make install
+
+# Mudando o usuário e grupo dos plugins para o Nagios:
+chown nagios. /usr/local/nagios/libexec/*
+```
+
+
+
+## <span style="color:#d86c00">**Reiniciando o daemon do Nagios**</span>
+
+```
+# Reinicia o daemon do Nagios:
+sudo systemctl restart nagios.service
+
+# Mostra o status do serviço do Nagios:
+sudo systemctl status nagios.service
+```
+
+
+
+Você pode verificar o arquivo de configuração do Nagios usando o comando `/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg`.
+
+
+
+Após isso você pode dar um `Re-schedule the next check of this service` nos serviços, até que eles venham a ficar com status OK, como na imagem abaixo:
+
+
+
+[![1573143150490](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1573143150490.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1573143150490.png)
+
+
+
+Aplicando o `Re-schedule the next check of this service` nos serviços: 
+
+
+
+[![1573143273027](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1573143273027.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1573143273027.png) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## <span style="color:#d86c00">**Estados Soft e hard**</span>
+
+O Nagios funciona verificando se um host ou serviço específico está funcionando corretamente e armazenando seu status. Para evitar a detecção de falhas aleatórias e temporárias, o Nagios usa estados *soft* e *hard* para descrever qual é o status atual de um host ou serviço.
+
+Imagine que um administrador esteja reiniciando um servidor da Web e essa operação torne a conexão com as páginas da Web indisponível por 5 segundos. Como essas reinicializações geralmente são feitas à noite para diminuir o número de usuários afetados, esse é um período aceitável. No entanto, um problema pode ser que o Nagios tente se conectar ao servidor e observe que ele está realmente inoperante. Se depender apenas de um único resultado, o Nagios poderá acionar um alerta de que um servidor da Web está inoperante. Na verdade, ele voltaria a funcionar em alguns segundos, mas levaria alguns minutos para Nagios descobrir isso.
+
+Para situações onde o serviço ficou inativo por um curto período de tempo ou ou foi um falha momentânea, foram introduzidos estados de verificações *soft*. Quando um status é desconhecido ou é diferente de um status anterior (para o mesmo host/serviço), o Nagios testará novamente o host ou o serviço algumas vezes para garantir que a alteração seja permanente, ou seja, para garantir que o evento não tenha sido momentâneo. Assim o Nagios assume que o novo resultado é um estado *soft*. Após alguns testes *softs*, se o evento continuar acusando o mesmo status, isso significa que o novo estado é permanente (está mesmo com algum problema), então ele é considerado um estado *hard*.
+
+Cada verificação de host e serviço define o número de tentativas a serem executadas antes de assumir que uma alteração é permanente. Isso permite mais flexibilidade sobre quantas falhas devem ser tratadas como um problema real em vez de temporário. Definir o número de verificações como 1 fará com que todas as alterações sejam tratadas como um problema real (isso pode causar falsos alertas). 
+
+
+
+Para qualquer administrador, é importante saber que, se você tem um *roteador Y*, e ele estiver inativo, todas os dispositivos que estão atrás dele ficarão inalcançáveis. Caso você não leve isso em consideração, e esse *roteador Y* venha a ficar indisponível, você receberá uma lista de várias máquinas e serviços com falha e todas serão notificadas. 
+O Nagios permite definir dependências entre hosts para refletir a topologia de rede real e permite relações entre dispositivos para impedir que sua caixa de mensagem fique lotada de alertas. 
+
+Por exemplo, se um switch L3 que o conecta parte da sua rede estiver inoperante, o Nagios não executará verificações das máquinas subsequentes (depois do roteador). Isso é ilustrado na figura a seguir:
+
+![1574354656894](/home/bruno/git/NAGIOS/IMG/1574354656894.png)
+
+No caso acima, um dos links está fora, mesmo que os switchs e servidores estejam funcionando, o Nagios não consegue chegar até eles, dessa forma, será retornado indisponibilidade de todos os dispositivos atrás do link com problema, se a configuração correta do Nagios for feita, receberemos apenas um alerta do switch L3, e não de todos os dispositivos atrás do switch.
