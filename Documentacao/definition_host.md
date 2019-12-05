@@ -157,18 +157,36 @@
   
   Exemplo colocado no `define host` do servidor do Nagios:
   
-  <span style="color:#D2691E">notes_url                             Servidor do Nagios</span>
+  <span style="color:#D2691E">notes_url                            https://www.google.com.br</span>
 
 
 
   <span style="color:#8B008B">Segue imagem de como vai ficar o notes_url aplicada ao host:</span>
 
-![5454aas2s1d](/home/bruno/git/NAGIOS/IMG/5454aas2s1d.png)
+
+
+![5454aas2s1d](/home/bruno/git/NAGIOS/IMG/5454aas2s1d.png) 
 
 
 
 
-- action_url** - Esta diretiva é usada para definir uma URL opcional que pode ser usada para fornecer mais ações a serem executadas no host. Se você especificar um URL, verá um ícone vermelho "splat" nos CGIs (quando estiver visualizando informações do host) vinculado ao URL especificado aqui. Qualquer URL válido pode ser usado. Se você planeja usar caminhos relativos, o caminho base será o mesmo que o usado para acessar os CGIs (por exemplo, / cgi-bin / nagios / ).
+
+
+- **action_url** - Esta diretiva é usada para definir uma URL que pode ser usada para fornecer mais ações a serem executadas no host, o icone pode ser atribuido a informações de performance.
+  
+  Exemplo colocado no `define host` do servidor do Nagios:
+  
+  <span style="color:#D2691E">action_url                             https://www.google.com.br</span>
+
+
+
+  <span style="color:#8B008B">Segue imagem de como vai ficar o action_url aplicada ao host:</span>
+
+
+
+![a5fr51s5fr8y42f](/home/bruno/git/NAGIOS/IMG/a5fr51s5fr8y42f.png) 
+
+
 
 
 
