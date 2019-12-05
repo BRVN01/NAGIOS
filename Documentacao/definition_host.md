@@ -330,3 +330,38 @@ Essa variável é usada para definir coordenadas a serem usadas ao desenhar o ho
 #### <span style="color:#d86c00">**3d_coords**</span>
 
 Essa variável é usada para definir coordenadas a serem usadas ao desenhar o host no CGI statuswrl. As coordenadas podem ser números reais positivos ou negativos. A origem do desenho é (0.0,0.0,0.0). Para referência, o tamanho dos cubos do host desenhados é de 0,5 unidades de cada lado (o texto ocupa um pouco mais de espaço). As coordenadas que você especificar aqui são usadas como o centro do cubo host.
+
+
+
+## <span style="color:#d86c00">**Opções mais usadas**</span>
+
+Abaixo segue as propriedades atribuídas para o localhost, incluindo as variáveis herdadas:
+
+```bash
+define host {
+    host_name                       NOME
+    alias                           APELIDO
+    address                         IP
+    parents                         PAIS
+    check_command                   check-host-alive # ping.
+    check_interval                  1 # Intervalo entre is checks (em minutos).
+
+# Tempo para agendar uma nova verificação (em minutos).
+    retry_interval                  1 
+    max_check_attempts              5 # Tentativas para determinar o estado HARD.
+
+# Nome do período em que as verificações ativas serão feitas. 
+ 	check_period                    24x7 
+	contact_groups                  nagiosadmin # Grupo de contatos.
+	
+# Notificações que serão enviadas (DOWN, Recover e Inacessível).
+    notification_options            d,u,r
+    notification_interval           30 # Intervalo entre notificações (em minutos).
+    notification_period             24x7 # Período para notificações.
+    notifications_enabled           1 # Habilitar a notificação.
+    event_handler_enabled			1 # Habilitar event_handler.
+    flap_detection_enabled          1 # Habilitar a detecção por flap.
+    process_perf_data               1 # Habilitar o processamento de dados de desempenho.
+}
+```
+
