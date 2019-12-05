@@ -134,3 +134,50 @@
 
     Antes de tudo, você deve decidir se tem uma necessidade real de analisar dados de log arquivados para encontrar a causa exata de um problema. Você pode decidir que precisa desse recurso para alguns hosts ou serviços, mas dificilmente irá precisar para todos os hosts/serviços. 
     Você também pode achar que só precisa ativar o "monitoramento" para alguns estados de host ou serviço, em vez de todos eles. Por exemplo, você pode optar por ativar o "monitoramento" para os estados WARNING e CRÍTICOS de um serviço, mas não para os estados OK e DESCONHECIDO.
+    
+    
+
+- **notas** - Esta diretiva é usada para definir uma descrição para o host. Se você especificar uma observação aqui, será exibida no CGI de informações estendidas (quando estiver visualizando informações sobre o host especificado).
+
+  Exemplo colocado no `define host` do servidor do Nagios:
+
+  <span style="color:#D2691E">notes                             Servidor do Nagios</span>
+
+
+
+  <span style="color:#8B008B">Segue imagem de como vai ficar a descrição aplicada ao host:</span>
+
+
+
+![65466549864654](/home/bruno/git/NAGIOS/IMG/65466549864654.png)
+
+  
+
+- **notes_url** - Essa variável é usada para definir um URL opcional que pode ser usado para fornecer mais informações sobre o host. Se você especificar um URL, verá um ícone de pasta vermelha nos CGIs (quando estiver visualizando informações do host) vinculados ao URL especificado aqui. Qualquer URL válido pode ser usado. Se você planeja usar caminhos relativos, o caminho base será o mesmo que o usado para acessar os CGIs (por exemplo, / cgi-bin / nagios / ). Isso pode ser muito útil se você quiser disponibilizar informações detalhadas sobre o host, métodos de contato de emergência etc. para outras equipes de suporte.
+
+
+- **action_url** - Esta diretiva é usada para definir uma URL opcional que pode ser usada para fornecer mais ações a serem executadas no host. Se você especificar um URL, verá um ícone vermelho "splat" nos CGIs (quando estiver visualizando informações do host) vinculado ao URL especificado aqui. Qualquer URL válido pode ser usado. Se você planeja usar caminhos relativos, o caminho base será o mesmo que o usado para acessar os CGIs (por exemplo, / cgi-bin / nagios / ).
+
+  
+
+- **icon_image** - Essa variável é usada para definir o nome de uma imagem GIF, PNG ou JPG que deve ser associada a este host. Esta imagem será exibida nos vários locais nos CGIs. A imagem ficará melhor se tiver 40x40 pixels de tamanho. Supõe-se que as imagens para hosts estejam no subdiretório logos / no diretório de imagens HTML (por exemplo, / usr / local / nagios / share / images / logos ).
+
+  
+
+- **icon_image_alt** - Essa variável é usada para definir uma sequência opcional que é usada na tag ALT da imagem especificada pelo argumento <icon_image> .
+
+  
+
+- **vrml_image** - Essa variável é usada para definir o nome de uma imagem GIF, PNG ou JPG que deve ser associada a este host. Esta imagem será usada como o mapa de textura para o host especificado no CGI statuswrl . Diferente da imagem usada para a variável <icon_image> , esta provavelmente não deve ter nenhuma transparência. Se isso acontecer, o objeto host parecerá um pouco estranho. Supõe-se que as imagens para hosts estejam no subdiretório logos / no diretório de imagens HTML (por exemplo, / usr / local / nagios / share / images / logos ).
+
+  
+
+- **statusmap_image** - Essa variável é usada para definir o nome de uma imagem que deve ser associada a esse host no CGI do mapa de status . Você pode especificar uma imagem JPEG, PNG e GIF, se desejar, embora eu sugira fortemente o uso de uma imagem no formato GD2, pois outros formatos resultam em muito tempo desperdiçado da CPU quando a imagem do statusmap é gerada. As imagens GD2 podem ser criadas a partir de imagens PNG usando o utilitário pngtogd2 fornecido com a biblioteca gd de Thomas Boutell . As imagens GD2 devem ser criadas em arquivos descompactadospara minimizar a carga da CPU quando o CGI do mapa de status estiver gerando a imagem do mapa de rede. A imagem ficará melhor se tiver 40x40 pixels de tamanho. Você pode deixar essas opções em branco se não estiver usando o CGI do mapa de status. Supõe-se que as imagens para hosts estejam no subdiretório logos / no diretório de imagens HTML (por exemplo, / usr / local / nagios / share / images / logos ).
+
+  
+
+- **2d_coords** - Essa variável é usada para definir coordenadas a serem usadas ao desenhar o host no mapa de statusCGI. As coordenadas devem ser dadas em números inteiros positivos, pois correspondem a pixels físicos na imagem gerada. A origem do desenho (0,0) está no canto superior esquerdo da imagem e se estende na direção x positiva (à direita) ao longo da parte superior da imagem e na direção y positiva (para baixo) ao longo da mão esquerda lado da imagem. Para referência, o tamanho dos ícones desenhados é geralmente de cerca de 40x40 pixels (o texto ocupa um pouco de espaço extra). As coordenadas que você especificar aqui são para o canto superior esquerdo do ícone do host que é desenhado. Nota: Não se preocupe com o máximo de coordenadas x e y que você pode usar. O CGI calculará automaticamente as dimensões máximas da imagem criada com base nas maiores coordenadas x e y que você especificar.
+
+  
+
+- **3d_coords** - Essa variável é usada para definir coordenadas a serem usadas ao desenhar o host no CGI statuswrl . As coordenadas podem ser números reais positivos ou negativos. A origem do desenho é (0.0,0.0,0.0). Para referência, o tamanho dos cubos do host desenhados é de 0,5 unidades de cada lado (o texto ocupa um pouco mais de espaço). As coordenadas que você especificar aqui são usadas como o centro do cubo host.

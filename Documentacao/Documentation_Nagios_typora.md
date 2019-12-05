@@ -914,7 +914,7 @@ notification_period				Nome do período usado nas notificações.
 notification_options			[d,u,r,f,s]
 notifications_enabled			[0/1]
 stalking_options				[o,d,u,N]
-notes							note_string
+notes							CAMPO COM INFORMAÇÕES.
 notes_url						url
 action_url						url
 icon_image						image_file
@@ -926,7 +926,7 @@ statusmap_image					image_file
 }    
 ```
 
-Para que você possa verificar as opções existentes na definição de um objeto do tipo host, consulte o [arquivo aqui](definition_host.html).
+<span style="color:#8B008B">Para as opções utilizadas acima que não tiverem uma descrição, por favor, verifique a descrição das opções existentes na definição de um objeto do tipo host, consultando</span> [este link](definition_host.html).
 
 a
 
