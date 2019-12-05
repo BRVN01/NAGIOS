@@ -173,7 +173,7 @@
 
 
 - **action_url** - Esta diretiva é usada para definir uma URL que pode ser usada para fornecer mais ações a serem executadas no host, o icone pode ser atribuido a informações de performance.
-  
+
   Exemplo colocado no `define host` do servidor do Nagios:
   
   <span style="color:#D2691E">action_url                             https://www.google.com.br</span>
@@ -191,9 +191,25 @@
 
 
 
-- **icon_image** - Essa variável é usada para definir o nome de uma imagem GIF, PNG ou JPG que deve ser associada a este host. Esta imagem será exibida nos vários locais nos CGIs. A imagem ficará melhor se tiver 40x40 pixels de tamanho. Supõe-se que as imagens para hosts estejam no subdiretório logos / no diretório de imagens HTML (por exemplo, / usr / local / nagios / share / images / logos ).
+- **icon_image** - Essa variável é usada para definir o nome de uma imagem GIF, PNG ou JPG que deve ser associada a este host. Esta imagem será exibida nos vários locais nos CGIs. A imagem ficará melhor se tiver 40x40 pixels de tamanho. 
+  O diretório padrão para as imagens é `/usr/local/nagios/share/images/logos`.
 
-  
+  Exemplo colocado no `define host` do servidor do Nagios:
+
+  <span style="color:#D2691E">icon_image                             debian.png</span>
+
+
+
+  <span style="color:#8B008B">Segue imagem de como vai ficar o icon_image aplicada ao host:</span>
+
+
+
+![a21asd65sf2nhk](/home/bruno/git/NAGIOS/IMG/a21asd65sf2nhk.png) 
+
+
+
+
+
 
 - **icon_image_alt** - Essa variável é usada para definir uma sequência opcional que é usada na tag ALT da imagem especificada pelo argumento <icon_image> .
 
