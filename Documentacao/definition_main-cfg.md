@@ -2,7 +2,12 @@
 
 [TOC]
 
+<span style="color:red">**Para as outras explicações de cada configuração, vou deixar um link  do conteúdo oficial para que você possa verificar cada opção existente a ser utilizada no arquivo de configuração principal, acesse  [neste link](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html).**</span>
+
+
+
 #### <span style="color:#d86c00">**CFG_LOG **</span>
+
 Especifica onde o Nagios deve criar seu arquivo de log principal. Essa deve ser a primeira variável que você define no seu arquivo de configuração, pois o Nagios tentará gravar neste arquivo os erros que - encontrar nos demais dados de configuração.
 
 
@@ -91,11 +96,6 @@ Os CGIs não tentam ler os arquivos de recursos, portanto, você pode definir pe
 Os CGIs devem ter acesso de leitura a esse arquivo para funcionar corretamente. Este arquivo é excluído toda vez que o Nagios para e é recriado quando é iniciado. 
 
 No Nagios Core 4, definir o caminho do status_flie como '/dev/null' fará com que o Nagios Core não armazene informações de status. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
-
-
-
-#### <span style="color:#d86c00">**STATUS_FILE**</span>
-Este é o arquivo que o Nagios usa para armazenar as informações atuais de status, comentários e tempo de inatividade. Esse arquivo é usado pelos CGIs para que o status atual do monitoramento possa ser relatado por meio de uma interface da web (sem isso o Nagios não irá reportar nada no dashboard). Os CGIs devem ter acesso de leitura a esse arquivo para funcionar corretamente. Este arquivo é excluído toda vez que o Nagios para e é recriado quando é iniciado. No Nagios Core 4, definir o caminho do status_flie como '/dev/null' fará com que o Nagios Core não armazene informações de status. Isso pode ser feito para acelerar as operações, mas não deve ser feito se os CGIs forem usados.
 
 
 
@@ -312,7 +312,7 @@ Nota: Se você tiver a retenção de estado ativada, o Nagios ignorará essa con
 
 
 #### <span style="color:#d86c00">**ACCEPT_PASSIVE_SERVICE_CHECKS**</span>
-Esta opção determina se o Nagios aceitará ou não [as verificações passivas de serviço](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/passivechecks.html) quando reiniciado/iniciado inicialmente. Se esta opção estiver desabilitada, o Nagios não aceitará nenhuma verificação passiva de serviço. Nota: Se você tiver a [retenção de estado](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information) ativada, o Nagios ignorará essa configuração quando reiniciado/iniciado e usará a última configuração conhecida para esta opção (conforme armazenada no [arquivo de retenção de estado](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#state_retention_file) ), a *menos que* você desative a opção [use_retained_program_state](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#use_retained_program_state) . Se você deseja alterar esta opção quando a retenção de estado estiver ativa (e o [use_retained_program_state](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#use_retained_program_state) estiver ativado), será necessário usar o [comando externo](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/extcommands.html) apropriado ou alterá-lo através da interface da web. Os valores são os seguintes:
+Esta opção determina se o Nagios aceitará ou não [as verificações passivas de serviço](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/passivechecks.html) quando reiniciado/iniciado inicialmente. Se esta opção estiver desabilitada, o Nagios não aceitará nenhuma verificação passiva de serviço.
 
 
 
