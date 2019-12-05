@@ -519,7 +519,7 @@ Abaixo segue uma descrição de cada variável usada no arquivo principal:
 - **RETAINED_PROCESS_SERVICE_ATTRIBUTE_MASK**
   AVISO: Este é um recurso avançado. Você precisará ler o código fonte do Nagios para usar essa opção de maneira eficaz.
 
-  Essas opções determinam quais atributos do processo NÃO são retidos nas reinicializações do programa. Existem duas máscaras porque geralmente existem atributos de processo de host e serviço separados que podem ser alterados. Por exemplo, as verificações de host podem ser desativadas no nível do programa, enquanto as verificações de serviço ainda estão ativadas. Os valores para essas opções são AND bit a bit dos valores especificados nas definições "MODATTR_" no arquivo de código-fonte include /common.h. Por padrão, todos os atributos do processo são mantidos.
+  Essas opções determinam quais atributos do processo NÃO são retidos nas reinicializações do programa. Existem duas máscaras porque geralmente existem atributos de processo de host e serviço separados que podem ser alterados. Por exemplo, as verificações de host podem ser desativadas no nível do programa,iscover interesting projects and people to populate your personal news fe enquanto as verificações de serviço ainda estão ativadas. Os valores para essas opções são AND bit a bit dos valores especificados nas definições "MODATTR_" no arquivo de código-fonte include /common.h. Por padrão, todos os atributos do processo são mantidos.
 
 - **RETAINED_CONTACT_HOST_ATTRIBUTE_MASK**
   AVISO: Este é um recurso avançado. Você precisará ler o código fonte do Nagios para usar essa opção de maneira eficaz.
@@ -572,7 +572,7 @@ Conteúdo de *resource.cfg*:
 $USER1$=/usr/local/nagios/libexec
 
 # Seta $USER2$ com o caminho para os manipuladores de eventos (essa opção está
-comentada, ou seja, não entrará em vigor no funcionamento do sistema):
+# comentada, ou seja, não entrará em vigor no funcionamento do sistema):
 #$USER2$=/usr/local/nagios/libexec/eventhandlers
 
 # Aqui temos um exemplo de como poderiamos colocar usuário e senha para sere usados em comandos do Nagios (também não entrará em vigor no funcionamento do sistema):
@@ -859,7 +859,7 @@ define host {
 }
 ```
 
-Nesse caso, o host *Server1* acrescentará o valor de sua variável local de *hostgroups* ao valor de *generichosttemplate*. A definição efetiva resultante de *Server1* é a seguinte:
+Nesse caso, o host *Server1* terá não só o valor de sua variável local, mas também da variável herdada:
 
 ```bash
 define host {
@@ -872,17 +872,119 @@ define host {
 
 
 
+### <span style="color:#d86c00">**Definindo Host**</span>
 
+Vamos abordar a criação de um objeto de definição cuja funcionalidade é criar um host, como as opções a serem utilizadas são vastas, estarei mostrando um exemplo completo do que o objeto `define host` pode receber e então falaremos sobre cada opção a ser usada.
 
+```
+define host {
+host_name						Nome dess host.
+alias							Apelido para esse host.
+display_name					Nome que será exibido na interface web.
+address							Endereço IP do host.
+parents							Nome do host que será o pai.
+importance
+hostgroups						Nome(s) de grupo de hosts.
+check_command					Nome do comando a ser usado.
+initial_state					[o,d,u]
+max_check_attempts
+check_interval
+retry_interval
+active_checks_enabled			[0/1]
+passive_checks_enabled			[0/1]
+check_period					Nome do periodo que as verificações ativas serão  feitas.
+obsess_over_host|obsess			[0/1]
+check_freshness					[0/1]
+freshness_threshold
+event_handler					command_name
+event_handler_enabled			[0/1]
+low_flap_threshold
+high_flap_threshold
+flap_detection_enabled			[0/1]
+flap_detection_options			[o,d,u]
+process_perf_data				[0/1]
+retain_status_information		[0/1]
+retain_nonstatus_information	[0/1]
+contacts						contacts
+contact_groups					contact_groups
+notification_interval			#
+first_notification_delay		#
+notification_period				timeperiod_name
+notification_options			[d,u,r,f,s]
+notifications_enabled			[0/1]
+stalking_options				[o,d,u,N]
+notes							note_string
+notes_url						url
+action_url						url
+icon_image						image_file
+icon_image_alt					alt_string
+vrml_image						image_file
+statusmap_image					image_file
+2d_coords						x_coord,y_coord
+3d_coords						x_coord,y_coord,z_coord
+}    
+```
 
+- **display_name** - Se não especificado, o padrão será o valor especificado para a diretiva *host_name*. Os CGIs atuais não usam essa opção, embora versões futuras da interface da web os usem (funciona melhor no Icinga).
 
+  
 
+- **importance** - A importância é usada para determinar se as notificações devem ser enviadas para um contato, se o valor de importância do host mais os valores de importância de todos os serviços do host forem maiores ou iguais à importância mínima do contato, o contato será notificado. 
 
+  Por exemplo, você pode definir esse valor e a importância mínima dos contatos para que um administrador do sistema seja notificado quando um servidor de desenvolvimento for desativado, mas o CIO será notificado apenas quando o servidor de banco de dados de comércio eletrônico de produção da empresa estiver inativo.
 
+  
 
+- **parents** - Podemos colocar mais de um pai para um host, batando apenas separar por vírgula.
 
+  
 
+- **initial_state** -  Por padrão, o Nagios assume que todos os hosts estão *UP* quando iniciados. Você pode substituir o estado inicial de um host usando esta diretiva. As opções válidas são: **o** = UP, **d** = DOWN e **u** = INACESSÍVEL.
 
+  
+
+- **max_check_attempts** - Esta diretiva é usada para definir o número de vezes que o Nagios tentará novamente o comando de verificação do host se retornar qualquer estado diferente de OK. Definir esse valor como 1 fará com que o Nagios gere um alerta sem tentar novamente a verificação do host. Nota: Se você não deseja verificar o status do host, ainda deve configurá-lo com um valor mínimo de 1. Para ignorar a verificação do host, deixe a opção *check_command em* branco.
+
+  
+
+- **check_interval** -  Esta diretiva é usada para definir o número de "unidades de tempo" entre verificações agendadas regularmente do host. A menos que você tenha alterado a diretiva [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60, esse número significará minutos. Mais informações sobre esse valor podem ser encontradas na documentação de [agendamento de verificação](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/checkscheduling.html).
+
+  
+
+- **retry_interval** -  Esta diretiva é usada para definir o número de "unidades de tempo" a aguardar antes de agendar uma nova verificação dos hosts. Os hosts são reagendados no intervalo de novas tentativas quando mudam para um estado não UP. 
+
+  Depois que o host tiver sido verificado de novo pela quantidade de vezes estabelecidas pelo **max_check_attempts** e nenhuma alteração tiver sido verificada, ele voltará a ser agendado na sua taxa "normal", conforme definido pelo valor **check_interval**. A menos que você tenha alterado a diretiva [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60, esse número significará minutos.
+
+  
+
+- **active_checks_enabled** - Esta diretiva é usada para determinar se as verificações ativas (agendadas regularmente ou sob demanda) deste host estão ativadas. Valores: <span style="color:#4682B4">0 = desativar verificações de host ativo</span>, <span style="color:#4682B4">1 = ativar verificações de host ativo</span> (<span style="color:red">**padrão**</span>).
+
+  
+
+- **passive_checks_enabled** - Esta diretiva é usada para determinar se as verificações passivas estão ou não ativadas para este host. Valores: <span style="color:#4682B4">0 = desativar verificações passivas de host</span>, <span style="color:#4682B4">1 = ativar verificações passivas de host</span> (<span style="color:red">**padrão**</span>).
+
+  
+
+- **obsess_over_host | obsess** - Essa diretiva determina se as verificações do host serão ou não "obcecadas" pelo uso do comando ochp_com . Valores: <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:red">**padrão**</span>).
+
+  
+
+- **check_freshness** -  Esta diretiva é usada para determinar se as [verificações de atualização](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/freshness.html) estão ativadas ou não para este host. Valores:Valores: <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:red">**padrão**</span>).
+
+  
+
+- **freshness_threshold** - Esta diretiva é usada para especificar o limite de atualização (em segundos) para este host. Se você definir esta diretiva como um valor 0, o Nagios determinará um limite de atualização a ser usado automaticamente.
+
+  ​	
+
+- **event_handler** -  Esta diretiva é usada para especificar o *nome abreviado* do [comando](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#command) que deve ser executado sempre que uma alteração no estado do host for detectada (ou seja, sempre que for down ou recovers). 
+  Leia a documentação sobre [manipuladores de eventos](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/eventhandlers.html) para obter uma explicação mais detalhada de como escrever scripts para manipular eventos. A quantidade máxima de tempo que o comando manipulador de eventos pode executar é controlada pela opção [event_handler_timeout](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#event_handler_timeout).
+
+  
+
+- **event_handler_enabled** - Esta diretiva é usada para determinar se o manipulador de eventos para este host está ativado ou não. Valores: <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:red">**padrão**</span>).
+
+a
 
 
 
