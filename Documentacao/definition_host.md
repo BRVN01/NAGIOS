@@ -195,7 +195,7 @@ Esta diretiva determina para quais estados "monitorando" o host o está ativado.
 
 
 
-#### <span style="color:#d86c00">**notas**</span>
+#### <span style="color:#d86c00">**notes**</span>
 
 Esta diretiva é usada para definir uma descrição para o host. Se você especificar uma observação aqui, será exibida no CGI de informações estendidas (quando estiver visualizando informações sobre o host especificado).
 
