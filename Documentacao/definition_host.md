@@ -187,8 +187,9 @@ Esta diretiva determina para quais estados "monitorando" o host o está ativado.
 
   
   
+
 <span style="color:#8B008B">**Devo ativar o stalking?**</span>
-  
+
   Antes de tudo, você deve decidir se tem uma necessidade real de analisar dados de log arquivados para encontrar a causa exata de um problema. Você pode decidir que precisa desse recurso para alguns hosts ou serviços, mas dificilmente irá precisar para todos os hosts/serviços. 
   Você também pode achar que só precisa ativar o "monitoramento" para alguns estados de host ou serviço, em vez de todos eles. Por exemplo, você pode optar por ativar o "monitoramento" para os estados WARNING e CRÍTICOS de um serviço, mas não para os estados OK e DESCONHECIDO.
 
@@ -206,9 +207,7 @@ Exemplo colocado no `define host` do servidor do Nagios:
 
   <span style="color:#8B008B">Segue imagem de como vai ficar a descrição aplicada ao host:</span>
 
-
-
-![65466549864654](/home/bruno/git/NAGIOS/IMG/65466549864654.png)
+[![65466549864654](https://github.com/BRVN01/NAGIOS/raw/master/IMG/65466549864654.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/65466549864654.png)
 
   
 
@@ -226,7 +225,7 @@ Exemplo colocado no `define host` do servidor do Nagios:
 
 
 
-![5454aas2s1d](/home/bruno/git/NAGIOS/IMG/5454aas2s1d.png) 
+[![5454aas2s1d](https://github.com/BRVN01/NAGIOS/raw/master/IMG/5454aas2s1d.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/5454aas2s1d.png) 
 
 
 
@@ -246,7 +245,7 @@ Exemplo colocado no `define host` do servidor do Nagios:
 
 
 
-![a5fr51s5fr8y42f](/home/bruno/git/NAGIOS/IMG/a5fr51s5fr8y42f.png) 
+[![a5fr51s5fr8y42f](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a5fr51s5fr8y42f.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a5fr51s5fr8y42f.png) 
 
 
 
@@ -265,7 +264,7 @@ Exemplo colocado no `define host` do servidor do Nagios:
 
 
 
-![a21asd65sf2nhk](/home/bruno/git/NAGIOS/IMG/a21asd65sf2nhk.png) 
+[![a21asd65sf2nhk](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a21asd65sf2nhk.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a21asd65sf2nhk.png) 
 
 
 
@@ -284,7 +283,7 @@ Exemplo colocado no `define host` do servidor do Nagios:
 
 
 
-![a782162sd1s6f](/home/bruno/git/NAGIOS/IMG/a782162sd1s6f.png)
+[![a782162sd1s6f](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a782162sd1s6f.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a782162sd1s6f.png)
 
 
 
@@ -304,8 +303,7 @@ Exemplo colocado no `define host` do servidor do Nagios:
 
   
 
-  ![a4d1fe1g6r1gg5e](/home/bruno/git/NAGIOS/IMG/a4d1fe1g6r1gg5e.png)  
-
+[![a4d1fe1g6r1gg5e](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a4d1fe1g6r1gg5e.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a4d1fe1g6r1gg5e.png)
 
 
 #### <span style="color:#d86c00">**statusmap_image**</span>
