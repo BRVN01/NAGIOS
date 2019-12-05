@@ -153,12 +153,25 @@
 
   
 
-- **notes_url** - Essa variável é usada para definir um URL opcional que pode ser usado para fornecer mais informações sobre o host. Se você especificar um URL, verá um ícone de pasta vermelha nos CGIs (quando estiver visualizando informações do host) vinculados ao URL especificado aqui. Qualquer URL válido pode ser usado. Se você planeja usar caminhos relativos, o caminho base será o mesmo que o usado para acessar os CGIs (por exemplo, / cgi-bin / nagios / ). Isso pode ser muito útil se você quiser disponibilizar informações detalhadas sobre o host, métodos de contato de emergência etc. para outras equipes de suporte.
-
-
-- **action_url** - Esta diretiva é usada para definir uma URL opcional que pode ser usada para fornecer mais ações a serem executadas no host. Se você especificar um URL, verá um ícone vermelho "splat" nos CGIs (quando estiver visualizando informações do host) vinculado ao URL especificado aqui. Qualquer URL válido pode ser usado. Se você planeja usar caminhos relativos, o caminho base será o mesmo que o usado para acessar os CGIs (por exemplo, / cgi-bin / nagios / ).
-
+- **notes_url** - Essa diretiva é usada para definir uma URL que pode ser usado para fornecer mais informações sobre o host.
   
+  Exemplo colocado no `define host` do servidor do Nagios:
+  
+  <span style="color:#D2691E">notes_url                             Servidor do Nagios</span>
+
+
+
+  <span style="color:#8B008B">Segue imagem de como vai ficar o notes_url aplicada ao host:</span>
+
+![5454aas2s1d](/home/bruno/git/NAGIOS/IMG/5454aas2s1d.png)
+
+
+
+
+- action_url** - Esta diretiva é usada para definir uma URL opcional que pode ser usada para fornecer mais ações a serem executadas no host. Se você especificar um URL, verá um ícone vermelho "splat" nos CGIs (quando estiver visualizando informações do host) vinculado ao URL especificado aqui. Qualquer URL válido pode ser usado. Se você planeja usar caminhos relativos, o caminho base será o mesmo que o usado para acessar os CGIs (por exemplo, / cgi-bin / nagios / ).
+
+
+
 
 - **icon_image** - Essa variável é usada para definir o nome de uma imagem GIF, PNG ou JPG que deve ser associada a este host. Esta imagem será exibida nos vários locais nos CGIs. A imagem ficará melhor se tiver 40x40 pixels de tamanho. Supõe-se que as imagens para hosts estejam no subdiretório logos / no diretório de imagens HTML (por exemplo, / usr / local / nagios / share / images / logos ).
 
