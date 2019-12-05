@@ -75,12 +75,12 @@ Nessa sessão vamos ver alguns dos principais arquivos de configuração do Nagi
 
 ## <span style="color:#d86c00">**Criando o arquivo de configuração principal**</span>
 
-O arquivo de configuração principal é chamado ***nagios.cfg***, é o arquivo principal carregado durante a inicialização do Nagios, ele contém várias diretivas que afetam como o daemon do Nagios Core opera. 
+O arquivo de configuração principal é chamado <span style="color:#2E8B57">***nagios.cfg***</span>, é o arquivo principal carregado durante a inicialização do Nagios, ele contém várias diretivas que afetam como o daemon do Nagios Core opera. 
 Este arquivo de configuração é lido pelo daemon do Nagios Core e pelos CGIs (que fazem a comunicação com frontend do Nagios, em outras palavras, o "navegador" usado para visualizar eventos no dashboard do nagios).
 
-Não precisamos necessariamente editar ou recriar esse arquivo, o arquivo original já vem com todas as funcionalidades prontas e funcionais, a edição seria mais passar um pente fino, melhorando a performance das verificações do Nagios, mas isso depende muito da infraestrutura de TI usada, portanto, vamos explicar algumas linha usada no arquivo ***nagios.cfg***.
+Não precisamos necessariamente editar ou recriar esse arquivo, o arquivo original já vem com todas as funcionalidades prontas e funcionais, a edição seria mais passar um pente fino, melhorando a performance das verificações do Nagios, mas isso depende muito da infraestrutura de TI usada, portanto, vamos explicar algumas linha usada no arquivo <span style="color:#2E8B57">***nagios.cfg***</span>.
 
-Para acessar o link que leva a documentação oficial do arquivo de configuração principal do Nagios, basta clicar [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html) .
+Para acessar o link que leva a documentação oficial do arquivo de configuração principal do Nagios, basta clicar [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html).
 
 O arquivo ***nagios.cfg*** fica localizado no diretório `/usr/local/nagios/etc/nagios.cfg`:
 
@@ -242,7 +242,7 @@ check_for_orphaned_services=1
 # Opção de verificação de host órfão
 check_for_orphaned_hosts=1
 
-#
+# Ativar a verificação em segundos para um serviço
 check_service_freshness=1
 
 # Opção de verificação de atualização de serviço (em segundos)
@@ -580,7 +580,7 @@ $USER1$=/usr/local/nagios/libexec
 #$USER4$=somepassword
 ```
 
-Os arquivos de recursos geralmente contêm dados confidenciais, pois só podem ser usados em definições de objetos e não é possível ler seus valores na interface da web. Isso torna possível ocultar senhas para vários serviços confidenciais dos administradores do Nagios sem privilégios adequados. Podemos ter até 32 macros (variáveis), denominadas $USER1$, $USER2$ ... $USER32$.
+Os arquivos de recursos geralmente contêm dados confidenciais, pois só podem ser usados em definições de objetos e não é possível ler seus valores na interface da web. Isso torna possível ocultar senhas para vários serviços confidenciais dos administradores do Nagios sem privilégios adequados. Podemos ter até 32 macros (variáveis), denominadas <span style="color:#2E8B57">**$USER1$**</span>, <span style="color:#2E8B57">**$USER2$**</span> ... <span style="color:#2E8B57">**$USER32$**</span>.
 
 
 
@@ -594,7 +594,7 @@ A documentação para o arquivo de configuração CGI pode ser encontrada [aqui]
 
 ## <span style="color:#d86c00">**Arquivos de definição de objeto**</span>
 
-Arquivos de objetos servem para que possamos definir `hosts`, `serviços`, `grupos de hosts`, `contatos`, `grupos de contatos`, `comandos`  etc. Todos esses arquivos serão usados pelo Nagios quando ele estiver em funcionamento. Esses arquivos de objetos são definidos usando as diretivas **cfg_dir** (para definir um diretório) e **cfg_file** (para definir um arquivo), segue um exemplo padrão de diretivas do Nagios:
+Arquivos de objetos servem para que possamos definir `hosts`, `serviços`, `grupos de hosts`, `contatos`, `grupos de contatos`, `comandos`  etc. Todos esses arquivos serão usados pelo Nagios quando ele estiver em funcionamento. Esses arquivos de objetos são definidos usando as diretivas <span style="color:#2E8B57">**cfg_dir**</span> (para definir um diretório) e <span style="color:#2E8B57">**cfg_file**</span> (para definir um arquivo), segue um exemplo padrão de diretivas do Nagios:
 
 ```bash
 # Define o arquivo que conterá os comandos usado pelo Nagios,
@@ -641,11 +641,12 @@ Aqui vamos verificar como definir objetos no Nagios. Todo objeto terá 3 diretiv
 
 - **use **
 
-  Esta variável faz com que seu objeto atual, possa herdar valores de outro objetos, apenas se a opção ***use*** for usada no objeto atual, para isso, basta passar o **name** do objeto que você quer herdar as propriedades como valor da variável ***use***, exemplo: 
+  Esta variável faz com que seu objeto atual, possa herdar valores de outro objetos, apenas se a opção
+  <span style="color:#2E8B57">use</span> for usada no objeto atual, para isso, basta passar o <span style="color:#2E8B57">name</span> do objeto que você quer herdar as propriedades como valor da variável <span style="color:#2E8B57">use</span>, exemplo: 
 
-  - use                             generic-host
+  - <span style="color:#D2691E">use                             generic-host</span>
 
-    Nesse caso, vamos herdar as propriedades do objeto ***generic-host*** (***generic-host*** é o nome de um objeto que já foi criado anteriormente).
+    Nesse caso, vamos herdar as propriedades do objeto <span style="color:#2E8B57">generic-host</span> (***generic-host*** é o nome de um objeto que já foi criado anteriormente).
 
   
 
@@ -664,7 +665,7 @@ definir host {
 }
 ```
 
-A variável faltante acima seria o ***host_name***, mas esse objeto só irá nos servir como um modelo para ser herdado, não precisamos registra-lo (como um host válido), porque ele está incompleto, sendo assim dessa forma ele não será um host e sim um modelo em outras palavras.
+A variável faltante acima seria o <span style="color:#2E8B57">*host_name*</span>, mas esse objeto só irá nos servir como um modelo para ser herdado, não precisamos registra-lo (como um host válido), porque ele está incompleto, sendo assim dessa forma ele não será um host e sim um modelo em outras palavras.
 
 
 Os valores são os seguintes: 
@@ -878,7 +879,7 @@ Vamos abordar a criação de um objeto de definição cuja funcionalidade é cri
 
 ```
 define host {
-host_name						Nome dess host.
+host_name						Nome desse host.
 alias							Apelido para esse host.
 display_name					Nome que será exibido na interface web.
 address							Endereço IP do host.
@@ -905,11 +906,11 @@ flap_detection_options			[o,d,u]
 process_perf_data				[0/1]
 retain_status_information		[0/1]
 retain_nonstatus_information	[0/1]
-contacts						contacts
-contact_groups					contact_groups
-notification_interval			#
-first_notification_delay		#
-notification_period				timeperiod_name
+contacts						Contatos para notificações.
+contact_groups					Grupo de contatos para notificações.
+notification_interval
+first_notification_delay
+notification_period				Nome do período usado nas notificações.
 notification_options			[d,u,r,f,s]
 notifications_enabled			[0/1]
 stalking_options				[o,d,u,N]
@@ -925,64 +926,7 @@ statusmap_image					image_file
 }    
 ```
 
-- **display_name** - Se não especificado, o padrão será o valor especificado para a diretiva *host_name*. Os CGIs atuais não usam essa opção, embora versões futuras da interface da web os usem (funciona melhor no Icinga).
-
-  
-
-- **importance** - A importância é usada para determinar se as notificações devem ser enviadas para um contato, se o valor de importância do host mais os valores de importância de todos os serviços do host forem maiores ou iguais à importância mínima do contato, o contato será notificado. 
-
-  Por exemplo, você pode definir esse valor e a importância mínima dos contatos para que um administrador do sistema seja notificado quando um servidor de desenvolvimento for desativado, mas o CIO será notificado apenas quando o servidor de banco de dados de comércio eletrônico de produção da empresa estiver inativo.
-
-  
-
-- **parents** - Podemos colocar mais de um pai para um host, batando apenas separar por vírgula.
-
-  
-
-- **initial_state** -  Por padrão, o Nagios assume que todos os hosts estão *UP* quando iniciados. Você pode substituir o estado inicial de um host usando esta diretiva. As opções válidas são: **o** = UP, **d** = DOWN e **u** = INACESSÍVEL.
-
-  
-
-- **max_check_attempts** - Esta diretiva é usada para definir o número de vezes que o Nagios tentará novamente o comando de verificação do host se retornar qualquer estado diferente de OK. Definir esse valor como 1 fará com que o Nagios gere um alerta sem tentar novamente a verificação do host. Nota: Se você não deseja verificar o status do host, ainda deve configurá-lo com um valor mínimo de 1. Para ignorar a verificação do host, deixe a opção *check_command em* branco.
-
-  
-
-- **check_interval** -  Esta diretiva é usada para definir o número de "unidades de tempo" entre verificações agendadas regularmente do host. A menos que você tenha alterado a diretiva [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60, esse número significará minutos. Mais informações sobre esse valor podem ser encontradas na documentação de [agendamento de verificação](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/checkscheduling.html).
-
-  
-
-- **retry_interval** -  Esta diretiva é usada para definir o número de "unidades de tempo" a aguardar antes de agendar uma nova verificação dos hosts. Os hosts são reagendados no intervalo de novas tentativas quando mudam para um estado não UP. 
-
-  Depois que o host tiver sido verificado de novo pela quantidade de vezes estabelecidas pelo **max_check_attempts** e nenhuma alteração tiver sido verificada, ele voltará a ser agendado na sua taxa "normal", conforme definido pelo valor **check_interval**. A menos que você tenha alterado a diretiva [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60, esse número significará minutos.
-
-  
-
-- **active_checks_enabled** - Esta diretiva é usada para determinar se as verificações ativas (agendadas regularmente ou sob demanda) deste host estão ativadas. Valores: <span style="color:#4682B4">0 = desativar verificações de host ativo</span>, <span style="color:#4682B4">1 = ativar verificações de host ativo</span> (<span style="color:red">**padrão**</span>).
-
-  
-
-- **passive_checks_enabled** - Esta diretiva é usada para determinar se as verificações passivas estão ou não ativadas para este host. Valores: <span style="color:#4682B4">0 = desativar verificações passivas de host</span>, <span style="color:#4682B4">1 = ativar verificações passivas de host</span> (<span style="color:red">**padrão**</span>).
-
-  
-
-- **obsess_over_host | obsess** - Essa diretiva determina se as verificações do host serão ou não "obcecadas" pelo uso do comando ochp_com . Valores: <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:red">**padrão**</span>).
-
-  
-
-- **check_freshness** -  Esta diretiva é usada para determinar se as [verificações de atualização](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/freshness.html) estão ativadas ou não para este host. Valores:Valores: <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:red">**padrão**</span>).
-
-  
-
-- **freshness_threshold** - Esta diretiva é usada para especificar o limite de atualização (em segundos) para este host. Se você definir esta diretiva como um valor 0, o Nagios determinará um limite de atualização a ser usado automaticamente.
-
-  ​	
-
-- **event_handler** -  Esta diretiva é usada para especificar o *nome abreviado* do [comando](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#command) que deve ser executado sempre que uma alteração no estado do host for detectada (ou seja, sempre que for down ou recovers). 
-  Leia a documentação sobre [manipuladores de eventos](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/eventhandlers.html) para obter uma explicação mais detalhada de como escrever scripts para manipular eventos. A quantidade máxima de tempo que o comando manipulador de eventos pode executar é controlada pela opção [event_handler_timeout](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#event_handler_timeout).
-
-  
-
-- **event_handler_enabled** - Esta diretiva é usada para determinar se o manipulador de eventos para este host está ativado ou não. Valores: <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:red">**padrão**</span>).
+Para que você possa verificar as opções existentes na definição de um objeto do tipo host, consulte o [arquivo aqui](definition_host.md).
 
 a
 
