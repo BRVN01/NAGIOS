@@ -726,18 +726,24 @@ statusmap_image					image_file
 
 <span style="color:#8B008B">Para as opções utilizadas acima que não tiverem uma descrição, por favor, verifique a descrição das opções existentes na definição de um objeto do tipo host, consultando</span> [este link](definition_host.html).
 
-a
 
 
+### <span style="color:#d86c00">**Definindo HostGroups**</span>
+
+A definição de grupo de hosts é usada para agrupar um ou mais hosts juntos, isso simplifica uma configuração padrão para todos os Hosts participantes do grupo.
 
 
-
-
-
-
-
-
-
+```bash
+define hostgroup {
+    hostgroup_name	    hostgroup_name
+    alias	            alias
+    members	            hosts
+    hostgroup_members   hostgroups
+    notes	            note_string
+    notes_url	        url
+    action_url	        url
+   	}
+```
 
 
 
