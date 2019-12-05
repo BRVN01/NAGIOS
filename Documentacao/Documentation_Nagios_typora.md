@@ -926,7 +926,7 @@ statusmap_image					image_file
 }    
 ```
 
-Para que você possa verificar as opções existentes na definição de um objeto do tipo host, consulte o [arquivo aqui](definition_host.md).
+Para que você possa verificar as opções existentes na definição de um objeto do tipo host, consulte o [arquivo aqui](definition_host.html).
 
 a
 
