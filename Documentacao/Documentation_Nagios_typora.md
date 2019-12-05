@@ -735,14 +735,16 @@ A definição de grupo de hosts é usada para agrupar um ou mais hosts juntos, i
 
 ```bash
 define hostgroup {
-    hostgroup_name	    hostgroup_name
-    alias	            alias
-    members	            hosts
-    hostgroup_members   hostgroups
-    notes	            note_string
+    hostgroup_name	    hostgroup_name # Nome do grupo de hosts.
+    alias	            alias # Apelido para o grupo de hosts.
+    members	            hosts # Nome dos membros, separados por vírgula.
+    hostgroup_members   hostgroups # Nome de outros hostgroups.
+    notes	            DESCRICAO # Definir uma descrição para o host.
     notes_url	        url
     action_url	        url
    	}
+   	
+
 ```
 
 
