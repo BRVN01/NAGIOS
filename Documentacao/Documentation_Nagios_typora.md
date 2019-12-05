@@ -744,8 +744,70 @@ define hostgroup {
     action_url	        url
    	}
    	
+#### Opções necessárias para criação de um HostGroup:
 
+define hostgroup {
+    hostgroup_name	    hostgroup_name
+    alias	        	alias
+    }
 ```
+
+
+
+### <span style="color:#d86c00">**Definindo Service**</span>
+
+Uma definição de serviço é usada para identificar um "serviço" que é executado em um host, abaixo segue um exemplo de tudo que um objeto do tipo <span style="color:#2E8B57">service</span> pode ter:
+
+```bash
+define service{
+host_name                       # NOME AO QUAL O SERVIÇO PERTENCE.
+hostgroup_name					# hostgroup_name.
+service_description				# DESCRIÇÃO DO SERVIÇO.
+display_name					# DESCRIÇÂO PARA O DISPLAY DO SERVIÇO.
+parents							# service_descriptions
+import
+servicegroups					# Grupo de serviços.
+is_volatile						[0/1]
+check_command					# Comando que será executado para esse serviço.
+initial_state					[o,w,u,c]
+max_check_attempts
+check_interval
+retry_interval
+active_checks_enabled			[0/1]
+passive_checks_enabled			[0/1]
+
+# Nome do periodo que as verificações ativas serão  feitas.
+check_period					
+
+obsess_over_service|obsess		[0/1]
+check_freshness					[0/1]
+freshness_threshold
+event_handler					command_name
+event_handler_enabled			[0/1]
+low_flap_threshold				#
+high_flap_threshold				#
+flap_detection_enabled			[0/1]
+flap_detection_options			[o,w,c,u]
+process_perf_data				[0/1]
+retain_status_information		[0/1]
+retain_nonstatus_information	[0/1]
+notification_interval			#
+first_notification_delay		#
+notification_period				timeperiod_name
+notification_options			[w,u,c,r,f,s]
+notifications_enabled			[0/1]
+contacts						contacts
+contact_groups					contact_groups
+stalking_options				[o,w,u,c,N]
+notes							note_string
+notes_url						url
+action_url						url
+icon_image						image_file
+icon_image_alt					alt_string
+   	}
+```
+
+
 
 
 
