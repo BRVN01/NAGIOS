@@ -238,12 +238,12 @@
 
   <span style="color:#D2691E">vrml_image                             debian.png</span>
 
-  
+
   <span style="color:#8B008B">Segue imagem de como vai ficar o vrml_image aplicada ao host:</span>
 
   
 
-  ![a21asd65sf2nhk](/home/bruno/git/NAGIOS/IMG/a21asd65sf2nhk.png) 
+  ![a4d1fe1g6r1gg5e](/home/bruno/git/NAGIOS/IMG/a4d1fe1g6r1gg5e.png)  
 
 
 
