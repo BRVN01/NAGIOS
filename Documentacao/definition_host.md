@@ -364,7 +364,7 @@ define host {
     process_perf_data               1 # Habilitar o processamento de dados de desempenho.
 }
 
-# Opções necessárias para criação de um Host:
+#### Opções necessárias para criação de um Host:
 
 define host {
     host_name                       NOME
