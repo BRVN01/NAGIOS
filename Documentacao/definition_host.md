@@ -214,10 +214,41 @@
 - **icon_image_alt** - Essa variável é usada para definir uma sequência opcional que é usada na tag ALT da imagem especificada pelo argumento <icon_image> .
 
   
+  
+
+  Exemplo colocado no `define host` do servidor do Nagios:
+
+  <span style="color:#D2691E">icon_image                             debian.png</span>
+
+
+  <span style="color:#8B008B">Segue imagem de como vai ficar o icon_image aplicada ao host:</span>
+
+  
+
+  ![a21asd65sf2nhk](/home/bruno/git/NAGIOS/IMG/a21asd65sf2nhk.png) 
+
+  
 
 - **vrml_image** - Essa variável é usada para definir o nome de uma imagem GIF, PNG ou JPG que deve ser associada a este host. Esta imagem será usada como o mapa de textura para o host especificado no CGI statuswrl . Diferente da imagem usada para a variável <icon_image> , esta provavelmente não deve ter nenhuma transparência. Se isso acontecer, o objeto host parecerá um pouco estranho. Supõe-se que as imagens para hosts estejam no subdiretório logos / no diretório de imagens HTML (por exemplo, / usr / local / nagios / share / images / logos ).
 
   
+  
+
+  Exemplo colocado no `define host` do servidor do Nagios:
+
+  <span style="color:#D2691E">vrml_image                             debian.png</span>
+
+  
+  <span style="color:#8B008B">Segue imagem de como vai ficar o vrml_image aplicada ao host:</span>
+
+  
+
+  ![a21asd65sf2nhk](/home/bruno/git/NAGIOS/IMG/a21asd65sf2nhk.png) 
+
+
+
+
+
 
 - **statusmap_image** - Essa variável é usada para definir o nome de uma imagem que deve ser associada a esse host no CGI do mapa de status . Você pode especificar uma imagem JPEG, PNG e GIF, se desejar, embora eu sugira fortemente o uso de uma imagem no formato GD2, pois outros formatos resultam em muito tempo desperdiçado da CPU quando a imagem do statusmap é gerada. As imagens GD2 podem ser criadas a partir de imagens PNG usando o utilitário pngtogd2 fornecido com a biblioteca gd de Thomas Boutell . As imagens GD2 devem ser criadas em arquivos descompactadospara minimizar a carga da CPU quando o CGI do mapa de status estiver gerando a imagem do mapa de rede. A imagem ficará melhor se tiver 40x40 pixels de tamanho. Você pode deixar essas opções em branco se não estiver usando o CGI do mapa de status. Supõe-se que as imagens para hosts estejam no subdiretório logos / no diretório de imagens HTML (por exemplo, / usr / local / nagios / share / images / logos ).
 
