@@ -812,10 +812,10 @@ sudo apt-get install -y autoconf gcc libc6 php7.2 php make libapache2-mod-php7.2
 		
 	# Outras aplicações de desenvolvimento
 		# XINETD = substituto para o inetd com muitas melhorias.
-		# BUILD-ESSENTIALS = O pacote build-essential é uma referência para todos os pacotes necessários para compilar um pacote Debian. Geralmente inclui os compiladores e bibliotecas GCC / g ++ e alguns outros utilitários;
+		# BUILD-ESSENTIALS = O pacote build-essential é uma referência para todos os pacotes necessários para compilar um pacote Debian. Geralmente inclui os compiladores e bibliotecas GCC / g ++ e alguns outros utilitários; 
 ```
 
-## 
+
 
 ## <span style="color:#d86c00">**Baixando o Nagios Core**</span>
 
