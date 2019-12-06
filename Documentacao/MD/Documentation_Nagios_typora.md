@@ -537,8 +537,8 @@ definir host {
 # Vamos criar um outro objeto para uma máquina que será um servidor e que irá herdar
 # propriedades do 'Servidor 2':
 definir host {
-    host_name              Server3
-    use                    servidores_nutela
+    host_name               Server3
+    use                     servidores_nutela
 }
 
 # Você observará que a definição para host Server1 foi definida como tendo servidores_nutela
@@ -551,10 +551,10 @@ definir host {
 # Depois que o Nagios processa esses dados, a definição resultante do host Server3 
 # seria equivalente a esta definição:
 definir host {
-    host_name Server3
-    check_command check-host-alive
-    notification_options d, u, r
-    max_check_attempts 3
+    host_name              Server3
+    check_command          check-host-alive
+    notification_options   d, u, r
+    max_check_attempts     3
 }
 ```
 
