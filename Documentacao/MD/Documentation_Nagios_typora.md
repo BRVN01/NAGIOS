@@ -538,7 +538,7 @@ definir host {
 # propriedades do 'Servidor 2':
 definir host {
     host_name               Server3
-    use                     servidores_nutela
+    use                     servidores2
 }
 
 # Você observará que a definição para host Server1 foi definida como tendo servidores_nutela
