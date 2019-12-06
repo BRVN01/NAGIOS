@@ -1,4 +1,4 @@
-**Sumário**
+<span style="color:#d86c00">**Sumário**</span>
 
 [TOC]
 
