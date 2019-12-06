@@ -85,8 +85,9 @@ Tudo isso é baseado em um sistema de definição de objetos (objetos são todos
 <span style="color:#696969">O arquivo <span style="color:#C0C0C0">***nagios.cfg***</span> fica localizado no diretório `/usr/local/nagios/etc/nagios.cfg`:</span>
 
 ```bash
-# Sessão de logs, 
-# Mudar a pasta padrão dos logs necessita que seja aplicado as devidas permissões para a nova pasta, como os comandos: 'mkdir /var/log/nagios/' e 'chown -R nagios. /var/log/nagios/', somente para a variável LOG_FILE. (opções padrões do Nagios).
+### Sessão de logs, 
+# Mudar a pasta padrão dos logs necessita que seja aplicado as devidas permissões para a nova pasta, aplicando o comando para a nova pasta de log 'chown -R nagios. pasta', isso server somente para a variável LOG_FILE.
+# (opções padrões do Nagios).
 log_file=/var/log/nagios/nagios.log
 log_rotation_method=d
 log_archive_path=/usr/local/nagios/var/archives
@@ -99,7 +100,7 @@ log_current_states=1
 log_external_commands=1
 log_passive_checks=0
 
-# Diretório de configuração dos objetos (opção padrão do Nagios).
+# Diretório de configuração dos objetos (opções padrões do Nagios).
 cfg_file=/usr/local/nagios/etc/objects/commands.cfg
 cfg_file=/usr/local/nagios/etc/objects/contacts.cfg
 cfg_file=/usr/local/nagios/etc/objects/timeperiods.cfg
@@ -111,10 +112,10 @@ precached_object_file=/usr/local/nagios/var/objects.precache
 # Informações de armazenamento (opção padrão do Nagios).
 resource_file=/usr/local/nagios/etc/resource.cfg
 
-# Arquivo de status
+# Arquivo de status (opção padrão do Nagios).
 status_file=/usr/local/nagios/var/status.dat
 
-# Usuário e grupo Nagios (opção padrão do Nagios).
+# Usuário e grupo Nagios (opções padrões do Nagios).
 nagios_user=nagios
 nagios_group=nagios
 
@@ -451,7 +452,7 @@ resource_file=/usr/local/nagios/etc/resource.cfg
 
 ```bash
 # Exemplo de objeto modelo para um Host.
-definir host {
+define host {
     check_command                check-host-alive
     notification_options         d, u, r
     max_check_attempts           5
@@ -468,7 +469,7 @@ definir host {
 
 - <span style="color:#C0C0C0">**1**</span><span style="color:#696969">**= registra a definição do objeto** (<span style="color:#FFDAB9">**esse é o padrão**</span>). </span>
 
-  <span style="color:#696969">Essa variável NÃO é herdada na opção ***use***, toda definição de objeto (que seja parcial) usada como modelo deve definir explicitamente a diretiva de *registro* como *0*, caso contrário ela será registrada.</span>
+  <span style="color:#696969">Essa variável NÃO é herdada na opção<span style="color:#00CED1">***use***</span>, toda definição de objeto (que seja parcial) usada como modelo deve definir explicitamente a diretiva de *registro* como *0*, caso contrário ela será registrada.</span>
 
 
 
@@ -478,7 +479,7 @@ definir host {
 
 ```bash
 # Vamos criar um objeto para uma máquina que será um servidor:
-definir host {
+define host {
     host_name                Server1
     check_command            check-host-alive
     notification_options     d, u, r
@@ -488,7 +489,7 @@ definir host {
 
 # Vamos criar um outro objeto para uma máquina que será um servidor e que irá herdar
 # propriedades do 'Servidor 1':
-definir host {
+define host {
     host_name                Server2
     max_check_attempts       3
     use                      servidores_nutela
@@ -499,7 +500,7 @@ definir host {
 # servidores_nutela como seu objeto de modelo. 
 # Depois que o Nagios processa esses dados, a definição resultante do host Server2 
 # seria equivalente a esta definição:
-definir host {
+define host {
     host_name               Server2
     check_command           check-host-alive
     notification_options    d, u, r
@@ -517,7 +518,7 @@ definir host {
 
 ```bash
 # Vamos criar um objeto para uma máquina que será um servidor:
-definir host {
+define host {
     host_name               Server1
     check_command           check-host-alive
     notification_options    d, u, r
@@ -527,7 +528,7 @@ definir host {
 
 # Vamos criar um outro objeto para uma máquina que será um servidor e que irá herdar
 # propriedades do 'Servidor 1':
-definir host {
+define host {
     host_name               Server2
     max_check_attempts      3
     use                     servidores_nutela
@@ -536,7 +537,7 @@ definir host {
 
 # Vamos criar um outro objeto para uma máquina que será um servidor e que irá herdar
 # propriedades do 'Servidor 2':
-definir host {
+define host {
     host_name               Server3
     use                     servidores2
 }
@@ -550,7 +551,7 @@ definir host {
 #
 # Depois que o Nagios processa esses dados, a definição resultante do host Server3 
 # seria equivalente a esta definição:
-definir host {
+define host {
     host_name               Server3
     check_command           check-host-alive
     notification_options    d, u, r
@@ -639,7 +640,7 @@ define host {
 
 <span style="color:#d86c00">**Usando valores herdados mais valores locais**</span>
 
-<span style="color:#696969">As vezes podemos querer usar os valores herdados juntamente com valores locais, para isso precisamos adicionar um `+` para ele adicionar a mais o valor, isso só está disponível para variáveis padrão do Nagios.</span>
+<span style="color:#696969">As vezes podemos querer usar os valores herdados juntamente com valores locais, para isso precisamos adicionar um sinal de adição`+`, para ele acrescentar um valor a outro já existente, isso só está disponível para variáveis padrões do Nagios.</span>
 
 ```bash
 define host {

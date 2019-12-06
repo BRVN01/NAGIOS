@@ -348,7 +348,7 @@ define host {
     address                      IP
     parents                      PAIS 
     check_command                check-host-alive # ping.
-# Intervalo entre is checks (em minutos).
+# Intervalo entre os checks (em minutos).
     check_interval               1
 
 # Tempo para agendar uma nova verificação (em minutos).
