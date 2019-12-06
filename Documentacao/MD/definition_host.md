@@ -367,19 +367,27 @@ define host {
     flap_detection_enabled              1 # Habilitar a detecção por flap.
     process_perf_data                          1 # Habilitar o processamento de dados de desempenho.
 }
+```
 
-#### Opções necessárias para criação de um Host:
 
+
+## <span style="color:#d86c00">**Opções necessárias**</span>
+
+<span style="color:#696969">Abaixo segue as propriedades necessárias para criação de um objeto do tipo Host:</span>
+
+```shell
 define host {
-    host_name                                         NOME
-    max_check_attempts                    5 # Tentativas para determinar o estado HARD.
+    host_name                     NOME
+    max_check_attempts            5 # Tentativas para determinar o estado HARD.
 
 # Nome do período em que as verificações ativas serão feitas. 
- check_period                               24x7 
-    contacts			    nagiosadmin
-    contact_groups                        nagiosadmin # Grupo de contatos.
-    notification_interval                     30 # Intervalo entre notificações (em minutos).
-    notification_period                       24x7 # Período para notificações.
+    check_period                  24x7 
+    contacts			          nagiosadmin
+    contact_groups                nagiosadmin # Grupo de contatos.
+    notification_interval         30 # Intervalo entre notificações (em minutos).
+    notification_period           24x7 # Período para notificações.
 }
 ```
+
+
 

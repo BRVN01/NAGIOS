@@ -442,7 +442,7 @@ resource_file=/usr/local/nagios/etc/resource.cfg
   
 - <span style="color:#FFDAB9">use                             generic-host</span>
   
-  <span style="color:#696969">Nesse caso, vamos herdar as propriedades do objeto <span style="color:#2E8B57">generic-host</span> (***generic-host*** é o nome de um objeto que já foi criado anteriormente).</span>
+  <span style="color:#696969">Nesse caso, vamos herdar as propriedades do objeto <span style="color:#00CED1">generic-host</span> (***generic-host*** é o nome de um objeto que já foi criado anteriormente).</span>
   
 
   
