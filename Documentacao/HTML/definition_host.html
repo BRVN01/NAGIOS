@@ -1,0 +1,597 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>definition_host</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-node'><p><strong><span>Sumário</span></strong></p><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n3"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00displaynamespan"><strong>display_name</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n6"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00importancespan"><strong>importance</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n10"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00parentsspan"><strong>parents</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n17"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00initialstatespan"><strong>initial_state</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n20"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00maxcheckattemptsspan"><strong>max_check_attempts</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n23"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00checkintervalspan"><strong>check_interval</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n26"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00retryintervalspan"><strong>retry_interval</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n30"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00activechecksenabledspan"><strong>active_checks_enabled</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n33"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00passivechecksenabledspan"><strong>passive_checks_enabled</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n36"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00obsessoverhost--obsessspan"><strong>obsess_over_host | obsess</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n39"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00checkfreshnessspan"><strong>check_freshness</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n42"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00freshnessthresholdspan"><strong>freshness_threshold</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n45"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00eventhandlerspan"><strong>event_handler</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n48"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00eventhandlerenabledspan"><strong>event_handler_enabled</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n51"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00lowflapthresholdspan"><strong>low_flap_threshold</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n54"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00highflapthresholdspan"><strong>high_flap_threshold</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n57"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00flapdetectionenabledspan"><strong>flap_detection_enabled</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n60"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00flapdetectionoptionsspan"><strong>flap_detection_options</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n63"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00processperfdataspan"><strong>process_perf_data</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n66"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00retstatusinformationspan"><strong>ret_status_information</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n69"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00retnonstatusinformationspan"><strong>ret_nonstatus_information</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n72"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00notificationintervalspan"><strong>notification_interval</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n75"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00firstnotificationdelayspan"><strong>first_notification_delay</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n78"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00notificationoptionsspan"><strong>notification_options</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n94"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00notificationsenabledspan"><strong>Notifications_enabled</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n97"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00stalkingoptionsspan"><strong>stalking_options</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n110"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00notesspan"><strong>notes</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n118"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00notesurlspan"><strong>notes_url</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n128"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00actionurlspan"><strong>action_url</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n137"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00iconimagespan"><strong>icon_image</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n146"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00iconimagealtspan"><strong>icon_image_alt</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n155"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00vrmlimagespan"><strong>vrml_image</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n164"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00statusmapimagespan"><strong>statusmap_image</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n167"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c002dcoordsspan"><strong>2d_coords</strong></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n170"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c003dcoordsspan"><strong>3d_coords</strong></a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n173"><a class="md-toc-inner" style="cursor: pointer;" href="#span-stylecolord86c00opções-mais-usadasspan"><strong>Opções mais usadas</strong></a></span></p></div><h4><a name="span-stylecolord86c00displaynamespan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>display_name</span></strong></span></h4><p><span>Se não especificado, o padrão será o valor especificado para a diretiva </span><em><span>host_name</span></em><span>. Os CGIs atuais não usam essa opção, embora versões futuras da interface da web os usem (funciona melhor no Icinga).</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00importancespan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>importance</span></strong></span></h4><p><span>A importância é usada para determinar se as notificações devem ser enviadas para um contato, se o valor de importância do host mais os valores de importância de todos os serviços do host forem maiores ou iguais à importância mínima do contato, o contato será notificado. </span></p><p><span>Por exemplo, você pode definir esse valor e a importância mínima dos contatos para que um administrador do sistema seja notificado quando um servidor de desenvolvimento for desativado, mas o CIO será notificado apenas quando o servidor de banco de dados de comércio eletrônico de produção da empresa estiver inativo.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00parentsspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>parents</span></strong></span></h4><p><span>Podemos colocar mais de um pai para um host, bastando apenas separar por vírgula, isso é útil para montar uma topologia lógica da rede baseada na real.</span></p><p><span>Para qualquer administrador, é importante saber que, se você tem um </span><em><span>roteador Y</span></em><span>, e ele estiver inativo, todas os dispositivos que estão atrás dele ficarão inalcançáveis. Caso você não leve isso em consideração, e esse </span><em><span>roteador Y</span></em><span> venha a ficar indisponível, você receberá uma lista de várias máquinas e serviços com falha. </span></p><p><span>Por exemplo, se um </span><em><span>switch L3</span></em><span> que o conecta parte da sua rede estiver inoperante, o Nagios não executará verificações das máquinas subsequentes (depois do roteador). Isso é ilustrado na figura a seguir:</span></p><p><a href='https://github.com/BRVN01/NAGIOS/blob/master/IMG/1574354656894.png'><img src="https://github.com/BRVN01/NAGIOS/raw/master/IMG/1574354656894.png" referrerpolicy="no-referrer" alt="1574354656894"></a></p><p><span>No caso acima, um dos links está fora, mesmo que os switchs e servidores estejam funcionando, o Nagios não consegue chegar até eles, dessa forma, será retornado indisponibilidade de todos os dispositivos atrás do link com problema, se a configuração correta do Nagios for feita (aplicada o parentesco através da variável </span><span style="color:#2E8B57"><span>parents</span></span><span>), receberemos apenas um alerta, referente ao </span><em><span>switch L3</span></em><span>, e não de todos os dispositivos atrás do </span><em><span>switch L3</span></em><span>.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00initialstatespan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>initial_state</span></strong></span></h4><p><span>Por padrão, o Nagios assume que todos os hosts estão </span><em><span>UP</span></em><span> quando iniciados. Você pode substituir o estado inicial de um host usando esta diretiva. As opções válidas são: </span><strong><span>o</span></strong><span> = UP, </span><strong><span>d</span></strong><span> = DOWN e </span><strong><span>u</span></strong><span> = INACESSÍVEL.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00maxcheckattemptsspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>max_check_attempts</span></strong></span></h4><p><span>Esta diretiva é usada para definir o número de vezes que o Nagios tentará novamente o comando de verificação do host se retornar qualquer estado diferente de OK. Definir esse valor como 1 fará com que o Nagios gere um alerta sem tentar novamente a verificação do host. Nota: Se você não deseja verificar o status do host, ainda deve configurá-lo com um valor mínimo de 1. Para ignorar a verificação do host, deixe a opção </span><em><span>check_command em</span></em><span> branco.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00checkintervalspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>check_interval</span></strong></span></h4><p><span>Esta diretiva é usada para definir o número de &quot;unidades de tempo&quot; entre verificações agendadas regularmente do host. A menos que você tenha alterado a diretiva </span><a href='https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length'><span>interval_length</span></a><span> do valor padrão de 60, esse número significará minutos. Mais informações sobre esse valor podem ser encontradas na documentação de </span><a href='https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/checkscheduling.html'><span>agendamento de verificação</span></a><span>.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00retryintervalspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>retry_interval</span></strong></span></h4><p><span>Esta diretiva é usada para definir o número de &quot;unidades de tempo&quot; a aguardar antes de agendar uma nova verificação dos hosts. Os hosts são reagendados no intervalo de novas tentativas quando mudam para um estado não UP. </span></p><p><span>Depois que o host tiver sido verificado de novo pela quantidade de vezes estabelecidas pelo </span><span style="color:#2E8B57"><span>max_check_attempts</span></span><span> e nenhuma alteração tiver sido verificada, ele voltará a ser agendado na sua taxa &quot;normal&quot;, conforme definido pelo valor </span><span style="color:#2E8B57"><span>check_interval</span></span><span>. A menos que você tenha alterado a diretiva </span><a href='https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length'><span>interval_length</span></a><span> do valor padrão de 60, esse número significará minutos.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00activechecksenabledspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>active_checks_enabled</span></strong></span></h4><p><span>Esta diretiva é usada para determinar se as verificações ativas (agendadas regularmente ou sob demanda) deste host estão ativadas. </span>
+<span>Valores: </span><span style="color:#4682B4"><span>0 = desativar verificações de host ativo</span></span><span>, </span><span style="color:#4682B4"><span>1 = ativar verificações de host ativo</span></span><span> (</span><span style="color:red"><strong><span>padrão</span></strong></span><span>).</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00passivechecksenabledspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>passive_checks_enabled</span></strong></span></h4><p><span>Esta diretiva é usada para determinar se as verificações passivas estão ou não ativadas para este host. </span>
+<span>Valores: </span><span style="color:#4682B4"><span>0 = desativar verificações passivas de host</span></span><span>, </span><span style="color:#4682B4"><span>1 = ativar verificações passivas de host</span></span><span> (</span><span style="color:red"><strong><span>padrão</span></strong></span><span>).</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00obsessoverhost--obsessspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>obsess_over_host | obsess</span></strong></span></h4><p><span>Essa diretiva determina se as verificações do host serão ou não &quot;obcecadas&quot; pelo uso do comando ochp_com. </span>
+<span>Valores: </span><span style="color:#4682B4"><span>0 = desativado</span></span><span>, </span><span style="color:#4682B4"><span>1 = ativado</span></span><span> (</span><span style="color:red"><strong><span>padrão</span></strong></span><span>).</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00checkfreshnessspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>check_freshness</span></strong></span></h4><p><span>Esta diretiva é usada para determinar se as verificações de atualizações dos resultados do host estão ativadas ou não. </span>
+<span>Valores: </span><span style="color:#4682B4"><span>0 = desativado</span></span><span>, </span><span style="color:#4682B4"><span>1 = ativado</span></span><span> (</span><span style="color:red"><strong><span>padrão</span></strong></span><span>).</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00freshnessthresholdspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>freshness_threshold</span></strong></span></h4><p><span>Esta diretiva é usada para especificar o limite de atualização (em segundos) para este host. Se você definir esta diretiva como um valor 0, o Nagios determinará um limite de atualização a ser usado automaticamente.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00eventhandlerspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>event_handler</span></strong></span></h4><p><span>Esta diretiva é usada para especificar o </span><em><span>nome abreviado</span></em><span> de um comando que deve ser executado sempre que uma alteração no estado do host for detectada (ou seja, sempre que for down ou recovers). </span>
+<span>Um uso para manipuladores de eventos é a capacidade do próprio Nagios Core de corrigir proativamente os problemas antes que alguém seja notificado.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00eventhandlerenabledspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>event_handler_enabled</span></strong></span></h4><p><span>Esta diretiva é usada para determinar se o manipulador de eventos para este host está ativado ou não. </span>
+<span>Valores: </span><span style="color:#4682B4"><span>0 = desativado</span></span><span>, </span><span style="color:#4682B4"><span>1 = ativado</span></span><span> (</span><span style="color:red"><strong><span>padrão</span></strong></span><span>).</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00lowflapthresholdspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>low_flap_threshold</span></strong></span></h4><p><span>Esta diretiva é usada para especificar o limite de alteração de baixas de estado (flaps), quando o limite de flap cai para um valor menor do que </span><span style="color:#2E8B57"><span>low_flap_threshold</span></span><span>, considera-se que o flap parou.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00highflapthresholdspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>high_flap_threshold</span></strong></span></h4><p><span>Esta diretiva é usada para especificar o limite alto de alteração de estado (flaps), quando o limite de flap ultrapassa o valor de </span><span style="color:#2E8B57"><span>high_flap_threshold</span></span><span>, considera-se um inicio de flap.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00flapdetectionenabledspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>flap_detection_enabled</span></strong></span></h4><p><span>Esta diretiva é usada para determinar se a detecção de flap está ativada ou não para este host. Caso você defina  </span><span style="color:#2E8B57"><span>enable_flap_detection=1</span></span><span> no arquivo principal do Nagios, não será necessário definir novamente na sessão de Host/Service, a menos que você queira desativar essa opção para alguns Hosts/Serviços.</span>
+<span>Valores: </span><span style="color:#4682B4"><span>0 = desativado</span></span><span>, </span><span style="color:#4682B4"><span>1 = ativado</span></span><span>.</span></p><p><span> </span></p><h4><a name="span-stylecolord86c00flapdetectionoptionsspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>flap_detection_options</span></strong></span></h4><p><span>Podemos excluir certos estados de host/serviço no uso da lógica de detecção de flap, esta diretiva permite especificar quais estados de host/serviço (UP, DOWN, OK, CRITICAL) você pode desejar usar para a detecção de flap. Se você não usar esta diretiva, todos os estados de host ou serviço serão usados na detecção de flap. </span>
+<span>As opções válidas são uma combinação de um ou mais dos seguintes itens: </span><strong><span>o</span></strong><span> = UP, </span><strong><span>d</span></strong><span> = DOWN, </span><strong><span>u</span></strong><span> = UNREACHABLE.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00processperfdataspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>process_perf_data</span></strong></span></h4><p><span>Esta diretiva é usada para determinar se o processamento de dados de desempenho está ou não ativado para este host. Isso é importante para fazermos levantamento de desempenho com integração ao MRTG por exemplo.</span>
+<span>Valores: </span><span style="color:#4682B4"><span>0 = desativado</span></span><span>, </span><span style="color:#4682B4"><span>1 = ativado</span></span><span>.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00retstatusinformationspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>ret_status_information</span></strong></span></h4><p><span>Esta diretiva é usada para determinar se as informações relacionadas ao status do host são mantidas ou não durante a reinicialização do programa. Isso é útil apenas se você tiver ativado a retenção de estado usando a diretiva </span><a href='https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information'><span>reter_state_information</span></a><span>. </span>
+<span>Valores: </span><span style="color:#4682B4"><span>0 = desativado</span></span><span>, </span><span style="color:#4682B4"><span>1 = ativado</span></span><span>.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00retnonstatusinformationspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>ret_nonstatus_information</span></strong></span></h4><p><span>Essa diretiva é usada para determinar se as informações que não são de status sobre o host são mantidas ou não durante a reinicialização do programa. Isso é útil apenas se você tiver ativado a retenção de estado usando a diretiva </span><a href='https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information'><span>reter_state_information</span></a><span>. </span>
+<span>Valores: </span><span style="color:#4682B4"><span>0 = desativado</span></span><span>, </span><span style="color:#4682B4"><span>1 = ativado</span></span><span>.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00notificationintervalspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>notification_interval</span></strong></span></h4><p><span>Esta diretiva é usada para definir quanto tempo Nagios deve aguardar antes de notificar novamente um contato que este host </span><em><span>ainda</span></em><span> está inativo ou inacessível. A menos que você tenha alterado a diretiva </span><a href='https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length'><span>interval_length</span></a><span> do valor padrão de 60 (minutos). Se você definir esse valor como 0, o Nagios </span><em><span>não</span></em><span> notificará novamente os contatos sobre problemas desse host, apenas uma única notificação de problema será enviada.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00firstnotificationdelayspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>first_notification_delay</span></strong></span></h4><p><span>Esta diretiva é usada para definir quanto tempo Nagios deve aguardar antes de enviar a primeira notificação de problema quando este host entra em um estado não UP. A menos que você tenha alterado a diretiva </span><a href='https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length'><span>interval_length</span></a><span> do valor padrão de 60 (minutos). </span><span style="color:red"><span>Se você definir esse valor como 0, o Nagios começará a enviar notificações imediatamente.</span></span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00notificationoptionsspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>notification_options</span></strong></span></h4><p><span>Esta diretiva é usada para determinar quando as notificações para o host devem ser enviadas. As opções válidas são uma combinação de um ou mais dos seguintes itens: </span></p><ul><li><strong><span>d</span></strong><span> = enviar notificações em um estado DOWN;</span></li><li><strong><span>u</span></strong><span> = enviar notificações em um estado inacessível;</span></li><li><strong><span>r</span></strong><span> = enviar notificações em recuperações (estado OK);</span></li><li><strong><span>f</span></strong><span> = enviar notificações quando o host iniciar e parar flapar;</span></li><li><strong><span>s</span></strong><span> = notificações de envio quando </span><a href='https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/downtime.html'><span>programados de inatividade</span></a><span> começa e termina. Se você especificar;</span></li><li><strong><span>n</span></strong><span> = nenhuma notificação de host será enviada. Se você não especificar nenhuma opção de notificação, o Nagios assumirá que você deseja que as notificações sejam enviadas para todos os estados possíveis.</span></li></ul><p>&nbsp;</p><h4><a name="span-stylecolord86c00notificationsenabledspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>Notifications_enabled</span></strong></span></h4><p><span>Esta diretiva é usada para determinar se as notificações para este host estão ativadas ou não. </span>
+<span>Valores: </span><span style="color:#4682B4"><span>0 = desativado</span></span><span>, </span><span style="color:#4682B4"><span>1 = ativado</span></span><span>.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00stalkingoptionsspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>stalking_options</span></strong></span></h4><p><span>Esta diretiva determina para quais estados &quot;monitorando&quot; o host o está ativado. As opções válidas são uma combinação de um ou mais dos seguintes itens:</span></p><ul><li><p><strong><span>o</span></strong><span> = monitorar nos estados UP;</span></p></li><li><p><strong><span>d</span></strong><span> = monitorar nos estados DOWN;</span></p></li><li><p><strong><span>u</span></strong><span> = monitorar nos estados UNREACHABLE. </span></p><p>&nbsp;</p></li></ul><p><span style="color:#8B008B"><strong><span>Devo ativar o stalking?</span></strong></span></p><p><span>  Antes de tudo, você deve decidir se tem uma necessidade real de analisar dados de log arquivados para encontrar a causa exata de um problema. Você pode decidir que precisa desse recurso para alguns hosts ou serviços, mas dificilmente irá precisar para todos os hosts/serviços. </span>
+<span>  Você também pode achar que só precisa ativar o &quot;monitoramento&quot; para alguns estados de host ou serviço, em vez de todos eles. Por exemplo, você pode optar por ativar o &quot;monitoramento&quot; para os estados WARNING e CRÍTICOS de um serviço, mas não para os estados OK e DESCONHECIDO.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00notesspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>notes</span></strong></span></h4><p><span>Esta diretiva é usada para definir uma descrição para o host. Se você especificar uma observação aqui, será exibida no CGI de informações estendidas (quando estiver visualizando informações sobre o host especificado).</span></p><p><span>Exemplo colocado no </span><code>define host</code><span> do servidor do Nagios:</span></p><p><span style="color:#D2691E"><span>notes                             Servidor do Nagios</span></span></p><p>&nbsp;</p><p><span>  </span><span style="color:#8B008B"><span>Segue imagem de como vai ficar a descrição aplicada ao host:</span></span></p><p><a href='https://github.com/BRVN01/NAGIOS/blob/master/IMG/65466549864654.png'><img src="https://github.com/BRVN01/NAGIOS/raw/master/IMG/65466549864654.png" referrerpolicy="no-referrer" alt="65466549864654"></a></p><p><span>  </span></p><h4><a name="span-stylecolord86c00notesurlspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>notes_url</span></strong></span></h4><p><span>Essa diretiva é usada para definir uma URL que pode ser usado para fornecer mais informações sobre o host.</span></p><p><span>Exemplo colocado no </span><code>define host</code><span> do servidor do Nagios:</span></p><p><span style="color:#D2691E"><span>notes_url                            </span><a href='https://www.google.com.br' target='_blank' class='url'>https://www.google.com.br</a></span></p><p>&nbsp;</p><p><span>  </span><span style="color:#8B008B"><span>Segue imagem de como vai ficar o notes_url aplicada ao host:</span></span></p><p>&nbsp;</p><p><a href='https://github.com/BRVN01/NAGIOS/blob/master/IMG/5454aas2s1d.png'><img src="https://github.com/BRVN01/NAGIOS/raw/master/IMG/5454aas2s1d.png" referrerpolicy="no-referrer" alt="5454aas2s1d"></a><span> </span></p><p>&nbsp;</p><p>&nbsp;</p><h4><a name="span-stylecolord86c00actionurlspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>action_url</span></strong></span></h4><p><span>Esta diretiva é usada para definir uma URL que pode ser usada para fornecer mais ações a serem executadas no host, o icone pode ser atribuido a informações de performance.</span></p><p><span>Exemplo colocado no </span><code>define host</code><span> do servidor do Nagios:</span></p><p><span style="color:#D2691E"><span>action_url                             </span><a href='https://www.google.com.br' target='_blank' class='url'>https://www.google.com.br</a></span></p><p>&nbsp;</p><p><span>  </span><span style="color:#8B008B"><span>Segue imagem de como vai ficar o action_url aplicada ao host:</span></span></p><p>&nbsp;</p><p><a href='https://github.com/BRVN01/NAGIOS/blob/master/IMG/a5fr51s5fr8y42f.png'><img src="https://github.com/BRVN01/NAGIOS/raw/master/IMG/a5fr51s5fr8y42f.png" referrerpolicy="no-referrer" alt="a5fr51s5fr8y42f"></a><span> </span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00iconimagespan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>icon_image</span></strong></span></h4><p><span>Essa variável é usada para definir o nome de uma imagem GIF, PNG ou JPG que deve ser associada a este host. Esta imagem será exibida nos vários locais nos CGIs. A imagem ficará melhor se tiver 40x40 pixels de tamanho. </span>
+<span>O diretório padrão para as imagens é </span><code>/usr/local/nagios/share/images/logos</code><span>.</span></p><p><span>Exemplo colocado no </span><code>define host</code><span> do servidor do Nagios:</span></p><p><span style="color:#D2691E"><span>icon_image                             debian.png</span></span></p><p>&nbsp;</p><p><span>  </span><span style="color:#8B008B"><span>Segue imagem de como vai ficar o icon_image aplicada ao host:</span></span></p><p>&nbsp;</p><p><a href='https://github.com/BRVN01/NAGIOS/blob/master/IMG/a21asd65sf2nhk.png'><img src="https://github.com/BRVN01/NAGIOS/raw/master/IMG/a21asd65sf2nhk.png" referrerpolicy="no-referrer" alt="a21asd65sf2nhk"></a><span> </span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00iconimagealtspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>icon_image_alt</span></strong></span></h4><p><span>Essa variável é usada para definir uma sequência opcional que é usada na tag ALT da imagem especificada pelo argumento &lt;icon_image&gt; .</span></p><p>&nbsp;</p><p><span>Exemplo colocado no </span><code>define host</code><span> do servidor do Nagios:</span></p><p><span style="color:#D2691E"><span>icon_image_alt                             debian.png</span></span></p><p><span style="color:#8B008B"><span>Segue imagem de como vai ficar o icon_image_alt aplicada ao host:</span></span></p><p>&nbsp;</p><p><a href='https://github.com/BRVN01/NAGIOS/blob/master/IMG/a782162sd1s6f.png'><img src="https://github.com/BRVN01/NAGIOS/raw/master/IMG/a782162sd1s6f.png" referrerpolicy="no-referrer" alt="a782162sd1s6f"></a></p><p>&nbsp;</p><h4><a name="span-stylecolord86c00vrmlimagespan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>vrml_image</span></strong></span></h4><p><span>Essa variável é usada para definir o nome de uma imagem GIF, PNG ou JPG que deve ser associada a este host. Esta imagem será usada como o mapa de textura para o host especificado no CGI statuswrl. Diferente da imagem usada para a variável </span><span style="color:#2E8B57"><span>icon_image</span></span><span>, esta provavelmente não deve ter nenhuma transparência. Se isso acontecer, o objeto host parecerá um pouco estranho. </span></p><p><span>O diretório padrão para as imagens é </span><code>/usr/local/nagios/share/images/logos</code><span>.</span></p><p><span>Exemplo colocado no </span><code>define host</code><span> do servidor do Nagios:</span></p><p><span style="color:#D2691E"><span>vrml_image                             debian.png</span></span></p><p><span>  </span><span style="color:#8B008B"><span>Segue imagem de como vai ficar o vrml_image aplicada ao host:</span></span></p><p><span>  </span></p><p><a href='https://github.com/BRVN01/NAGIOS/blob/master/IMG/a4d1fe1g6r1gg5e.png'><img src="https://github.com/BRVN01/NAGIOS/raw/master/IMG/a4d1fe1g6r1gg5e.png" referrerpolicy="no-referrer" alt="a4d1fe1g6r1gg5e"></a></p><h4><a name="span-stylecolord86c00statusmapimagespan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>statusmap_image</span></strong></span></h4><p><span>Essa variável é usada para definir o nome de uma imagem que deve ser associada a esse host no CGI do mapa de status . Você pode especificar uma imagem JPEG, PNG e GIF, se desejar, embora eu sugira fortemente o uso de uma imagem no formato GD2, pois outros formatos resultam em muito tempo desperdiçado da CPU quando a imagem do statusmap é gerada. As imagens GD2 podem ser criadas a partir de imagens PNG usando o utilitário pngtogd2 fornecido com a biblioteca gd de Thomas Boutell. As imagens GD2 devem ser criadas em arquivos descompactadospara minimizar a carga da CPU quando o CGI do mapa de status estiver gerando a imagem do mapa de rede. A imagem ficará melhor se tiver 40x40 pixels de tamanho. Você pode deixar essas opções em branco se não estiver usando o CGI do mapa de status.</span>
+<span>O diretório padrão para as imagens é </span><code>/usr/local/nagios/share/images/logos</code><span>.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c002dcoordsspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>2d_coords</span></strong></span></h4><p><span>Essa variável é usada para definir coordenadas a serem usadas ao desenhar o host no mapa de status CGI. As coordenadas devem ser dadas em números inteiros positivos, pois correspondem a pixels físicos na imagem gerada. A origem do desenho (0,0) está no canto superior esquerdo da imagem e se estende na direção x positiva (à direita) ao longo da parte superior da imagem e na direção y positiva (para baixo) ao longo da mão esquerda lado da imagem. Para referência, o tamanho dos ícones desenhados é geralmente de cerca de 40x40 pixels (o texto ocupa um pouco de espaço extra). As coordenadas que você especificar aqui são para o canto superior esquerdo do ícone do host que é desenhado. Nota: Não se preocupe com o máximo de coordenadas x e y que você pode usar. O CGI calculará automaticamente as dimensões máximas da imagem criada com base nas maiores coordenadas x e y que você especificar.</span></p><p>&nbsp;</p><h4><a name="span-stylecolord86c003dcoordsspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>3d_coords</span></strong></span></h4><p><span>Essa variável é usada para definir coordenadas a serem usadas ao desenhar o host no CGI statuswrl. As coordenadas podem ser números reais positivos ou negativos. A origem do desenho é (0.0,0.0,0.0). Para referência, o tamanho dos cubos do host desenhados é de 0,5 unidades de cada lado (o texto ocupa um pouco mais de espaço). As coordenadas que você especificar aqui são usadas como o centro do cubo host.</span></p><p>&nbsp;</p><h2><a name="span-stylecolord86c00opções-mais-usadasspan" class="md-header-anchor"></a><span style="color:#d86c00"><strong><span>Opções mais usadas</span></strong></span></h2><p><span>Abaixo segue as propriedades atribuídas para o localhost, incluindo as variáveis herdadas:</span></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded md-focus" lang="bash" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap CodeMirror-focused" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 598px; left: 17px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">define host {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  host_name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NOME</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  alias &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; APELIDO</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  address &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; IP</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  parents &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; PAIS</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  check_command &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; check-host-alive <span class="cm-comment"># ping.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  check_interval &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-number">1</span> <span class="cm-comment"># Intervalo entre is checks (em minutos).</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Tempo para agendar uma nova verificação (em minutos).</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  retry_interval &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-number">1</span> </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  max_check_attempts &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-number">5</span> <span class="cm-comment"># Tentativas para determinar o estado HARD.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Nome do período em que as verificações ativas serão feitas. </span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-tab" role="presentation" cm-text="	">   </span>check_period &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  24x7 </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>contact_groups &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  nagiosadmin <span class="cm-comment"># Grupo de contatos.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" class="cm-tab-wrap-hack" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Notificações que serão enviadas (DOWN, Recover e Inacessível).</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  notification_options &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  d,u,r</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  notification_interval &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-number">30</span> <span class="cm-comment"># Intervalo entre notificações (em minutos).</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  notification_period &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 24x7 <span class="cm-comment"># Período para notificações.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  notifications_enabled &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-number">1</span> <span class="cm-comment"># Habilitar a notificação.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  event_handler_enabled<span class="cm-tab" role="presentation" cm-text="	">   </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-number">1</span> <span class="cm-comment"># Habilitar event_handler.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  flap_detection_enabled &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-number">1</span> <span class="cm-comment"># Habilitar a detecção por flap.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  process_perf_data &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-number">1</span> <span class="cm-comment"># Habilitar o processamento de dados de desempenho.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">#### Opções necessárias para criação de um Host:</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">define host {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  host_name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NOME</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  max_check_attempts &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-number">5</span> <span class="cm-comment"># Tentativas para determinar o estado HARD.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># Nome do período em que as verificações ativas serão feitas. </span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-tab" role="presentation" cm-text="	">   </span>check_period &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  24x7 </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>contacts<span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>nagiosadmin</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>contact_groups &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  nagiosadmin <span class="cm-comment"># Grupo de contatos.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  notification_interval &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-number">30</span> <span class="cm-comment"># Intervalo entre notificações (em minutos).</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  notification_period &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 24x7 <span class="cm-comment"># Período para notificações.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 897px;"></div><div class="CodeMirror-gutters" style="display: none; height: 897px;"></div></div></div></pre><p>&nbsp;</p></div>
+</body>
+</html>
