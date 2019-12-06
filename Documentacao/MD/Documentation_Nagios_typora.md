@@ -440,11 +440,11 @@ resource_file=/usr/local/nagios/etc/resource.cfg
 <span style="color:#696969">Esta variável faz com que seu objeto atual, possa herdar valores de outro objetos, apenas se a opção
   <span style="color:#00CED1">use</span> for usada no objeto atual, para isso, basta passar o <span style="color:#00CED1">name</span> do objeto que você quer herdar as propriedades como valor da variável <span style="color:#00CED1">use</span>, exemplo: </span>
   
-- <span style="color:#FFDAB9">use                             generic-host</span>
+  ​           <span style="color:#FFDAB9">use                             generic-host</span>
   
   <span style="color:#696969">Nesse caso, vamos herdar as propriedades do objeto <span style="color:#00CED1">generic-host</span> (***generic-host*** é o nome de um objeto que já foi criado anteriormente).</span>
   
-
+  
   
 - <span style="color:#C0C0C0">**register**</span>
   <span style="color:#696969">É usada para indicar se a definição do objeto deve ou não ser "registrada" no Nagios, o não registro é muito usado para criação de modelos, caso contrário o Nagios tentará registrar tal objeto como algo válido.</span>
