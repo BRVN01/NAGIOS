@@ -344,28 +344,31 @@
 ```bash
 define host {
     host_name			         NOME
-    alias				           APELIDO
-    address                         		IP
-    parents                         		PAIS 
-    check_command                             check-host-alive # ping.
-    check_interval                  	    1 # Intervalo entre is checks (em minutos).
+    alias				         APELIDO
+    address                      IP
+    parents                      PAIS 
+    check_command                check-host-alive # ping.
+# Intervalo entre is checks (em minutos).
+    check_interval               1
 
 # Tempo para agendar uma nova verificação (em minutos).
     retry_interval                  	      1 
-    max_check_attempts                    5 # Tentativas para determinar o estado HARD.
+    max_check_attempts           5 # Tentativas para determinar o estado HARD.
 
 # Nome do período em que as verificações ativas serão feitas. 
- 	check_period                               24x7 
-          contact_groups                        nagiosadmin # Grupo de contatos.
+    check_period                 24x7 
+    contact_groups               nagiosadmin # Grupo de contatos.
 	
 # Notificações que serão enviadas (DOWN, Recover e Inacessível).
-    notification_options                     d,u,r
-    notification_interval                    30 # Intervalo entre notificações (em minutos).
-    notification_period                       24x7 # Período para notificações.
-    notifications_enabled                  1 # Habilitar a notificação.
+    notification_options         d,u,r
+# Intervalo entre notificações (em minutos).
+    notification_interval        30
+    notification_period          24x7 # Período para notificações.
+    notifications_enabled        1 # Habilitar a notificação.
     event_handler_enabled	     1 # Habilitar event_handler.
-    flap_detection_enabled              1 # Habilitar a detecção por flap.
-    process_perf_data                          1 # Habilitar o processamento de dados de desempenho.
+    flap_detection_enabled       1 # Habilitar a detecção por flap.
+# Habilitar o processamento de dados de desempenho.
+    process_perf_data            1
 }
 ```
 
