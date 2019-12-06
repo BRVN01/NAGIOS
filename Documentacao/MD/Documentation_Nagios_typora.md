@@ -1,48 +1,48 @@
 [TOC]
 
-# Prefácio
+# <span style="color:#d86c00">**Prefácio**</span>
 
-Esse documento tenta passar ao leitor o conhecimento mais aprofundado da ferramenta de monitoramento conhecida como Nagios, o documento começa abordando a parte didática e após mostrar ao leitor tudo o que a ferramenta tem a oferecer, avançamos para parte prática, onde o leitor já terá conhecimentos de como funciona a ferramenta e passará a colocar o conhecimento em prática.
+<span style="color:#696969">Esse documento tenta passar ao leitor o conhecimento mais aprofundado da ferramenta de monitoramento conhecida como Nagios, o documento começa abordando a parte didática e após mostrar ao leitor tudo o que a ferramenta tem a oferecer, avançamos para parte prática, onde o leitor já terá conhecimentos de como funciona a ferramenta e passará a colocar o conhecimento em prática.</span>
 
 
 
 # <span style="color:#d86c00">**Capítulo 1: Introdução ao Nagios**</span>
 
-Nagios é uma ferramenta para monitoramento de rede/sistema, isso significa que o Nagios verifica computadores e/ou dispositivos na sua rede e garante que eles estejam funcionando como deveriam. 
+<span style="color:#696969">Nagios é uma ferramenta para monitoramento de rede/sistema, isso significa que o Nagios verifica computadores e/ou dispositivos na sua rede e garante que eles estejam funcionando como deveriam. </span>
 
-O Nagios verifica constantemente se as máquinas estão funcionando corretamente (através do ping),  ele também verifica se os serviços monitorados nessas máquinas estão funcionando bem.  O principal objetivo do monitoramento da infraestrutura de TI é detectar o mais rápido possível qualquer evento que tenha acontecido, para que se possa tomar uma ação antes que os usuários desse sistema relatem o problema. O monitoramento do sistema no Nagios é dividido em duas categorias de objetos: verificação de hosts e verificação de serviços.  Os hosts representam um dispositivo físico ou virtual em sua rede (servidores, roteadores, switchs, impressoras entre outros). 
+<span style="color:#696969">O Nagios verifica constantemente se as máquinas estão funcionando corretamente (através do ping),  ele também verifica se os serviços monitorados nessas máquinas estão funcionando bem.  O principal objetivo do monitoramento da infraestrutura de TI é detectar o mais rápido possível qualquer evento que tenha acontecido, para que se possa tomar uma ação antes que os usuários desse sistema relatem o problema. O monitoramento do sistema no Nagios é dividido em duas categorias de objetos: verificação de hosts e verificação de serviços.  Os hosts representam um dispositivo físico ou virtual em sua rede (servidores, roteadores, switchs, impressoras entre outros). </span>
 
-Os serviços são funcionalidades específicas, por exemplo, um servidor SSH (Secure Shell), consumo de memória, uso de HD, serviço de e-mail, entre outros serviços. Cada serviço está associado a um host no qual está sendo executado. Além disso, as máquinas podem ser agrupadas em grupos de hosts.
+<span style="color:#696969">Os serviços são funcionalidades específicas, por exemplo, um servidor SSH (Secure Shell), consumo de memória, uso de HD, serviço de e-mail, entre outros serviços. Cada serviço está associado a um host no qual está sendo executado. Além disso, as máquinas podem ser agrupadas em grupos de hosts.</span>
 
-Para que toda essa monitoração ocorra, existem vários arquivos de configuração diferentes que você precisará criar e/ou editar antes de começar a monitorar um dispositivo.
+<span style="color:#696969">Para que toda essa monitoração ocorra, existem vários arquivos de configuração diferentes que você precisará criar e/ou editar antes de começar a monitorar um dispositivo.</span>
 
-A mágica do Nagios acontece nas verificações de desempenho, ele usa apenas quatro estados distintos, sendo eles: Ok, Warning, Critical e Unknown, tem também o fato de ser baseado em plugins, significando  que se você quiser verificar algum recurso que ainda não tenha um plugin, bastaria escrever um.
+<span style="color:#696969">A mágica do Nagios acontece nas verificações de desempenho, ele usa apenas quatro estados distintos, sendo eles: Ok, Warning, Critical e Unknown, tem também o fato de ser baseado em plugins, significando  que se você quiser verificar algum recurso que ainda não tenha um plugin, bastaria escrever um.</span>
 
-O Nagios já vem com um conjunto de plugins padrão, mas caso você tenha necessidade, pode criar seus próprios plugins.
+<span style="color:#696969">O Nagios já vem com um conjunto de plugins padrão, mas caso você tenha necessidade, pode criar seus próprios plugins.</span>
 
 
 
 ## <span style="color:#d86c00">**Requisitos do sistema**</span>
 
-O único requisito para executar o Nagios Core é uma máquina executando Linux (ou variante UNIX) que tenha acesso à rede e um compilador C instalado (se estiver instalando a partir do código-fonte).
+<span style="color:#696969">O único requisito para executar o Nagios Core é uma máquina executando Linux (ou variante UNIX) que tenha acesso à rede e um compilador C instalado (se estiver instalando a partir do código-fonte).</span>
 
-Você *não precisa* usar os CGIs (Uso do Nagios a partir de um navegador, onde scripts que rodam em backend passam informações e interagem com frontend) incluídos no Nagios Core. No entanto, se você decidir usá-los, precisará ter o seguinte software instalado:
+<span style="color:#696969">Você *não precisa* usar os CGIs (Uso do Nagios a partir de um navegador, onde scripts que rodam em backend passam informações e interagem com frontend) incluídos no Nagios Core. No entanto, se você decidir usá-los, precisará ter o seguinte software instalado:</span>
 
-- Um servidor web (preferencialmente [Apache](http://www.apache.org/)).
+- <span style="color:#696969">Um servidor web (preferencialmente [Apache](http://www.apache.org/)).</span>
 
 
 
 ## <span style="color:#d86c00">**Licença do Nagios**</span>
 
-O Nagios Core está licenciado sob os termos da [GNU General Public License](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html) Versão 2, publicada pela [Free Software Foundation](http://www.fsf.org/). Isso lhe dá permissão legal para copiar, distribuir e/ou modificar o Nagios sob certas condições. Leia o arquivo 'LICENSE' [versão online da licença](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html) para obter mais detalhes.
+<span style="color:#696969">O Nagios Core está licenciado sob os termos da [GNU General Public License](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html) Versão 2, publicada pela [Free Software Foundation](http://www.fsf.org/). Isso lhe dá permissão legal para copiar, distribuir e/ou modificar o Nagios sob certas condições. Leia o arquivo 'LICENSE' [versão online da licença](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html) para obter mais detalhes.</span>
 
-O Nagios Core é fornecido COMO ESTÁ SEM GARANTIA DE QUALQUER TIPO, INCLUINDO A GARANTIA DE PROJETO, COMERCIALIZAÇÃO E ADEQUAÇÃO A UM OBJETIVO ESPECÍFICO.
+<span style="color:#696969">O Nagios Core é fornecido COMO ESTÁ SEM GARANTIA DE QUALQUER TIPO, INCLUINDO A GARANTIA DE PROJETO, COMERCIALIZAÇÃO E ADEQUAÇÃO A UM OBJETIVO ESPECÍFICO.</span>
 
 
 
 ## <span style="color:#d86c00">**Apoio**</span>
 
-Como uma ferramenta amplamente conhecida, o Nagios conta com dicas, tutoriais, documentação e manuais do Nagios de forma gratuita, para quem adquirir a versão paga do Nagios também ganha uma licença que lhe da direito ao suporte a ferramenta por uma equipe especializada.
+<span style="color:#696969">Como uma ferramenta amplamente conhecida, o Nagios conta com dicas, tutoriais, documentação e manuais do Nagios de forma gratuita, para quem adquirir a versão paga do Nagios também ganha uma licença que lhe da direito ao suporte a ferramenta por uma equipe especializada.</span>
 
 [Dicas, tutoriais, documentação e manuais do Nagios](https://library.nagios.com/)
 [Fórum de suporte da comunidade e do Nagios](https://support.nagios.com/forum/)
@@ -52,16 +52,16 @@ Como uma ferramenta amplamente conhecida, o Nagios conta com dicas, tutoriais, d
 
 ## <span style="color:#d86c00">**Principais características**</span>
 
-O Nagios é uma ferramenta muito flexível, ele pode ser configurado para monitorar sua infraestrutura de TI da maneira que você deseja. Também possui um mecanismo para reagir automaticamente a problemas e possui um poderoso sistema de notificação. 
-Tudo isso é baseado em um sistema de definição de objetos (objetos são todos os elementos envolvidos na lógica de monitoramento e notificação do Nagios), como explicado a seguir:
+<span style="color:#696969">O Nagios é uma ferramenta muito flexível, ele pode ser configurado para monitorar sua infraestrutura de TI da maneira que você deseja. Também possui um mecanismo para reagir automaticamente a problemas e possui um poderoso sistema de notificação. 
+Tudo isso é baseado em um sistema de definição de objetos (objetos são todos os elementos envolvidos na lógica de monitoramento e notificação do Nagios), como explicado a seguir:</span>
 
-- **Comandos**: É a forma que o Nagios vai executar as verificações. Sendo uma parte importante da comunicação do Nagios com os plugins.
-- **Períodos de tempo**: São períodos de data e hora em que uma operação deve ou não ser executada. Por exemplo, de segunda a sexta-feira, das 09:00 às 17:00.
-- **Hosts e grupos de hosts**: São dispositivos (servidores, impressoras, roteadores, switchs etc), além da possibilidade de agrupar hosts. Um único host pode ser membro de mais de um grupo.
-- **Serviços e grupo de serviços**: São várias funcionalidades ou recursos para monitorar em um host específico. Por exemplo, uso da CPU, espaço de armazenamento ou servidor da Web e etc.
-- **Contatos e grupos de contatos**: São as pessoas que devem ser notificadas com informações sobre um evento no host ou serviço, os contatos podem ser agrupados, e um único contato pode ser membro de mais de um grupo.
-- **Notificações**: Definem quem deve ser notificado sobre o que, por exemplo, todos os erros do grupo de servidores Windows devem ir para o grupo de contatos do windows-administration durante o horário de trabalho e para o grupo de contatos da equipe nível 2 fora do horário de trabalho.
-- **Escalações**: São extensões de notificações; eles definem que depois que um objeto está no mesmo estado por um período específico de tempo, outras pessoas devem ser notificadas de determinados eventos, por exemplo, um servidor crítico que esteja inativo por mais de 4 horas deve alertar o gerenciamento de TI para que eles acompanhem o problema.
+- <span style="color:#696969"><span style="color:#C0C0C0">**Comandos**</span>: É a forma que o Nagios vai executar as verificações. Sendo uma parte importante da comunicação do Nagios com os plugins.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Períodos de tempo**</span>: São períodos de data e hora em que uma operação deve ou não ser executada. Por exemplo, de segunda a sexta-feira, das 09:00 às 17:00.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Hosts e grupos de hosts**</span>: São dispositivos (servidores, impressoras, roteadores, switchs etc), além da possibilidade de agrupar hosts. Um único host pode ser membro de mais de um grupo.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Serviços e grupo de serviços**</span>: São várias funcionalidades ou recursos para monitorar em um host específico. Por exemplo, uso da CPU, espaço de armazenamento ou servidor da Web e etc.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Contatos e grupos de contatos**</span>: São as pessoas que devem ser notificadas com informações sobre um evento no host ou serviço, os contatos podem ser agrupados, e um único contato pode ser membro de mais de um grupo.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Notificações**</span>: Definem quem deve ser notificado sobre o que, por exemplo, todos os erros do grupo de servidores Windows devem ir para o grupo de contatos do windows-administration durante o horário de trabalho e para o grupo de contatos da equipe nível 2 fora do horário de trabalho.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Escalações**</span>: São extensões de notificações; eles definem que depois que um objeto está no mesmo estado por um período específico de tempo, outras pessoas devem ser notificadas de determinados eventos, por exemplo, um servidor crítico que esteja inativo por mais de 4 horas deve alertar o gerenciamento de TI para que eles acompanhem o problema.</span>
 
 [Mais sobre objetos e como definir arquivos de objetos](#<span style="color:#d86c00">**Arquivos de definição de objeto**</span>)
 
@@ -69,20 +69,20 @@ Tudo isso é baseado em um sistema de definição de objetos (objetos são todos
 
 # <span style="color:#d86c00">**Capítulo 2: Configurando o Nagios**</span>
 
-Nessa sessão vamos ver alguns dos principais arquivos de configuração do Nagios, para que eles servem e vamos configurar manualmente o arquivo de configurações principal do Nagios para que possamos ter um arquivo mais customizado.
+<span style="color:#696969">Nessa sessão vamos ver alguns dos principais arquivos de configuração do Nagios, para que eles servem e vamos configurar manualmente o arquivo de configurações principal do Nagios para que possamos ter um arquivo mais customizado.</span>
 
 
 
 ## <span style="color:#d86c00">**Criando o arquivo de configuração principal**</span>
 
-O arquivo de configuração principal é chamado <span style="color:#2E8B57">***nagios.cfg***</span>, é o arquivo principal carregado durante a inicialização do Nagios, ele contém várias diretivas que afetam como o daemon do Nagios Core opera. 
-Este arquivo de configuração é lido pelo daemon do Nagios Core e pelos CGIs (que fazem a comunicação com frontend do Nagios, em outras palavras, o "navegador" usado para visualizar eventos no dashboard do nagios).
+<span style="color:#696969">O arquivo de configuração principal é chamado <span style="color:#008080">***nagios.cfg***</span>, é o arquivo principal carregado durante a inicialização do Nagios, ele contém várias diretivas que afetam como o daemon do Nagios Core opera. </span>
+<span style="color:#696969">Este arquivo de configuração é lido pelo daemon do Nagios Core e pelos CGIs (que fazem a comunicação com frontend do Nagios, em outras palavras, o "navegador" usado para visualizar eventos no dashboard do nagios).</span>
 
-Não precisamos necessariamente editar ou recriar esse arquivo, o arquivo original já vem com todas as funcionalidades prontas e funcionais, a edição seria mais passar um pente fino, melhorando a performance das verificações do Nagios, mas isso depende muito da infraestrutura de TI usada, portanto, vamos explicar algumas linha usada no arquivo <span style="color:#2E8B57">***nagios.cfg***</span>.
+<span style="color:#696969">Não precisamos necessariamente editar ou recriar esse arquivo, o arquivo original já vem com todas as funcionalidades prontas e funcionais, a edição seria mais passar um pente fino, melhorando a performance das verificações do Nagios, mas isso depende muito da infraestrutura de TI usada, portanto, vamos explicar algumas linha usada no arquivo<span style="color:#008080">***nagios.cf***</span>.</span>
 
-Para acessar o link que leva a documentação oficial do arquivo de configuração principal do Nagios, basta clicar [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html).
+<span style="color:#696969">Para acessar o link que leva a documentação oficial do arquivo de configuração principal do Nagios, basta clicar [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html).</span>
 
-O arquivo ***nagios.cfg*** fica localizado no diretório `/usr/local/nagios/etc/nagios.cfg`:
+<span style="color:#696969">O arquivo <span style="color:#C0C0C0">***nagios.cfg***</span> fica localizado no diretório `/usr/local/nagios/etc/nagios.cfg`:</span>
 
 ```bash
 # Sessão de logs, 
@@ -352,17 +352,17 @@ max_debug_file_size=1000000
 allow_empty_hostgroup_assignment=0
 ```
 
-<span style="color:#8B008B">Para as opções utilizadas acima que não tiverem uma descrição, por favor, verifique a descrição das opções existentes na definição de um objeto do main do Nagios, consultando</span> [este link](definition_main-cfg.html).
+<span style="color:#FFFF00">Para as opções utilizadas acima que não tiverem uma descrição, por favor, verifique a descrição das opções existentes na definição de um objeto do main do Nagios, consultando</span> [este link](definition_main-cfg.html).
 
 
 
 ## <span style="color:#d86c00">**Arquivo(s) de Recursos**</span>
 
-Os arquivos de recursos no geral, podem ser usados para armazenar macros definidas pelo usuário. O foco principal de usarmos arquivos de recursos, é poder armazenar informações confidenciais (como senhas), sem exibi-las aos CGIs.
+<span style="color:#696969">Os arquivos de recursos no geral, podem ser usados para armazenar macros definidas pelo usuário. O foco principal de usarmos arquivos de recursos, é poder armazenar informações confidenciais (como senhas), sem exibi-las aos CGIs.</span>
 
-Você pode especificar um ou mais arquivos de recursos opcionais usando a diretiva [resource_file](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#resource_file), que fica no arquivo de configuração princial. Em uma instalação rápida do Nagios, o padrão para *resource_file* é o arquivo `/usr/local/nagios/etc/resource.cfg`.
+<span style="color:#696969">Você pode especificar um ou mais arquivos de recursos opcionais usando a diretiva [resource_file](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#resource_file), que fica no arquivo de configuração princial. Em uma instalação rápida do Nagios, o padrão para *resource_file* é o arquivo `/usr/local/nagios/etc/resource.cfg`.</span>
 
-Conteúdo de *resource.cfg*:
+<span style="color:#696969">Conteúdo de *resource.cfg*:</span>
 
 ```bash
 # Configurações padrões do Nagios.
@@ -378,21 +378,21 @@ $USER1$=/usr/local/nagios/libexec
 #$USER4$=somepassword
 ```
 
-Os arquivos de recursos geralmente contêm dados confidenciais, pois só podem ser usados em definições de objetos e não é possível ler seus valores na interface da web. Isso torna possível ocultar senhas para vários serviços confidenciais dos administradores do Nagios sem privilégios adequados. Podemos ter até 32 macros (variáveis), denominadas <span style="color:#2E8B57">**$USER1$**</span>, <span style="color:#2E8B57">**$USER2$**</span> ... <span style="color:#2E8B57">**$USER32$**</span>.
+<span style="color:#696969">Os arquivos de recursos geralmente contêm dados confidenciais, pois só podem ser usados em definições de objetos e não é possível ler seus valores na interface da web. Isso torna possível ocultar senhas para vários serviços confidenciais dos administradores do Nagios sem privilégios adequados. Podemos ter até 32 macros (variáveis), denominadas <span style="color:#00CED1">**$USER1$**</span>, <span style="color:#00CED1">**$USER2$**</span> ... <span style="color:#00CED1">**$USER32$**</span>.</span>
 
 
 
 ## <span style="color:#d86c00">**Arquivo de configuração CGI**</span>
 
-O arquivo de configuração CGI contém várias diretivas que afetam a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html). Ele também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas, esses scripts CGI alteram a funcionalidade do Nagios quando utilizada por navegadores (dashboard do Nagios), caso você não use CGI, a interação na monitoração será feita apenas por linha de comando.
+<span style="color:#696969">O arquivo de configuração CGI contém várias diretivas que afetam a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html). Ele também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas, esses scripts CGI alteram a funcionalidade do Nagios quando utilizada por navegadores (dashboard do Nagios), caso você não use CGI, a interação na monitoração será feita apenas por linha de comando.</span>
 
-A documentação para o arquivo de configuração CGI pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configcgi.html) .
+<span style="color:#696969">A documentação para o arquivo de configuração CGI pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configcgi.html) .</span>
 
 
 
 ## <span style="color:#d86c00">**Arquivos de definição de objeto**</span>
 
-Arquivos de objetos servem para que possamos definir `hosts`, `serviços`, `grupos de hosts`, `contatos`, `grupos de contatos`, `comandos`  etc. Todos esses arquivos serão usados pelo Nagios quando ele estiver em funcionamento. Esses arquivos de objetos são definidos usando as diretivas <span style="color:#2E8B57">**cfg_dir**</span> (para definir um diretório) e <span style="color:#2E8B57">**cfg_file**</span> (para definir um arquivo), segue um exemplo padrão de diretivas do Nagios:
+<span style="color:#696969">Arquivos de objetos servem para que possamos definir `hosts`, `serviços`, `grupos de hosts`, `contatos`, `grupos de contatos`, `comandos`  etc. Todos esses arquivos serão usados pelo Nagios quando ele estiver em funcionamento. Esses arquivos de objetos são definidos usando as diretivas <span style="color:#00CED1">**cfg_dir**</span> (para definir um diretório) e <span style="color:#00CED1">**cfg_file**</span> (para definir um arquivo), segue um exemplo padrão de diretivas do Nagios:</span>
 
 ```bash
 # Define o arquivo que conterá os comandos usado pelo Nagios,
@@ -429,28 +429,25 @@ resource_file=/usr/local/nagios/etc/resource.cfg
 
 ## <span style="color:#d86c00">**Definições de Objetos**</span>
 
-Aqui vamos verificar como definir objetos no Nagios. Todo objeto terá 3 diretivas em comum, são elas: 
+<span style="color:#696969">Aqui vamos verificar como definir objetos no Nagios. Todo objeto terá 3 diretivas em comum, são elas:</span>
 
-- **name**
-
-  É o nome do objeto;
-
+- <span style="color:#C0C0C0">**name**</span>
+<span style="color:#696969">É o nome do objeto;</span>
   
 
-- **use **
-
-  Esta variável faz com que seu objeto atual, possa herdar valores de outro objetos, apenas se a opção
-  <span style="color:#2E8B57">use</span> for usada no objeto atual, para isso, basta passar o <span style="color:#2E8B57">name</span> do objeto que você quer herdar as propriedades como valor da variável <span style="color:#2E8B57">use</span>, exemplo: 
-
-  - <span style="color:#D2691E">use                             generic-host</span>
-
-    Nesse caso, vamos herdar as propriedades do objeto <span style="color:#2E8B57">generic-host</span> (***generic-host*** é o nome de um objeto que já foi criado anteriormente).
-
+  
+- <span style="color:#C0C0C0">**use**</span>
+<span style="color:#696969">Esta variável faz com que seu objeto atual, possa herdar valores de outro objetos, apenas se a opção
+  <span style="color:#00CED1">use</span> for usada no objeto atual, para isso, basta passar o <span style="color:#00CED1">name</span> do objeto que você quer herdar as propriedades como valor da variável <span style="color:#00CED1">use</span>, exemplo: </span>
+  
+- <span style="color:#FFDAB9">use                             generic-host</span>
+  
+  <span style="color:#696969">Nesse caso, vamos herdar as propriedades do objeto <span style="color:#2E8B57">generic-host</span> (***generic-host*** é o nome de um objeto que já foi criado anteriormente).</span>
   
 
-- **register**
-
-É usada para indicar se a definição do objeto deve ou não ser "registrada" no Nagios, o não registro é muito usado para criação de modelos, caso contrário o Nagios tentará registrar tal objeto como algo válido.
+  
+- <span style="color:#C0C0C0">**register**</span>
+  <span style="color:#696969">É usada para indicar se a definição do objeto deve ou não ser "registrada" no Nagios, o não registro é muito usado para criação de modelos, caso contrário o Nagios tentará registrar tal objeto como algo válido.</span>
 
 ```bash
 # Exemplo de objeto modelo para um Host.
@@ -463,22 +460,21 @@ definir host {
 }
 ```
 
-A variável faltante acima seria o <span style="color:#2E8B57">*host_name*</span>, mas esse objeto só irá nos servir como um modelo para ser herdado, não precisamos registra-lo (como um host válido), porque ele está incompleto, sendo assim dessa forma ele não será um host e sim um modelo em outras palavras.
+<span style="color:#696969">A variável faltante acima seria o <span style="color:#00CED1">*host_name*</span>, mas esse objeto só irá nos servir como um modelo para ser herdado, não precisamos registra-lo (como um host válido), porque ele está incompleto, sendo assim dessa forma ele não será um host e sim um modelo em outras palavras.</span>
 
+<span style="color:#696969">Os valores são os seguintes: </span>
 
-Os valores são os seguintes: 
+- <span style="color:#C0C0C0">**0**</span><span style="color:#696969">**= NÃO registra a definição do objeto**; </span>
 
-- **0 = NÃO registra a definição do objeto**; 
+- <span style="color:#C0C0C0">**1**</span><span style="color:#696969">**= registra a definição do objeto** (<span style="color:#FFDAB9">**esse é o padrão**</span>). </span>
 
-- **1 = registra a definição do objeto** (<span style="color:red">**esse é o padrão**</span>). 
-
-  Essa variável NÃO é herdada na opção ***use***, toda definição de objeto (que seja parcial) usada como modelo deve definir explicitamente a diretiva de *registro* como *0*, caso contrário ela será registrada.
+  <span style="color:#696969">Essa variável NÃO é herdada na opção ***use***, toda definição de objeto (que seja parcial) usada como modelo deve definir explicitamente a diretiva de *registro* como *0*, caso contrário ela será registrada.</span>
 
 
 
 ### <span style="color:#d86c00">**Variáveis locais versus variáveis herdadas**</span>
 
-A variável local ***SEMPRE*** terá prioridade sobre a variável herdada, isso significa que, se você definir uma variável num *objeto X*, e herdar propriedades do *objeto Y*, que possui a mesma variável setada, a variável que será utilizada será a que for especificada no *objeto X*, porque ele da prioridade para variáveis locais, exemplo:
+<span style="color:#696969">A variável local ***SEMPRE*** terá prioridade sobre a variável herdada, isso significa que, se você definir uma variável num *objeto X*, e herdar propriedades do *objeto Y*, que possui a mesma variável setada, a variável que será utilizada será a que for especificada no *objeto X*, porque ele da prioridade para variáveis locais, exemplo:</span>
 
 ```bash
 # Vamos criar um objeto para uma máquina que será um servidor:
@@ -511,13 +507,13 @@ definir host {
 }
 ```
 
-Perceba que no host *Server2* foram herdados apenas a propriedade `check_command` do host *Server1*, variáveis como `notification_options` e `max_check_attempts` não foram herdadas porque foram definidas localmente.
+<span style="color:#696969">Perceba que no host *Server2* foram herdados apenas a propriedade `check_command` do host *Server1*, variáveis como `notification_options` e `max_check_attempts` não foram herdadas porque foram definidas localmente.</span>
 
 
 
 ### <span style="color:#d86c00">**Encadeamento de herança**</span>
 
-Um *objeto X* pode herdar propriedades de um *objeto Y*, isso nós já vimos acima, mas um *objeto X* que herdou propriedades de um *objeto Y* pode dar essas propriedades para um outro *objeto Z* (um pouco confuso, não?), vamos aos exemplos:
+<span style="color:#696969">Um *objeto X* pode herdar propriedades de um *objeto Y*, isso nós já vimos acima, mas um *objeto X* que herdou propriedades de um *objeto Y* pode dar essas propriedades para um outro *objeto Z* (um pouco confuso, não?), vamos aos exemplos:</span>
 
 ```bash
 # Vamos criar um objeto para uma máquina que será um servidor:
@@ -562,21 +558,21 @@ definir host {
 }
 ```
 
-Dessa forma, o host *Server3* herda variáveis da definição de host *Server2*, que por sua vez herda variáveis da definição de host *Server1*.
+<span style="color:#696969">Dessa forma, o host *Server3* herda variáveis da definição de host *Server2*, que por sua vez herda variáveis da definição de host *Server1*.</span>
 
 
 
 <span style="color:#d86c00">**E porque entender isso é importante?**</span>
 
-Na maioria dos casos, vamos herdar propriedades do modelo `generic-host` ou `linux-server` (caso esteja trabalhando com máquinas Linux), isso facilita muito não só a criação de novos objetos, como poupa muito tempo de nós.
+<span style="color:#696969">Na maioria dos casos, vamos herdar propriedades do modelo `generic-host` ou `linux-server` (caso esteja trabalhando com máquinas Linux), isso facilita muito não só a criação de novos objetos, como poupa muito tempo de nós.</span>
 
-Dessa forma, pegamos algo pronto, ou criamos um modelo customizado e apenas vamos herdando desse modelo.
+<span style="color:#696969">Dessa forma, pegamos algo pronto, ou criamos um modelo customizado e apenas vamos herdando desse modelo.</span>
 
 
 
 ### <span style="color:#d86c00">**Variáveis de objeto personalizadas**</span>
 
-Qualquer variável criada e que seja definida em modelos de hosts, modelos de serviços ou modelos de contatos serão herdadas como qualquer outra variável.
+<span style="color:#696969">Qualquer variável criada e que seja definida em modelos de hosts, modelos de serviços ou modelos de contatos serão herdadas como qualquer outra variável.</span>
 
 ```bash
 # Criando um modelo de Host com variáveis customizadas:
@@ -609,7 +605,8 @@ define host {
 
 <span style="color:#d86c00">**Impedir herança de variável**</span>
 
-Caso você não queira que alguma variável seja herdada, pode especificar seu valor como NULL, assim como no exemplo abaixo:
+<span style="color:#696969">Caso você não queira que alguma variável seja herdada, pode especificar seu valor como NULL, assim como no exemplo abaixo:</span>
+
 ```bash
 # Criando um modelo de Host com variáveis customizadas:
 define host {
@@ -642,7 +639,7 @@ define host {
 
 <span style="color:#d86c00">**Usando valores herdados mais valores locais**</span>
 
-As vezes podemos querer usar os valores herdados juntamente com valores locais, para isso precisamos adicionar um `+` para ele adicionar a mais o valor, isso só está disponível para variáveis padrão do Nagios.
+<span style="color:#696969">As vezes podemos querer usar os valores herdados juntamente com valores locais, para isso precisamos adicionar um `+` para ele adicionar a mais o valor, isso só está disponível para variáveis padrão do Nagios.</span>
 
 ```
 define host {
@@ -673,25 +670,25 @@ define host {
 
 ### <span style="color:#d86c00">**Definindo Host**</span>
 
-Vamos abordar a criação de um objeto de definição cuja funcionalidade é criar um host, como as opções a serem utilizadas são vastas, estarei mostrando um exemplo completo do que o objeto `define host` pode receber e então falaremos sobre cada opção a ser usada.
+<span style="color:#696969">Vamos abordar a criação de um objeto de definição cuja funcionalidade é criar um host, como as opções a serem utilizadas são vastas, estarei mostrando um exemplo completo do que o objeto `define host` pode receber e então falaremos sobre cada opção a ser usada.</span>
 
-```
+```bash
 define host {
-host_name						Nome desse host.
-alias							Apelido para esse host.
-display_name					Nome que será exibido na interface web.
-address							Endereço IP do host.
-parents							Nome do host que será o pai.
+host_name						# Nome desse host.
+alias							# Apelido para esse host.
+display_name					# Nome que será exibido na interface web.
+address							# Endereço IP do host.
+parents							# Nome do host que será o pai.
 importance
-hostgroups						Nome(s) de grupo de hosts.
-check_command					Nome do comando a ser usado.
+hostgroups						# Nome(s) de grupo de hosts.
+check_command					# Nome do comando a ser usado.
 initial_state					[o,d,u]
 max_check_attempts
 check_interval
 retry_interval
 active_checks_enabled			[0/1]
 passive_checks_enabled			[0/1]
-check_period					Nome do periodo que as verificações ativas serão  feitas.
+check_period					# Nome do periodo que as verificações ativas serão  feitas.
 obsess_over_host|obsess			[0/1]
 check_freshness					[0/1]
 freshness_threshold
@@ -704,15 +701,15 @@ flap_detection_options			[o,d,u]
 process_perf_data				[0/1]
 retain_status_information		[0/1]
 retain_nonstatus_information	[0/1]
-contacts						Contatos para notificações.
-contact_groups					Grupo de contatos para notificações.
+contacts						# Contatos para notificações.
+contact_groups					# Grupo de contatos para notificações.
 notification_interval
 first_notification_delay
-notification_period				Nome do período usado nas notificações.
+notification_period				# Nome do período usado nas notificações.
 notification_options			[d,u,r,f,s]
 notifications_enabled			[0/1]
 stalking_options				[o,d,u,N]
-notes							CAMPO COM INFORMAÇÕES.
+notes							# CAMPO COM INFORMAÇÕES.
 notes_url						url
 action_url						url
 icon_image						image_file
@@ -724,13 +721,13 @@ statusmap_image					image_file
 }    
 ```
 
-<span style="color:#8B008B">Para as opções utilizadas acima que não tiverem uma descrição, por favor, verifique a descrição das opções existentes na definição de um objeto do tipo host, consultando</span> [este link](definition_host.html).
+<span style="color:#FFFF00">Para as opções utilizadas acima que não tiverem uma descrição, por favor, verifique a descrição das opções existentes na definição de um objeto do tipo host, consultando</span> [este link](definition_host.html).
 
 
 
 ### <span style="color:#d86c00">**Definindo HostGroups**</span>
 
-A definição de grupo de hosts é usada para agrupar um ou mais hosts juntos, isso simplifica uma configuração padrão para todos os Hosts participantes do grupo.
+<span style="color:#696969">A definição de grupo de hosts é usada para agrupar um ou mais hosts juntos, isso simplifica uma configuração padrão para todos os Hosts participantes do grupo.</span>
 
 
 ```bash
@@ -756,7 +753,7 @@ define hostgroup {
 
 ### <span style="color:#d86c00">**Definindo Service**</span>
 
-Uma definição de serviço é usada para identificar um "serviço" que é executado em um host, abaixo segue um exemplo de tudo que um objeto do tipo <span style="color:#2E8B57">service</span> pode ter:
+<span style="color:#696969">Uma definição de serviço é usada para identificar um "serviço" que é executado em um host, abaixo segue um exemplo de tudo que um objeto do tipo <span style="color:#00CED1">service</span> pode ter:</span>
 
 ```bash
 define service{
@@ -784,22 +781,22 @@ check_freshness					[0/1]
 freshness_threshold
 event_handler					command_name
 event_handler_enabled			[0/1]
-low_flap_threshold				#
-high_flap_threshold				#
+low_flap_threshold
+high_flap_threshold
 flap_detection_enabled			[0/1]
 flap_detection_options			[o,w,c,u]
 process_perf_data				[0/1]
 retain_status_information		[0/1]
 retain_nonstatus_information	[0/1]
-notification_interval			#
-first_notification_delay		#
+notification_interval
+first_notification_delay
 notification_period				timeperiod_name
 notification_options			[w,u,c,r,f,s]
 notifications_enabled			[0/1]
-contacts						contacts
-contact_groups					contact_groups
+contacts						# Contatos para notificações.
+contact_groups					# Grupo de contatos para notificações.
 stalking_options				[o,w,u,c,N]
-notes							note_string
+notes							# CAMPO COM INFORMAÇÕES.
 notes_url						url
 action_url						url
 icon_image						image_file
@@ -821,9 +818,9 @@ https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/eventhandler
 
 # <span style="color:#d86c00">**Instalando o Nagios 4**</span>
 
-Todo processo de instalação foi realizado seguindo a [documentação oficial](https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html#Ubuntu) do Nagios, usando o sistema operacional do Ubuntu 18.08 LTS.
+<span style="color:#696969">Todo processo de instalação foi realizado seguindo a [documentação oficial](https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html#Ubuntu) do Nagios, usando o sistema operacional do Ubuntu 18.08 LTS.</span>
 
-- Links
+- <span style="color:#C0C0C0">Link</span>
 
   [Nagios Core - Installing Nagios Core From Source](https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html)
 
@@ -833,9 +830,9 @@ Todo processo de instalação foi realizado seguindo a [documentação oficial](
 
 ## <span style="color:#d86c00">**Preparando o ambiente**</span>
 
-Inicialmente vamos baixar alguns pacotes que vamos usar durante a utilização do servidor.
+<span style="color:#696969">Inicialmente vamos baixar alguns pacotes que vamos usar durante a utilização do servidor.</span>
 
-Segue o comando usado:
+<span style="color:#696969">Segue o comando usado:</span>
 
 ```
 sudo apt-get install -y unzip zip tcpdump openssh-server mtr nmap perl python python3 vim curl htop wget bc gawk snmp snmpd libnet-snmp-perl
@@ -864,7 +861,7 @@ sudo apt-get install -y unzip zip tcpdump openssh-server mtr nmap perl python py
 
 ## <span style="color:#d86c00">**Pré requisitos**</span>
 
-Para podermos compilar o Nagios precisamos atender aos pré  requisitos, caso contrário, teremos erro durante a compilação, abaixo  segue o comando que instala as dependências do Nagios.
+<span style="color:#696969">Para podermos compilar o Nagios precisamos atender aos pré  requisitos, caso contrário, teremos erro durante a compilação, abaixo  segue o comando que instala as dependências do Nagios.</span>
 
 ```
 sudo apt-get install -y autoconf gcc libc6 php7.2 php make libapache2-mod-php7.2 apache2 build-essential xinetd 
@@ -889,7 +886,7 @@ sudo apt-get install -y autoconf gcc libc6 php7.2 php make libapache2-mod-php7.2
 
 ## <span style="color:#d86c00">**Baixando o Nagios Core**</span>
 
-Agora vamos baixar o pacote do Nagios para podermos compilá-lo.
+<span style="color:#696969">Agora vamos baixar o pacote do Nagios para podermos compilá-lo.</span>
 
 ```
 # Entra na pasta /tmp:
@@ -960,7 +957,7 @@ sudo ufw reload
 
 #### <span style="color:#d86c00">**Criando uma conta de usuário no Nagios**</span>
 
-Agora vamos criar um usuário que poderá acessar a aplicação web do Nagios.
+<span style="color:#696969">Agora vamos criar um usuário que poderá acessar a aplicação web do Nagios.</span>
 
 ```
 # Criando um usuário chamado 'nagiosadmin'
@@ -974,7 +971,7 @@ sudo chown nagios. /usr/local/nagios/etc/htpasswd.users
 
 #### <span style="color:#d86c00">**Manipuladores de eventos do Nagios**</span>
 
-Vamos copiar a pasta de notificação de eventos do Nagios para pasta de produção.
+<span style="color:#696969">Vamos copiar a pasta de notificação de eventos do Nagios para pasta de produção.</span>
 
 ```
 # Copiando a pasta 'eventhandlers' para '/usr/local/nagios/libexec/':
@@ -988,7 +985,7 @@ sudo chown -R nagios:nagios /usr/local/nagios/libexec/eventhandlers
 
 #### <span style="color:#d86c00">**Reiniciando o Nagios/Apache**</span>
 
-Vamos reiniciar o apache e o Nagios para "aplicar" as mudanças.
+<span style="color:#696969">Vamos reiniciar o apache e o Nagios para "aplicar" as mudanças.</span>
 
 ```
 # Reiniciando o Apache2:
@@ -1000,11 +997,11 @@ sudo systemctl start nagios.service
 
 
 
-Agora precisamos acessar o IP do servidor do Nagios para verificar se conseguimos acessar a aplicação web do Nagios, o usuário é **nagiosadmin**, a senha é a senha que você definiu.
+<span style="color:#696969">Agora precisamos acessar o IP do servidor do Nagios para verificar se conseguimos acessar a aplicação web do Nagios, o usuário é **nagiosadmin**, a senha é a senha que você definiu.</span>
 
 
 
-Se você esqueceu a senha, pode adicionar o usuário novamente usando o comando abaixo e digitar uma nova senha.
+<span style="color:#696969">Se você esqueceu a senha, pode adicionar o usuário novamente usando o comando abaixo e digitar uma nova senha.</span>
 
 ```
 sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
@@ -1012,31 +1009,31 @@ sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 
 
 
-Caso tenha conseguido acessar, você vera que todos os checks para o  localhost (servidor Nagios) estarão vermelhos, como na imagem abaixo:
+<span style="color:#696969">Caso tenha conseguido acessar, você vera que todos os checks para o  localhost (servidor Nagios) estarão vermelhos, como na imagem abaixo:</span>
 
 [![1573130380552](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1573130380552.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1573130380552.png)
 
 
 
-Isso se deve ao motivo de não termos os plugins necessários para a  verificação desses serviços, podemos ver isso clicando em alguns dos  serviços que estão sendo verificados (vamos pegar como exemplo o Current Load), podemos verificar no campo **Status Information** que o erro é devido ao arquivo (plugin) não ter sido encontrado.
+<span style="color:#696969">Isso se deve ao motivo de não termos os plugins necessários para a  verificação desses serviços, podemos ver isso clicando em alguns dos  serviços que estão sendo verificados (vamos pegar como exemplo o Current Load), podemos verificar no campo <span style="color:#00CED1">**Status Information**</span> que o erro é devido ao arquivo (plugin) não ter sido encontrado.</span>
 
 [![1573130571787](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1573130571787.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1573130571787.png)
 
 
 
-Para corrigir isso, vamos instalar os plugins padrões do Nagios.
+<span style="color:#696969">Para corrigir isso, vamos instalar os plugins padrões do Nagios.</span>
 
 
 
 # <span style="color:#d86c00">**Instalando o Nagios Plugins**</span>
 
-Vamos instalar os plugins padrões do Nagios para que possamos ter uma monitoração padrão da ferramenta.
+<span style="color:#696969">Vamos instalar os plugins padrões do Nagios para que possamos ter uma monitoração padrão da ferramenta.</span>
 
  
 
 ## <span style="color:#d86c00">**Pré requisitos**</span>
 
-Boa parte dos pré requisitos do Nagios-Plugins já foi instalado  anteriormente, vamos instalar apenas os que não foram instalados.
+<span style="color:#696969">Boa parte dos pré requisitos do Nagios-Plugins já foi instalado  anteriormente, vamos instalar apenas os que não foram instalados.</span>
 
 ```
 sudo apt install -y libmcrypt-dev libssl-dev dc gettext libmcrypt4
@@ -1052,7 +1049,7 @@ sudo apt install -y libmcrypt-dev libssl-dev dc gettext libmcrypt4
 
 ## <span style="color:#d86c00">**Compilando os plugins**</span>
 
-Agora vamos baixar e compilar o pacote de plugins do Nagios.
+<span style="color:#696969">Agora vamos baixar e compilar o pacote de plugins do Nagios.</span>
 
 ```
 # Entrando no /tmp:
@@ -1097,11 +1094,11 @@ sudo systemctl status nagios.service
 
 
 
-Você pode verificar o arquivo de configuração do Nagios usando o comando `/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg`.
+<span style="color:#696969">Você pode verificar o arquivo de configuração do Nagios usando o comando `/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg`.</span>
 
 
 
-Após isso você pode dar um `Re-schedule the next check of this service` nos serviços, até que eles venham a ficar com status OK, como na imagem abaixo:
+<span style="color:#696969">Após isso você pode dar um `Re-schedule the next check of this service` nos serviços, até que eles venham a ficar com status OK, como na imagem abaixo:</span>
 
 
 
@@ -1109,7 +1106,7 @@ Após isso você pode dar um `Re-schedule the next check of this service` nos se
 
 
 
-Aplicando o `Re-schedule the next check of this service` nos serviços: 
+<span style="color:#696969">Aplicando o `Re-schedule the next check of this service` nos serviços: </span>
 
 
 
@@ -1131,10 +1128,10 @@ Aplicando o `Re-schedule the next check of this service` nos serviços:
 
 ## <span style="color:#d86c00">**Estados Soft e hard**</span>
 
-O Nagios funciona verificando se um host ou serviço específico está funcionando corretamente e armazenando seu status. Para evitar a detecção de falhas aleatórias e temporárias, o Nagios usa estados *soft* e *hard* para descrever qual é o status atual de um host ou serviço.
+<span style="color:#696969">O Nagios funciona verificando se um host ou serviço específico está funcionando corretamente e armazenando seu status. Para evitar a detecção de falhas aleatórias e temporárias, o Nagios usa estados <span style="color:#00CED1">*soft*</span> e <span style="color:#00CED1">*hard*</span> para descrever qual é o status atual de um host ou serviço.</span>
 
-Imagine que um administrador esteja reiniciando um servidor da Web e essa operação torne a conexão com as páginas da Web indisponível por 5 segundos. Como essas reinicializações geralmente são feitas à noite para diminuir o número de usuários afetados, esse é um período aceitável. No entanto, um problema pode ser que o Nagios tente se conectar ao servidor e observe que ele está realmente inoperante. Se depender apenas de um único resultado, o Nagios poderá acionar um alerta de que um servidor da Web está inoperante. Na verdade, ele voltaria a funcionar em alguns segundos, mas levaria alguns minutos para Nagios descobrir isso.
+<span style="color:#696969">Imagine que um administrador esteja reiniciando um servidor da Web e essa operação torne a conexão com as páginas da Web indisponível por 5 segundos. Como essas reinicializações geralmente são feitas à noite para diminuir o número de usuários afetados, esse é um período aceitável. No entanto, um problema pode ser que o Nagios tente se conectar ao servidor e observe que ele está realmente inoperante. Se depender apenas de um único resultado, o Nagios poderá acionar um alerta de que um servidor da Web está inoperante. Na verdade, ele voltaria a funcionar em alguns segundos, mas levaria alguns minutos para Nagios descobrir isso.</span>
 
-Para situações onde o serviço ficou inativo por um curto período de tempo ou ou foi um falha momentânea, foram introduzidos estados de verificações *soft*. Quando um status é desconhecido ou é diferente de um status anterior (para o mesmo host/serviço), o Nagios testará novamente o host ou o serviço algumas vezes para garantir que a alteração seja permanente, ou seja, para garantir que o evento não tenha sido momentâneo. Assim o Nagios assume que o novo resultado é um estado *soft*. Após alguns testes *softs*, se o evento continuar acusando o mesmo status, isso significa que o novo estado é permanente (está mesmo com algum problema), então ele é considerado um estado *hard*.
+<span style="color:#696969">Para situações onde o serviço ficou inativo por um curto período de tempo ou ou foi um falha momentânea, foram introduzidos estados de verificações *soft*. Quando um status é desconhecido ou é diferente de um status anterior (para o mesmo host/serviço), o Nagios testará novamente o host ou o serviço algumas vezes para garantir que a alteração seja permanente, ou seja, para garantir que o evento não tenha sido momentâneo. Assim o Nagios assume que o novo resultado é um estado *soft*. Após alguns testes *softs*, se o evento continuar acusando o mesmo status, isso significa que o novo estado é permanente (está mesmo com algum problema), então ele é considerado um estado *hard*.</span>
 
-Cada verificação de host e serviço define o número de tentativas a serem executadas antes de assumir que uma alteração é permanente. Isso permite mais flexibilidade sobre quantas falhas devem ser tratadas como um problema real em vez de temporário. Definir o número de verificações como 1 fará com que todas as alterações sejam tratadas como um problema real (isso pode causar falsos alertas). 
+<span style="color:#696969">Cada verificação de host e serviço define o número de tentativas a serem executadas antes de assumir que uma alteração é permanente. Isso permite mais flexibilidade sobre quantas falhas devem ser tratadas como um problema real em vez de temporário. Definir o número de verificações como 1 fará com que todas as alterações sejam tratadas como um problema real (isso pode causar falsos alertas). </span>
