@@ -732,20 +732,22 @@ statusmap_image					image_file
 
 ```bash
 define hostgroup {
-    hostgroup_name	    hostgroup_name # Nome do grupo de hosts.
-    alias	            alias # Apelido para o grupo de hosts.
-    members	            hosts # Nome dos membros, separados por vírgula.
-    hostgroup_members   hostgroups # Nome de outros hostgroups.
-    notes	            DESCRICAO # Definir uma descrição para o host.
-    notes_url	        url
-    action_url	        url
+    hostgroup_name	        hostgroup_name # Nome do grupo de hosts.
+    alias                   alias # Apelido para o grupo de hosts.
+# Nome dos membros, separados por vírgula.
+    members	                hosts
+    hostgroup_members       hostgroups # Nome de outros hostgroups.
+# Definir uma descrição para o host.
+    notes	                DESCRICAO
+    notes_url	            url
+    action_url	            url
    	}
    	
 #### Opções necessárias para criação de um HostGroup:
 
 define hostgroup {
-    hostgroup_name	    hostgroup_name
-    alias	        	alias
+    hostgroup_name	        hostgroup_name
+    alias                   alias
     }
 ```
 
