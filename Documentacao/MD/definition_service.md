@@ -251,9 +251,9 @@
 
   <span style="color:#FFFF00">Segue imagem de como vai ficar a descrição aplicada ao serviço:</span>
 
-[![a5s2fe2dfddf6df1ee8](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a5s2fe2dfddf6df1ee8.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a5s2fe2dfddf6df1ee8.png)
+  ![a5s2fe2dfddf6df1ee8](/home/bruno/git/NAGIOS/IMG/a5s2fe2dfddf6df1ee8.png)
 
-  
+
 
 #### <span style="color:#d86c00">**notes_url**</span>
 
