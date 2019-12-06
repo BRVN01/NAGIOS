@@ -500,10 +500,10 @@ definir host {
 # Depois que o Nagios processa esses dados, a definição resultante do host Server2 
 # seria equivalente a esta definição:
 definir host {
-    host_name                Server2
-    check_command            check-host-alive
-    notification_options     d, u, r
-    max_check_attempts       3
+    host_name               Server2
+    check_command           check-host-alive
+    notification_options    d, u, r
+    max_check_attempts      3
 }
 ```
 
@@ -551,10 +551,10 @@ definir host {
 # Depois que o Nagios processa esses dados, a definição resultante do host Server3 
 # seria equivalente a esta definição:
 definir host {
-    host_name              Server3
-    check_command          check-host-alive
-    notification_options   d, u, r
-    max_check_attempts     3
+    host_name               Server3
+    check_command           check-host-alive
+    notification_options    d, u, r
+    max_check_attempts      3
 }
 ```
 
@@ -577,27 +577,27 @@ definir host {
 ```bash
 # Criando um modelo de Host com variáveis customizadas:
 define host {
-    _customvar1         somevalue   ; <-- Variável de host personalizada 
-    _snmp_community     public      ; <-- CVariável de host personalizada 
-    name                generichosttemplate
-    register            0
+    _customvar1             somevalue # Variável de host personalizada 
+    _snmp_community         public # CVariável de host personalizada 
+    name                    generichosttemplate
+    register                0
 }
 
 # Criando um host que herdará as propriedades de 'generichosttemplate':
 define host {
-    host_name       Server1
-    address         192.168.1.3
-    use           generichosttemplate
+    host_name               Server1
+    address                 192.168.1.3
+    use                     generichosttemplate
 }
 
 # O host Server1 herdará as variáveis personalizadas, que são: _customvar1 e 
 # _snmp_community, bem como seus respectivos valores.
 # O resultado efetivo é uma definição para Server1 que se parece com isso:
 define host {
-    host_name           Server1
-    address             192.168.1.3
-    _customvar1         somevalue
-    _snmp_community     public
+    host_name               Server1
+    address                 192.168.1.3
+    _customvar1             somevalue
+    _snmp_community         public
 }
 ```
 
@@ -610,18 +610,18 @@ define host {
 ```bash
 # Criando um modelo de Host com variáveis customizadas:
 define host {
-    _customvar1         somevalue   ; <-- Variável de host personalizada 
-    _snmp_community     public      ; <-- CVariável de host personalizada 
-    name                generichosttemplate
-    register            0
+    _customvar1             somevalue # Variável de host personalizada 
+    _snmp_community         public # CVariável de host personalizada 
+    name                    generichosttemplate
+    register                0
 }
 
 # Criando um host que herdará as propriedades de 'generichosttemplate':
 define host {
-    host_name       Server1
-    address         192.168.1.3
-    _customvar1     null
-    use             generichosttemplate
+    host_name               Server1
+    address                 192.168.1.3
+    _customvar1             null
+    use                     generichosttemplate
 }
 
 # O host Server1 herdará a variável personalizada '_snmp_community', 
@@ -629,9 +629,9 @@ define host {
 # já que impedimos isso passando valor de 'null' para ela.
 # O resultado efetivo é uma definição para Server1 que se parece com isso:
 define host {
-    host_name           Server1
-    address             192.168.1.3
-    _snmp_community     public
+    host_name               Server1
+    address                 192.168.1.3
+    _snmp_community         public
 }
 ```
 
@@ -641,17 +641,17 @@ define host {
 
 <span style="color:#696969">As vezes podemos querer usar os valores herdados juntamente com valores locais, para isso precisamos adicionar um `+` para ele adicionar a mais o valor, isso só está disponível para variáveis padrão do Nagios.</span>
 
-```
+```bash
 define host {
-    hostgroups      all-servers
-    name            generichosttemplate
-    register        0
+    hostgroups              all-servers
+    name                    generichosttemplate
+    register                0
 }
 
 define host {
-    host_name       Server1
-    hostgroups      +linux-servers,web-servers
-    use             generichosttemplate
+    host_name               Server1
+    hostgroups              +linux-servers,web-servers
+    use                     generichosttemplate
 }
 ```
 
@@ -659,8 +659,8 @@ Nesse caso, o host *Server1* terá não só o valor de sua variável local, mas 
 
 ```bash
 define host {
-    host_name       linuxserver1
-    hostgroups      all-servers,linux-servers,web-servers
+    host_name               linuxserver1
+    hostgroups              all-servers,linux-servers,web-servers
 }
 # all-servers veio de generichosttemplate;
 # linux-servers e web-servers foram adicionadas localmente.
