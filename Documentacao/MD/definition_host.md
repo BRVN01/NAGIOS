@@ -352,7 +352,7 @@ define host {
     check_interval               1
 
 # Tempo para agendar uma nova verificação (em minutos).
-    retry_interval                  	      1 
+    retry_interval               1 
     max_check_attempts           5 # Tentativas para determinar o estado HARD.
 
 # Nome do período em que as verificações ativas serão feitas. 

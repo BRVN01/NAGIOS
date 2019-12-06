@@ -452,11 +452,11 @@ resource_file=/usr/local/nagios/etc/resource.cfg
 ```bash
 # Exemplo de objeto modelo para um Host.
 definir host {
-    check_command check-host-alive
-    notification_options d, u, r
-    max_check_attempts 5
-    nome generichosttemplate 
-    register 0
+    check_command                check-host-alive
+    notification_options         d, u, r
+    max_check_attempts           5
+    name                         generichosttemplate 
+    register                     0
 }
 ```
 
@@ -479,19 +479,19 @@ definir host {
 ```bash
 # Vamos criar um objeto para uma máquina que será um servidor:
 definir host {
-    host_name Server1
-    check_command check-host-alive
-    notification_options d, u, r
-    max_check_attempts 5
-    nome servidores_nutela
+    host_name                Server1
+    check_command            check-host-alive
+    notification_options     d, u, r
+    max_check_attempts       5
+    name                     servidores_nutela
 }
 
 # Vamos criar um outro objeto para uma máquina que será um servidor e que irá herdar
 # propriedades do 'Servidor 1':
 definir host {
-    host_name Server2
-    max_check_attempts 3
-    use servidores_nutela
+    host_name                Server2
+    max_check_attempts       3
+    use                      servidores_nutela
 }
 
 # Você observará que a definição para host Server1 foi definida como tendo servidores_nutela
@@ -500,10 +500,10 @@ definir host {
 # Depois que o Nagios processa esses dados, a definição resultante do host Server2 
 # seria equivalente a esta definição:
 definir host {
-    host_name Server2
-    check_command check-host-alive
-    notification_options d, u, r
-    max_check_attempts 3
+    host_name                Server2
+    check_command            check-host-alive
+    notification_options     d, u, r
+    max_check_attempts       3
 }
 ```
 
@@ -518,27 +518,27 @@ definir host {
 ```bash
 # Vamos criar um objeto para uma máquina que será um servidor:
 definir host {
-    host_name Server1
-    check_command check-host-alive
-    notification_options d, u, r
-    max_check_attempts 5
-    nome servidores_nutela
+    host_name               Server1
+    check_command           check-host-alive
+    notification_options    d, u, r
+    max_check_attempts      5
+    name                    servidores_nutela
 }
 
 # Vamos criar um outro objeto para uma máquina que será um servidor e que irá herdar
 # propriedades do 'Servidor 1':
 definir host {
-    host_name Server2
-    max_check_attempts 3
-    use servidores_nutela
-    nome servidores2
+    host_name               Server2
+    max_check_attempts      3
+    use                     servidores_nutela
+    name                    servidores2
 }
 
 # Vamos criar um outro objeto para uma máquina que será um servidor e que irá herdar
 # propriedades do 'Servidor 2':
 definir host {
-    host_name Server3
-    use servidores_nutela
+    host_name              Server3
+    use                    servidores_nutela
 }
 
 # Você observará que a definição para host Server1 foi definida como tendo servidores_nutela
