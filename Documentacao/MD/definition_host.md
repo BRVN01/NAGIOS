@@ -215,7 +215,7 @@
 
 <span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">notes                             Servidor do Nagios</span>
+​			<span style="color:#FFDAB9">notes                             Servidor do Nagios</span>
 
 
 
@@ -231,7 +231,7 @@
 
 <span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">notes_url                            https://www.google.com.br</span>
+​			<span style="color:#FFDAB9">notes_url                            https://www.google.com.br</span>
 
 
 
@@ -251,7 +251,7 @@
 
 <span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">action_url                             https://www.google.com.br</span>
+​			<span style="color:#FFDAB9">action_url                             https://www.google.com.br</span>
 
 
 
@@ -270,7 +270,7 @@
 
 <span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">icon_image                             debian.png</span>
+​			<span style="color:#FFDAB9">icon_image                             debian.png</span>
 
 
 
@@ -284,13 +284,13 @@
 
 #### <span style="color:#d86c00">**icon_image_alt**</span>
 
-<span style="color:#696969">Essa variável é usada para definir uma sequência opcional que é usada na tag ALT da imagem especificada pelo argumento <icon_image> .</span>
+<span style="color:#696969">Essa variável é usada para definir uma sequência opcional que é usada na tag ALT da imagem especificada pelo argumento <icon_image>, basicamente, adiciona um nome abaixo da imagem.</span>
 
 
 
 <span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">icon_image_alt                             debian.png</span>
+​			<span style="color:#FFDAB9">icon_image_alt                             debian.png</span>
 
 <span style="color:#FFFF00">Segue imagem de como vai ficar o icon_image_alt aplicada ao host:</span>
 
@@ -308,7 +308,7 @@
 
 <span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">vrml_image                             debian.png</span>
+​			<span style="color:#FFDAB9">vrml_image                             debian.png</span>
 
 
   <span style="color:#FFFF00">Segue imagem de como vai ficar o vrml_image aplicada ao host:</span>

@@ -245,7 +245,7 @@
 
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">notes                             Verifica a disponibilidade</span>
+​			<span style="color:#FFDAB9">notes                             Verifica a disponibilidade</span>
 
 
 
@@ -260,7 +260,7 @@
 
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">notes_url                            https://www.google.com.br</span>
+​			<span style="color:#FFDAB9">notes_url                            https://www.google.com.br</span>
 
 
 
@@ -280,7 +280,7 @@
 
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">action_url                             https://www.google.com.br</span>
+​			<span style="color:#FFDAB9">action_url                             https://www.google.com.br</span>
 
 
 
@@ -299,7 +299,7 @@
 
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">icon_image                             debian.png</span>
+​			<span style="color:#FFDAB9">icon_image                             debian.png</span>
 
 
 
@@ -307,7 +307,7 @@
 
 
 
-[![a21asd65sf2nhk](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a21asd65sf2nhk.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a21asd65sf2nhk.png) 
+[![105946865472318](https://github.com/BRVN01/NAGIOS/raw/master/IMG/105946865472318.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/105946865472318.png) 
 
 
 
