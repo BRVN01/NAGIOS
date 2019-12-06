@@ -14,6 +14,19 @@
 
 
 
+#### <span style="color:#d86c00">**servicegroups**</span>
+<span style="color:#696969">Esta directiva é usada para identificar o *nome (s) curto (s)* do [SERVICEGROUP](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#servicegroup) que o serviço pertence. Vários grupos de serviços devem ser separados por vírgulas. Esta diretiva pode ser usada como uma alternativa ao uso da diretiva de <span style="color:#00CED1">*membros*</span> nas definições de [grupos de serviços](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#servicegroup).</span>
+
+
+
+#### <span style="color:#d86c00">**is_volatile**</span>
+<span style="color:#696969">Esta diretiva é usada para indicar se o serviço é "volátil". Os serviços normalmente <span style="color:#00CED1">*não são*</span>voláteis. Mais informações sobre serviço volátil e como eles diferem dos serviços normais podem ser encontradas [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/volatileservices.html). </span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = serviço não é volátil, 1 = serviço é volátil.</span>
+
+
+
+
 #### <span style="color:#d86c00">**importance**</span>
 
 <span style="color:#696969">A importância é usada para determinar se as notificações devem ser enviadas para um contato, se o valor de importância do serviço mais os valores de importância de todos os serviços do host forem maiores ou iguais à importância mínima do contato, o contato será notificado. </span>
@@ -47,11 +60,9 @@
 
 
 
-
-
 #### <span style="color:#d86c00">**max_check_attempts**</span>
 
-<span style="color:#696969">Esta diretiva é usada para definir o número de vezes que o Nagios tentará novamente o comando de verificação do serviço se retornar qualquer estado diferente de OK. Definir esse valor como 1 fará com que o Nagios gere um alerta sem tentar novamente a verificação do serviço.</span>
+<span style="color:#696969">Esta diretiva é usada para definir o número de vezes que o Nagios tentará novamente o comando de verificação de serviço se retornar qualquer estado diferente de OK. Definir esse valor como 1 fará com que o Nagios gere um alerta sem tentar novamente a verificação do serviço.</span>
 
 <span style="color:#696969">Nota: Se você não deseja verificar o status do serviço, ainda deve configurá-lo com um valor mínimo de 1. Para ignorar a verificação do serviço, deixe a opção <span style="color:#00CED1">*check_command*</span>em branco.</span>
 
@@ -203,13 +214,20 @@
 
 
 
+#### <span style="color:#d86c00">**notification_period**</span>
+
+<span style="color:#696969">Esta diretiva é usada para especificar o nome abreviado do [período](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#timeperiod) durante o qual as notificações de eventos para este serviço podem ser enviadas aos contatos. Nenhuma notificação de serviço será enviada durante horários não cobertos pelo período.</span>
+
+
+
 #### <span style="color:#d86c00">**stalking_options**</span>
 
 <span style="color:#696969">Esta diretiva determina para quais estados "monitorando" o serviço o está ativado. As opções válidas são uma combinação de um ou mais dos seguintes itens:</span>
 
-<span style="color:#696969"><span style="color:#C0C0C0">**o**</span> = monitorar nos estados UP</span>
-<span style="color:#696969"><span style="color:#C0C0C0">**d**</span> = monitorar nos estados DOWN</span>
-<span style="color:#696969"><span style="color:#C0C0C0">**u**</span> = monitorar nos estados UNREACHABLE.</span>
+<span style="color:#696969"><span style="color:#C0C0C0">**o**</span> = Monitorar nos estados Ok.</span>
+<span style="color:#696969"><span style="color:#C0C0C0">**w**</span> = Monitorar nos estados Warning.</span>
+<span style="color:#696969"><span style="color:#C0C0C0">**c**</span> = Monitorar nos estados Critical.</span>
+<span style="color:#696969"><span style="color:#C0C0C0">**u**</span> = Monitorar nos estados Unknown.</span>
 
   
 
@@ -227,13 +245,13 @@
 
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">notes                             Servidor do Nagios</span>
+<span style="color:#FFDAB9">notes                             Verifica a disponibilidade</span>
 
 
 
   <span style="color:#FFFF00">Segue imagem de como vai ficar a descrição aplicada ao serviço:</span>
 
-[![65466549864654](https://github.com/BRVN01/NAGIOS/raw/master/IMG/65466549864654.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/65466549864654.png)
+[![a5s2fe2dfddf6df1ee8](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a5s2fe2dfddf6df1ee8.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a5s2fe2dfddf6df1ee8.png)
 
   
 
