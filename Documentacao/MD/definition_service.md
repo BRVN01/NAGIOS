@@ -268,7 +268,7 @@
 
 
 
-[![5454aas2s1d](https://github.com/BRVN01/NAGIOS/raw/master/IMG/5454aas2s1d.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/5454aas2s1d.png) 
+[![22824543328586](https://github.com/BRVN01/NAGIOS/raw/master/IMG/22824543328586.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/22824543328586.png) 
 
 
 
@@ -288,7 +288,7 @@
 
 
 
-[![a5fr51s5fr8y42f](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a5fr51s5fr8y42f.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a5fr51s5fr8y42f.png) 
+[![69862363666474](https://github.com/BRVN01/NAGIOS/raw/master/IMG/69862363666474.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/69862363666474.png) 
 
 
 
