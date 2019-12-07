@@ -166,6 +166,8 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 <span style="color:#696969">Esta opção é usada para especificar o nome de um comando que deve ser executado sempre que uma alteração no estado do serviço for detectada, ou seja, sempre que for DOWN ou RECOVER. </span>
 <span style="color:#696969">Um uso para manipuladores de eventos é a capacidade do próprio Nagios Core de corrigir proativamente os problemas antes que alguém seja notificado.</span>
 
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Nome do comando que será executado.</span>
+
 <span style="color:#FFFF00">Para mais detalhes de como funciona o Event Handler, consulte [este link](Documentation_Nagios.html#%3Cspan-style=%22color:%23d86c00%22%3E**event-handler---manipuladores-de-eventos**%3C/span%3E)</span>
 
 
@@ -179,32 +181,42 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**low_flap_threshold**</span>
 
-<span style="color:#696969">Esta opção é usada para especificar o limite de alteração de baixas de estado (flaps), quando o limite de flap cai para um valor menor do que <span style="color:#00CED1">low_flap_threshold</span>, considera-se que o flap parou.</span>
+<span style="color:#696969">Esta opção é usada em conjunto com a opção <span style="color:#00CED1">high_flap_threshold</span>, ambas servem para especificar um limite de flaps no serviço em sí, quando o flap atinge o limite estabelecido em <span style="color:#00CED1">low_flap_threshold</span>, considera-se que o serviço está parando de flapar, ou seja, a baixa porcentagem de flap no serviço está menor do que o limite estabelecido na opção <span style="color:#00CED1">low_flap_threshold</span>. Isso é útil para que os contatos não fiquem sendo notificados a cada alteração de estado do serviço, sendo notificados apenas uma vez.</span>
+
+<span style="color:#696969">Nota: Essa variável é uma variável específica para esse serviço, já existe uma variável global para essa verificação de flap, denominada <span style="color:#00CED1">low_service_flap_threshold</span>, que fica no arquivo de configuração principal do Nagios.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Números, exemplo: 5.0 (5%)</span>
 
 
 
 #### <span style="color:#d86c00">**high_flap_threshold**</span>
 
-<span style="color:#696969">Esta opção é usada para especificar o limite alto de alteração de estado (flaps), quando o limite de flap ultrapassa o valor de <span style="color:#00CED1">high_flap_threshold</span>, considera-se um inicio de flap.</span>
+<span style="color:#696969">Esta opção é usada em conjunto com a opção <span style="color:#00CED1">low_flap_threshold</span>, ambas servem para especificar um limite de flaps no serviço em sí, quando o flap atinge o limite estabelecido em <span style="color:#00CED1">high_flap_threshold</span>, considera-se que o serviço começou a flapar, ou seja, a alta porcentagem de flap no serviço está maior do que o limite estabelecido na opção <span style="color:#00CED1">high_flap_threshold</span>. Isso é útil para que os contatos não fiquem sendo notificados a cada alteração de estado do serviço, sendo notificados apenas uma vez.</span>
+
+<span style="color:#696969">Nota: Essa variável é uma variável específica para esse serviço, já existe uma variável global para essa verificação de flap, denominada <span style="color:#00CED1">high_service_flap_threshold</span>, que fica no arquivo de configuração principal do Nagios.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Números, exemplo: 20.0 (20%)</span>
 
 
 
 #### <span style="color:#d86c00">**flap_detection_enabled**</span>
 
-<span style="color:#696969">Esta opção é usada para determinar se a detecção de flap está ativada ou não para este serviço. Caso você defina  <span style="color:#00CED1">enable_flap_detection=1</span> no arquivo principal do Nagios, não será necessário definir novamente na sessão de Host/Service, a menos que você queira desativar essa opção para alguns Hosts/Serviços.</span>
+<span style="color:#696969">Esta opção é usada para determinar se este serviço terá a detecção de flap ativada ou não. Caso você defina  <span style="color:#00CED1">enable_flap_detection=1</span> no arquivo principal do Nagios, não será necessário definir novamente aqui, a menos que você queira desativar essa opção para este serviço.</span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
  
 
 #### <span style="color:#d86c00">**flap_detection_options**</span>
 
-<span style="color:#696969">Podemos excluir certos estados de host/serviço no uso da lógica de detecção de flap, evitando receber flap de alguns estados, esta opção permite especificar quais estados de host/serviço (UP, DOWN, OK, CRITICAL) você pode desejar usar para a detecção de flap. Se você não usar esta opção, todos os estados de host ou serviço serão usados na detecção de flap. </span>
+<span style="color:#696969">Podemos excluir certos estados do serviço no uso da lógica de detecção de flap, evitando receber flap de alguns estados, esta opção permite especificar quais estados do serviço (sendo eles: UP, DOWN, OK, CRITICAL) você pode desejar usar para a detecção de flap. Se você não usar esta opção, todos os estados de host ou serviço serão usados na detecção de flap.</span>
 <span style="color:#696969">As opções válidas são uma combinação de um ou mais dos seguintes itens: </span>
 
 <span style="color:#696969"><span style="color:#C0C0C0">**o**</span> = Ok</span>
 <span style="color:#696969"><span style="color:#C0C0C0">**w**</span> = Warning</span>
 <span style="color:#696969"><span style="color:#C0C0C0">**c**</span> = CRITICAL</span>
 <span style="color:#696969"><span style="color:#C0C0C0">**u**</span> = UNKNOWN</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">[o,w,c,u]</span>
 
 
 
@@ -215,44 +227,64 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 
 
-#### <span style="color:#d86c00">**ret_status_information**</span>
+#### <span style="color:#d86c00">**retain_status_information**</span>
 
-<span style="color:#696969">Esta opção é usada para determinar se as informações relacionadas ao status do serviço são mantidas ou não durante a reinicialização do programa. Isso é útil apenas se você tiver ativado a retenção de estado usando a opção [reter_state_information](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information). </span>
+<span style="color:#696969">Esta opção é usada para determinar se as informações relacionadas ao status do serviço são mantidas ou não durante a reinicialização do programa. Isso é útil apenas se você tiver ativado a retenção de estado usando a opção [retain_state_information](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information). </span>
+
+<span style="color:#696969">Essas informações são salvas no arquivo que fica especificado na opção <span style="color:#00CED1">state_retention_file</span> no arquivo principal do Nagios, aqui nós teremos informações como: status, tempo de inatividade e comentários antes de serem encerradas. Quando o Nagios é reiniciado, ele usa as informações armazenadas neste arquivo para definir os estados iniciais de serviços e hosts antes de começar a monitorar qualquer coisa.</span>
+
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
 
 
-#### <span style="color:#d86c00">**ret_nonstatus_information**</span>
+#### <span style="color:#d86c00">**retain_nonstatus_information**</span>
 
 <span style="color:#696969">Essa opção é usada para determinar se as informações que não são de status sobre o serviço são mantidas ou não durante a reinicialização do programa. Isso é útil apenas se você tiver ativado a retenção de estado usando a opção [reter_state_information](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information). </span>
+
+<span style="color:#696969">Essas informações são salvas no arquivo que fica especificado na opção <span style="color:#00CED1">state_retention_file</span> no arquivo principal do Nagios, aqui nós teremos informações como: status, tempo de inatividade e comentários antes de serem encerradas. Quando o Nagios é reiniciado, ele usa as informações armazenadas neste arquivo para definir os estados iniciais de serviços e hosts antes de começar a monitorar qualquer coisa.</span>
+
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
 
 
 #### <span style="color:#d86c00">**notification_interval**</span>
 
-<span style="color:#696969">Esta opção é usada para definir quanto tempo Nagios deve aguardar antes de notificar novamente um contato que este *serviço*ainda está inativo ou inacessível. A menos que você tenha alterado a opção [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60 (minutos). Se você definir esse valor como 0, o Nagios *não* notificará novamente os contatos sobre problemas desse serviço, apenas uma única notificação de problema será enviada.</span>
+<span style="color:#696969">Esta opção é usada para definir quanto tempo Nagios deve aguardar antes de notificar novamente um contato que este *serviço*ainda está inativo ou inacessível. Se você definir esse valor como 0, o Nagios *não* notificará novamente os contatos sobre problemas desse serviço, apenas uma única notificação de problema será enviada.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Números, exemplo: 20 (20 minutos)</span>
 
 
 
 #### <span style="color:#d86c00">**first_notification_delay**</span>
 
-<span style="color:#696969">Esta opção é usada para definir quanto tempo Nagios deve aguardar antes de enviar a primeira notificação de problema quando este serviço entra em um estado não UP. A menos que você tenha alterado a opção [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60 (minutos). <span style="color:#FFFF00">Se você definir esse valor como 0, o Nagios começará a enviar notificações imediatamente.</span></span>
+<span style="color:#696969">Esta opção é usada para definir quanto tempo Nagios deve aguardar antes de enviar a primeira notificação de problema quando este serviço entra em um estado não UP. <span style="color:#FFFF00">Se você definir esse valor como 0, o Nagios começará a enviar notificações imediatamente.</span></span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Números, exemplo: 20 (20 minutos)</span>
+
+
+
+#### <span style="color:#d86c00">**notification_period**</span>
+
+<span style="color:#696969">Esta opção é usada para especificar o nome do [período](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#timeperiod) durante o qual as notificações de eventos para este serviço podem ser enviadas aos contatos. Nenhuma notificação de serviço será enviada durante horários não cobertos pelo período.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Nome do período.</span>
 
 
 
 #### <span style="color:#d86c00">**notification_options**</span>
 
-<span style="color:#696969">Esta opção é usada para determinar quando as notificações para o serviço devem ser enviadas. As opções válidas são uma combinação de um ou mais dos seguintes itens: </span>
+<span style="color:#696969">Esta opção é usada para determinar que tipo de notificações do serviço devem ser enviadas. As opções válidas são uma combinação de um ou mais dos seguintes itens: </span>
 
 - <span style="color:#C0C0C0">**d**</span> <span style="color:#696969">= enviar notificações em um estado DOWN;</span>
 - <span style="color:#C0C0C0">**u**</span> <span style="color:#696969">= enviar notificações em um estado inacessível;</span>
 - <span style="color:#C0C0C0">**r**</span> <span style="color:#696969">= enviar notificações em recuperações (estado OK);</span>
 - <span style="color:#C0C0C0">**f**</span> <span style="color:#696969">= enviar notificações quando o serviço iniciar e parar flapar;</span>
 - <span style="color:#C0C0C0">**s**</span> <span style="color:#696969">= notificações de envio quando [programados de inatividade](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/downtime.html) começa e termina. Se você especificar;</span>
-- <span style="color:#C0C0C0">**n**</span> <span style="color:#696969">= nenhuma notificação de serviço será enviada. Se você não especificar nenhuma opção de notificação, o Nagios assumirá que você deseja que as notificações sejam enviadas para todos os estados possíveis.</span>
+- <span style="color:#C0C0C0">**n**</span> <span style="color:#696969">= nenhuma notificação de serviço será enviada.
+  </span>
+  <span style="color:#FFFF00">Se você não especificar nenhuma opção de notificação, o Nagios assumirá que você deseja que as notificações sejam enviadas para todos os estados possíveis.</span>
 
-
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">[w,u,c,r,f,s] ou deixar em branco para todos os valores.</span>
 
 #### <span style="color:#d86c00">**Notifications_enabled**</span>
 
@@ -261,9 +293,17 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 
 
-#### <span style="color:#d86c00">**notification_period**</span>
+#### <span style="color:#d86c00">**contacts**</span>
 
-<span style="color:#696969">Esta opção é usada para especificar o nome abreviado do [período](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#timeperiod) durante o qual as notificações de eventos para este serviço podem ser enviadas aos contatos. Nenhuma notificação de serviço será enviada durante horários não cobertos pelo período.</span>
+<span style="color:#696969">Nome dos contatos que vão receber a notificação de problema ou de recuperação desse serviço.</span>
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Nome do contato.</span>
+
+
+
+#### <span style="color:#d86c00">**contact_groups**</span>
+
+<span style="color:#696969">Grupo de contatos que vão receber a notificação de problemas ou de recuperação desse serviço.</span>
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Nome do grupo de contato.</span>
 
 
 
@@ -282,21 +322,27 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 <span style="color:#8B008B">**Devo ativar o stalking?**</span>
 
 <span style="color:#696969">Antes de tudo, você deve decidir se tem uma necessidade real de analisar dados de log arquivados para encontrar a causa exata de um problema. Você pode decidir que precisa desse recurso para alguns hosts ou serviços, mas dificilmente irá precisar para todos os hosts/serviços. </span>
-<span style="color:#696969">Você também pode achar que só precisa ativar o "monitoramento" para alguns estados de host ou serviço, em vez de todos eles. Por exemplo, você pode optar por ativar o "monitoramento" para os estados WARNING e CRÍTICOS de um serviço, mas não para os estados OK e DESCONHECIDO.</span>
+<span style="color:#696969">Você também pode achar que só precisa ativar o "monitoramento" para alguns estados de host ou serviço, em vez de todos eles. Por exemplo, você pode optar por ativar o monitoramento apenas para os estados WARNING e CRÍTICOS de um serviço, mas não para os estados OK e DESCONHECIDO.</span>
 
 
 
 #### <span style="color:#d86c00">**notes**</span>
 
 <span style="color:#696969">Esta opção é usada para definir uma descrição para o serviço. Se você especificar uma observação aqui, será exibida no CGI de informações estendidas (quando estiver visualizando informações sobre o serviço especificado).</span>
-
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
-​			<span style="color:#FFDAB9">notes                             Verifica a disponibilidade</span>
+```bash
+define service {
 
+    use                         local-service
+    host_name               	localhost
+    service_description     	PING
+    notes                   	Verifica a disponibilidade
+    check_command           	check_ping!100.0,20%!500.0,60%
+}
+```
 
-
-  <span style="color:#FFFF00">Segue imagem de como vai ficar a descrição aplicada ao serviço:</span>
+<span style="color:#FFFF00">Segue imagem de como vai ficar a descrição aplicada ao serviço:</span>
 
 [![a5s2fe2dfddf6df1ee8](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a5s2fe2dfddf6df1ee8.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a5s2fe2dfddf6df1ee8.png) 
 
@@ -304,36 +350,42 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 #### <span style="color:#d86c00">**notes_url**</span>
 
 <span style="color:#696969">Essa opção é usada para definir uma URL que pode ser usado para fornecer mais informações sobre o serviço.</span>
-
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
-​			<span style="color:#FFDAB9">notes_url                            https://www.google.com.br</span>
+```bash
+define service {
 
-
+    use                         local-service
+    host_name               	localhost
+    service_description     	PING
+    notes_url              		https://www.google.com.br
+    check_command           	check_ping!100.0,20%!500.0,60%
+}
+```
 
   <span style="color:#FFFF00">Segue imagem de como vai ficar o notes_url aplicada ao serviço:</span>
 
-
-
 [![22824543328586](https://github.com/BRVN01/NAGIOS/raw/master/IMG/22824543328586.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/22824543328586.png) 
-
-
 
 
 
 #### <span style="color:#d86c00">**action_url**</span>
 
 <span style="color:#696969">Esta opção é usada para definir uma URL que pode ser usada para fornecer mais ações a serem executadas no serviço, o icone pode ser atribuido a informações de performance.</span>
-
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
-​			<span style="color:#FFDAB9">action_url                             https://www.google.com.br</span>
+```bash
+define service {
 
+    use                         local-service
+    host_name               	localhost
+    service_description     	PING
+    action_url              	https://www.google.com.br
+    check_command           	check_ping!100.0,20%!500.0,60%
+}
+```
 
-
-  <span style="color:#FFFF00">Segue imagem de como vai ficar o action_url aplicada ao serviço:</span>
-
-
+<span style="color:#FFFF00">Segue imagem de como vai ficar o action_url aplicada ao serviço:</span>
 
 [![69862363666474](https://github.com/BRVN01/NAGIOS/raw/master/IMG/69862363666474.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/69862363666474.png) 
 
@@ -345,14 +397,17 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 <span style="color:#696969">O diretório padrão para as imagens é `/usr/local/nagios/share/images/logos`.</span>
 
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
+```bash
+define service {
 
-​			<span style="color:#FFDAB9">icon_image                             debian.png</span>
-
-
-
-  <span style="color:#FFFF00">Segue imagem de como vai ficar o icon_image aplicada ao serviço:</span>
-
-
+    use                         local-service
+    host_name               	localhost
+    service_description     	PING
+    icon_image              	debian.png
+    check_command           	check_ping!100.0,20%!500.0,60%
+}
+```
+<span style="color:#FFFF00">Segue imagem de como vai ficar o icon_image aplicada ao serviço:</span>
 
 [![105946865472318](https://github.com/BRVN01/NAGIOS/raw/master/IMG/105946865472318.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/105946865472318.png) 
 
@@ -360,17 +415,21 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**icon_image_alt**</span>
 
-<span style="color:#696969">Essa variável é usada para definir uma sequência opcional que é usada na tag ALT da imagem especificada pelo argumento <icon_image>, basicamente, adiciona um nome abaixo da imagem.</span>
-
-
+<span style="color:#696969">Essa variável é usada para definir uma sequência de caracteres opcional que é usada na tag ALT da imagem especificada pelo argumento <icon_image>, basicamente, adiciona um nome abaixo da imagem.</span>
 
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
-​			<span style="color:#FFDAB9">icon_image_alt                             debian.png</span>
+```bash
+define service {
 
+    use                         local-service
+    host_name               	localhost
+    service_description     	PING
+    icon_image_alt             	debian.png
+    check_command           	check_ping!100.0,20%!500.0,60%
+}
+```
 <span style="color:#FFFF00">Segue imagem de como vai ficar o icon_image_alt aplicada ao serviço:</span>
-
-
 
 [![a782162sd1s6f](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a782162sd1s6f.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a782162sd1s6f.png)
 
@@ -393,7 +452,7 @@ define service {
     service_description          DESCRICAO
 
 # Comando que será executado para validar esse serviço.
-    check_command                check-host-alive # ping.
+    check_command                check-host-alive
 
 # Intervalo entre as verificações OK e não OK,
 # mesmo após ter passado da quantidade de 'max_check_attempts',
@@ -450,16 +509,33 @@ define service {
 
 ## <span style="color:#d86c00">**Opções necessárias**</span>
 
-<span style="color:#696969">Abaixo segue as propriedades necessárias para criação de um objeto do tipo Service:</span>
+<span style="color:#696969">Abaixo segue as propriedades necessárias para criação de um objeto do tipo Service funcional e não apenas um modelo:</span>
 
 ```shell
 define service {
 # Nome do Host que receberá esse serviço.
     host_name                     NOME
 
+# Descrição do serviço, é o nome que vai ficar no campo service
+# do Dashboard do Nagios.
+    service_description          DESCRICAO
+
+# Comando que será executado para validar esse serviço.
+    check_command                check-host-alive
+
 # Tentativas para determinar o estado HARD, se todas tentativas falharem,
 # ele considera o serviço como não OK.
-    max_check_attempts            5
+    max_check_attempts            #
+
+# Intervalo entre as verificações OK e não OK,
+# mesmo após ter passado da quantidade de 'max_check_attempts',
+# tudo em minutos (vai verificar de 1 em 1 minuto).
+    check_interval               #
+
+# Tempo que o Nagios vai aguardar para agendar uma 
+# nova verificação, em minutos, isso só ocorre quando
+# o serviço não está OK.
+    retry_interval               #
 
 # Nome do período em que as verificações ativas serão feitas.
 # Serão verificados a todo momento (24 horas por 7 dias na semana).
@@ -467,18 +543,18 @@ define service {
 
 # Nome dos contatos que vão receber a notificação de problemas ou
 # de recuperação desse serviço.
-    contacts			          nagiosadmin
+    contacts			          #
 
 # Grupo de contatos que vão receber a notificação de problemas ou
 # de recuperação desse serviço.
-    contact_groups                nagiosadmin
+    contact_groups                #
 
 # Intervalo entre notificações de problemas, a cada X minutos 
 # ele vai notificar novamente, caso o problema permaneça.
     notification_interval         30
 
 # Período para efetuar as notificações.
-    notification_period           24x7
+    notification_period           #
 }
 ```
 
