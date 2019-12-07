@@ -37,20 +37,13 @@ define service {
 
 #### <span style="color:#d86c00">**display_name**</span>
 
-<span style="color:#696969">Se não especificado, o padrão será o valor especificado para a diretiva <span style="color:#00CED1">*service_description*</span>. Os CGIs atuais não usam essa opção, embora versões futuras da interface da web os usem (funciona melhor no Icinga).</span>
+<span style="color:#696969">Se não especificado, o valor será o valor da diretiva <span style="color:#00CED1">*service_description*</span>. Os CGIs atuais não usam mais essa opção, embora versões futuras da interface web os usem (funciona melhor no Icinga).</span>
 
 
 
-#### <span style="color:#d86c00">**servicegroups**</span>
-<span style="color:#696969">Esta directiva é usada para identificar o *nome (s) curto (s)* do [SERVICEGROUP](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#servicegroup) que o serviço pertence. Vários grupos de serviços devem ser separados por vírgulas. Esta diretiva pode ser usada como uma alternativa ao uso da diretiva de <span style="color:#00CED1">*membros*</span> nas definições de [grupos de serviços](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#servicegroup).</span>
+#### <span style="color:#d86c00">**parents**</span>
 
-
-
-#### <span style="color:#d86c00">**is_volatile**</span>
-<span style="color:#696969">Esta diretiva é usada para indicar se o serviço é "volátil". Os serviços normalmente <span style="color:#00CED1">*não são*</span>voláteis. Mais informações sobre serviço volátil e como eles diferem dos serviços normais podem ser encontradas [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/volatileservices.html). </span>
-
-<span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = serviço não é volátil, 1 = serviço é volátil.</span>
-
+<span style="color:#696969">Os serviços pai normalmente são outros serviços que precisam estar funcionando para que uma verificação do nosso serviço possa ocorrer. Por exemplo, se um serviço que verifica o status de um disco rígido através do SSH, esse serviço de verificação do disco rígido terá o serviço SSH como pai. Isso seria uma dependências simples para nosso serviço poder funcionar.</span>
 
 
 
@@ -58,21 +51,29 @@ define service {
 
 <span style="color:#696969">A importância é usada para determinar se as notificações devem ser enviadas para um contato, se o valor de importância do serviço mais os valores de importância de todos os serviços do host forem maiores ou iguais à importância mínima do contato, o contato será notificado. </span>
 
-<span style="color:#696969">Por exemplo, você pode definir esse valor e a importância mínima dos contatos para que um administrador do sistema seja notificado quando um servidor de desenvolvimento for desativado, mas o CIO será notificado apenas quando o servidor de banco de dados de comércio eletrônico de produção da empresa estiver inativo.</span>
+<span style="color:#696969">Por exemplo, você pode definir um valor (importance) e a importância mínima dos contatos para que um administrador do sistema seja notificado quando um servidor de desenvolvimento for desativado, mas o CIO será notificado apenas quando o servidor de banco de dados de comércio eletrônico de produção da empresa estiver inativo.</span>
 
 
 
-#### <span style="color:#d86c00">**parents**</span>
+#### <span style="color:#d86c00">**servicegroups**</span>
+<span style="color:#696969">Esta opção é usada para identificar o(s) nome(s) do(s) grupo(s) que o nosso serviço pertence. Vários grupos de serviços devem ser separados por vírgulas. Esta opção pode ser usada como uma alternativa a opção<span style="color:#00CED1">*membros*</span>nas definições de [grupos de serviços](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#servicegroup).</span>
 
-<span style="color:#696969">Podemos colocar mais de um pai para um serviço, bastando apenas separar por vírgula, isso é útil para montar uma topologia lógica da rede baseada na real.</span>
 
-<span style="color:#696969">Para qualquer administrador, é importante saber que, se você tem um *roteador Y*, e ele estiver inativo, todas os dispositivos que estão atrás dele ficarão inalcançáveis. Caso você não leve isso em consideração, e esse *roteador Y* venha a ficar indisponível, você receberá uma lista de várias máquinas e serviços com falha. </span>
 
-<span style="color:#696969">Por exemplo, se um *switch L3* que o conecta parte da sua rede estiver inoperante, o Nagios não executará verificações das máquinas subsequentes (depois do roteador). Isso é ilustrado na figura a seguir:</span>
+#### <span style="color:#d86c00">**is_volatile**</span>
+<span style="color:#696969">Esta diretiva é usada para indicar se o serviço é "volátil". Os serviços normalmente<span style="color:#00CED1">*não são*</span>voláteis.</span>
 
-[![1574354656894](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1574354656894.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1574354656894.png)
+<span style="color:#696969">Um serviço volátil seria um serviço que muda de estado sem que o Nagios faça a verificação do serviço, um exemplo para isso seria um <span style="color:#00CED1">Trap SNMP</span>, ou até mesmo algum serviço que precise enviar uma mensagem para o Nagios, para que ele possa tomar alguma providência.</span>
 
-<span style="color:#696969">No caso acima, um dos links está fora, mesmo que os switchs e servidores estejam funcionando, o Nagios não consegue chegar até eles, dessa forma, será retornado indisponibilidade de todos os dispositivos atrás do link com problema, se a configuração correta do Nagios for feita (aplicada o parentesco através da variável <span style="color:#00CED1">parents</span>), receberemos apenas um alerta, referente ao *switch L3*, e não de todos os dispositivos atrás do *switch L3*.</span>
+<span style="color:#696969">Para mais informações sobre serviço volátil [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/volatileservices.html). </span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = serviço não é volátil</span>, <span style="color:#4682B4">1 = serviço é volátil.</span>
+
+
+
+#### <span style="color:#d86c00">**check_command**</span>
+
+
 
 
 
