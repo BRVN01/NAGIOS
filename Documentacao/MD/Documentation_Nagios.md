@@ -67,13 +67,13 @@ Tudo isso é baseado em um sistema de definição de objetos (objetos são todos
 
 
 
-# <span style="color:#d86c00">**Capítulo 2: Configurando o Nagios**</span>
+# <span style="color:#d86c00">**Capítulo 2: Entendendo o Nagios**</span>
 
 <span style="color:#696969">Nessa sessão vamos ver alguns dos principais arquivos de configuração do Nagios, para que eles servem e vamos configurar manualmente o arquivo de configurações principal do Nagios para que possamos ter um arquivo mais customizado.</span>
 
 
 
-## <span style="color:#d86c00">**Criando o arquivo de configuração principal**</span>
+## <span style="color:#d86c00">**Arquivo de configuração principal**</span>
 
 <span style="color:#696969">O arquivo de configuração principal é chamado <span style="color:#008080">***nagios.cfg***</span>, é o arquivo principal carregado durante a inicialização do Nagios, ele contém várias diretivas que afetam como o daemon do Nagios Core opera. </span>
 <span style="color:#696969">Este arquivo de configuração é lido pelo daemon do Nagios Core e pelos CGIs (que fazem a comunicação com frontend do Nagios, em outras palavras, o "navegador" usado para visualizar eventos no dashboard do nagios).</span>
@@ -805,6 +805,12 @@ define service {
 ```
 
 <span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span> [este link](definition_service.html).
+
+
+
+## <span style="color:#d86c00">**Event Handler - Manipuladores de Eventos**</span>
+
+
 
 
 
