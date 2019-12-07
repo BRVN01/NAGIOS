@@ -284,7 +284,9 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
   </span>
   <span style="color:#FFFF00">Se você não especificar nenhuma opção de notificação, o Nagios assumirá que você deseja que as notificações sejam enviadas para todos os estados possíveis.</span>
 
-<span style="color:#696969">Valores:</span> <span style="color:#4682B4">[w,u,c,r,f,s] ou deixar em branco para todos os valores.</span>
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">[d,u,r,f,s] ou deixar em branco para todos os valores.</span>
+
+
 
 #### <span style="color:#d86c00">**Notifications_enabled**</span>
 
