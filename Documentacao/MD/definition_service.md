@@ -2,9 +2,41 @@
 
 [TOC]
 
+#### <span style="color:#d86c00">**host_name**</span>
+
+<span style="color:#696969">Esta diretiva é usada para especificar o nome do [host](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#hostgroup) ao qual este serviço está sendo executado ou está associado.</span>
+
+
+
 #### <span style="color:#d86c00">**hostgroup_name**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o *nome abreviado do (s) grupo (s)* de [host(s)](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#hostgroup) ao qual o serviço "executa" ou está associado. Vários grupos de serviços devem ser separados por vírgulas. O <span style="color:#00CED1">hostgroup_name</span> pode ser usado em vez de ou além da diretiva <span style="color:#00CED1">host_name.</span></span>
+<span style="color:#696969">Esta diretiva é usada para especificar o nome do(s) grupo(s) de [host(s)](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#hostgroup) ao qual este serviço está sendo executado ou está associado. Vários grupos de hosts devem ser separados por vírgulas. O <span style="color:#00CED1">hostgroup_name</span> pode ser usado no lugar da diretiva <span style="color:#00CED1">host_name.</span></span>
+
+
+
+#### <span style="color:#d86c00">**service_description**</span>
+
+<span style="color:#696969">Esta diretiva é usada para especificar o nome do serviço, esse nome ficará aparente no Dashboard do Nagios</span>
+
+​			<span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
+
+```bash
+define service {
+
+    use                         local-service
+    host_name               	localhost
+    service_description     	check_icmp
+    check_command           	check_ping!100.0,20%!500.0,60%
+}
+```
+
+
+
+  <span style="color:#FFFF00">Segue imagem de como vai ficar o service_description aplicada ao serviço:</span>
+
+
+
+[![896621024723724](https://github.com/BRVN01/NAGIOS/raw/master/IMG/896621024723724.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/896621024723724.png) 
 
 
 
