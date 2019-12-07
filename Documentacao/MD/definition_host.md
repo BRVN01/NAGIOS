@@ -2,9 +2,33 @@
 
 [TOC]
 
+#### <span style="color:#d86c00">**host_name**</span>
+
+<span style="color:#696969">É o nome do nosso host (dispositivo que será gerenciado).</span>
+
+
+
+#### <span style="color:#d86c00">**alias**</span>
+
+<span style="color:#696969">É um apelido para o nosso host (dispositivo que será gerenciado).</span>
+
+
+
 #### <span style="color:#d86c00">**display_name**</span>
 
 <span style="color:#696969">Se não especificado, o padrão será o valor especificado para a diretiva <span style="color:#00CED1">*host_name*</span>. Os CGIs atuais não usam essa opção, embora versões futuras da interface da web os usem (funciona melhor no Icinga).</span>
+
+
+
+#### <span style="color:#d86c00">**address**</span>
+
+<span style="color:#696969">É o endereço IP do nosso host.</span>
+
+
+
+#### <span style="color:#d86c00">**parents**</span>
+
+<span style="color:#696969">O host pai normalmente são outros hosts que precisam estar funcionando para que nosso host possa ser verificado. Por exemplo, um roteador que permite alcançar determinado host, nosso host terá o roteador como pai. Isso seria uma dependências simples para nosso host poder funcionar.</span>
 
 
 
@@ -16,23 +40,21 @@
 
 
 
-#### <span style="color:#d86c00">**parents**</span>
+#### <span style="color:#d86c00">**hostgroups**</span>
 
-<span style="color:#696969">Podemos colocar mais de um pai para um host, bastando apenas separar por vírgula, isso é útil para montar uma topologia lógica da rede baseada na real.</span>
+<span style="color:#696969">Esta opção é usada para identificar o(s) nome(s) do(s) grupo(s) que o nosso host pertence. Vários grupos de host devem ser separados por vírgulas.</span>
 
-<span style="color:#696969">Para qualquer administrador, é importante saber que, se você tem um *roteador Y*, e ele estiver inativo, todas os dispositivos que estão atrás dele ficarão inalcançáveis. Caso você não leve isso em consideração, e esse *roteador Y* venha a ficar indisponível, você receberá uma lista de várias máquinas e serviços com falha. </span>
 
-<span style="color:#696969">Por exemplo, se um *switch L3* que o conecta parte da sua rede estiver inoperante, o Nagios não executará verificações das máquinas subsequentes (depois do roteador). Isso é ilustrado na figura a seguir:</span>
 
-[![1574354656894](https://github.com/BRVN01/NAGIOS/raw/master/IMG/1574354656894.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/1574354656894.png)
+#### <span style="color:#d86c00">**check_command**</span>
 
-<span style="color:#696969">No caso acima, um dos links está fora, mesmo que os switchs e servidores estejam funcionando, o Nagios não consegue chegar até eles, dessa forma, será retornado indisponibilidade de todos os dispositivos atrás do link com problema, se a configuração correta do Nagios for feita (aplicada o parentesco através da variável <span style="color:#00CED1">parents</span>), receberemos apenas um alerta, referente ao *switch L3*, e não de todos os dispositivos atrás do *switch L3*.</span>
+<span style="color:#696969">Esta opção é usada para indicar um comando que irá verificar se nosso host está ativo ou não. Isso é feito através do protocolo ICMP, geralmente usando o comando <span style="color:#00CED1">check-host-alive</span>.</span>
 
 
 
 #### <span style="color:#d86c00">**initial_state**</span>
 
-<span style="color:#696969">Por padrão, o Nagios assume que todos os hosts estão *UP* quando iniciados. Você pode substituir o estado inicial de um host usando esta diretiva. As opções válidas são: </span>
+<span style="color:#696969">Por padrão, o Nagios assume que todos os hosts estão *UP* quando é iniciado. Você pode substituir o estado inicial de um host usando as opções abaixo. As opções válidas são: </span>
 
 <span style="color:#696969"><span style="color:#C0C0C0">**o**</span> = UP</span>
 <span style="color:#696969"><span style="color:#C0C0C0">**d**</span> = DOWN</span>
@@ -42,23 +64,30 @@
 
 #### <span style="color:#d86c00">**max_check_attempts**</span>
 
-<span style="color:#696969">Esta diretiva é usada para definir o número de vezes que o Nagios tentará novamente o comando de verificação do host se retornar qualquer estado diferente de OK. Definir esse valor como 1 fará com que o Nagios gere um alerta sem tentar novamente a verificação do host.</span>
+<span style="color:#696969">Esta opção é usada para definir um número de vezes em que o Nagios irá executar o comando de verificação (saber se o host está UP ou diferente de UP). Definir esse valor como 1 fará com que o Nagios gere um alerta sem tentar novamente a verificação do host, ou seja, após qualquer evento, mesmo que seja um evento falso ou passageiro, será gerado um estado HARD do host e você será notificado (se assim foi programado).</span>
 
-<span style="color:#696969">Nota: Se você não deseja verificar o status do host, ainda deve configurá-lo com um valor mínimo de 1. Para ignorar a verificação do host, deixe a opção <span style="color:#00CED1">*check_command*</span>em branco.</span>
+<span style="color:#696969">Para ignorar a verificação do host, deixe a opção <span style="color:#00CED1">*check_command*</span>em branco.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Tempo em minutos.</span>
 
 
 
 #### <span style="color:#d86c00">**check_interval**</span>
 
-<span style="color:#696969">Esta diretiva é usada para definir o número de "unidades de tempo" entre verificações agendadas regularmente do host. A menos que você tenha alterado a diretiva [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60, esse número significará minutos. Mais informações sobre esse valor podem ser encontradas na documentação de [agendamento de verificação](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/checkscheduling.html).</span>
+<span style="color:#696969">É a quantidade de tempo que vamos esperar até agendar uma nova verificação do host, caso este esteja UP ou não UP. É o intervalo entre as verificações do nosso host,
+mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_attempts</span> e nosso host esteja num estado HARD, ele vai esperar X minutos para poder agendar uma nova verificação.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Tempo em minutos.</span>
 
 
 
 #### <span style="color:#d86c00">**retry_interval**</span>
 
-<span style="color:#696969">Esta diretiva é usada para definir o número de "unidades de tempo" a aguardar antes de agendar uma nova verificação dos hosts. Os hosts são reagendados no intervalo de novas tentativas quando mudam para um estado não UP. </span>
+<span style="color:#696969">É a quantidade de tempo que vamos esperar até agendar uma nova verificação do host, somente se o host não estiver UP, as verificações são reagendados no intervalo de novas tentativas quando mudam para um estado não UP. </span>
 
-<span style="color:#696969">Depois que o host tiver sido verificado de novo pela quantidade de vezes estabelecidas pelo <span style="color:#00CED1">max_check_attempts</span> e nenhuma alteração tiver sido verificada, ele voltará a ser agendado na sua taxa "normal", conforme definido pelo valor <span style="color:#00CED1">check_interval</span>. A menos que você tenha alterado a diretiva [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60, esse número significará minutos.</span>
+<span style="color:#696969">Depois que o host tiver sido verificado de novo pela quantidade de vezes estabelecidas pelo <span style="color:#00CED1">max_check_attempts</span> e nenhuma alteração tiver sido verificada, ele voltará a ser agendado na sua taxa "normal", conforme definido pelo valor <span style="color:#00CED1">check_interval</span>.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Tempo em minutos.</span>
 
 
 
@@ -76,55 +105,75 @@
 
 
 
+#### <span style="color:#d86c00">**check_period**</span>
+
+<span style="color:#696969">Nome do período em que as verificações ativas serão feitas, por exemplo: as verificações podem ser feitas 24 horas por dia, durante os 7 dias da semana.</span>
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Nome do periodo de verificação.</span>
+
+
+
 #### <span style="color:#d86c00">**obsess_over_host | obsess**</span>
 
-<span style="color:#696969">Essa diretiva determina se as verificações do host serão ou não "obcecadas" pelo uso do comando ochp_com. </span>
+<span style="color:#696969">Essa opção determina se as verificações do host serão feitas ou não pelo uso do comando <span style="color:#00CED1">ocsp_command</span>. </span><span style="color:#696969">Essa opção é muito usada em monitoramento distribuído, onde um Gerente recebe informações de outros Gerentes.</span>
+
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:#FFDAB9">**padrão**</span>).
 
 
 
 #### <span style="color:#d86c00">**check_freshness**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar se as verificações de atualizações dos resultados do host estão ativadas ou não. </span>
+<span style="color:#696969">Esta opção é usada para determinar se o Nagios irá fazer verificações no host, para ver se ocorreu atualizações no resultado do host (algum evento).</span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:#FFDAB9">**padrão**</span>).
 
 
 
 #### <span style="color:#d86c00">**freshness_threshold**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o limite de atualização (em segundos) para este host. Se você definir esta diretiva como um valor 0, o Nagios determinará um limite de atualização a ser usado automaticamente.</span>
+<span style="color:#696969">Esta opção é usada para especificar o limite de atualização (em segundos) para este host. Se você definir esta opção como um valor 0, o Nagios determinará um limite de atualização a ser usado automaticamente.</span>
 
 
 
 #### <span style="color:#d86c00">**event_handler**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o *nome abreviado* de um comando que deve ser executado sempre que uma alteração no estado do host for detectada (ou seja, sempre que for down ou recovers). </span>
+<span style="color:#696969">Esta opção é usada para especificar o nome de um comando que deve ser executado sempre que uma alteração no estado do host for detectada, ou seja, sempre que for DOWN ou RECOVER. </span>
 <span style="color:#696969">Um uso para manipuladores de eventos é a capacidade do próprio Nagios Core de corrigir proativamente os problemas antes que alguém seja notificado.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Nome do comando que será executado.</span>
+
+<span style="color:#FFFF00">Para mais detalhes de como funciona o Event Handler, consulte [este link](Documentation_Nagios.html#%3Cspan-style=%22color:%23d86c00%22%3E**event-handler---manipuladores-de-eventos**%3C/span%3E)</span>
 
 
 
 #### <span style="color:#d86c00">**event_handler_enabled**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar se o manipulador de eventos para este host está ativado ou não. </span>
-<span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:red">**padrão**</span>).
+<span style="color:#696969">Esta opção é usada para determinar se o manipulador de eventos para este host está ativado ou não. </span>
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:#FFDAB9">**padrão**</span>).
 
 
 
 #### <span style="color:#d86c00">**low_flap_threshold**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o limite de alteração de baixas de estado (flaps), quando o limite de flap cai para um valor menor do que <span style="color:#00CED1">low_flap_threshold</span>, considera-se que o flap parou.</span>
+<span style="color:#696969">Esta opção é usada em conjunto com a opção <span style="color:#00CED1">high_flap_threshold</span>, ambas servem para especificar um limite de flaps no host em sí, quando o flap atinge o limite estabelecido em <span style="color:#00CED1">low_flap_threshold</span>, considera-se que o host está parando de flapar, ou seja, a baixa porcentagem de flap no host está menor do que o limite estabelecido na opção <span style="color:#00CED1">low_flap_threshold</span>. Isso é útil para que os contatos não fiquem sendo notificados a cada alteração de estado do host (UP ou DOWN), sendo notificados apenas uma vez.</span>
+
+<span style="color:#696969">Nota: Essa variável é uma variável específica para esse serviço, já existe uma variável global para essa verificação de flap, denominada <span style="color:#00CED1">low_host_flap_threshold</span>, que fica no arquivo de configuração principal do Nagios.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Números, exemplo: 5.0 (5%)</span>
 
 
 
 #### <span style="color:#d86c00">**high_flap_threshold**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o limite alto de alteração de estado (flaps), quando o limite de flap ultrapassa o valor de <span style="color:#00CED1">high_flap_threshold</span>, considera-se um inicio de flap.</span>
+<span style="color:#696969">Esta opção é usada em conjunto com a opção <span style="color:#00CED1">low_flap_threshold</span>, ambas servem para especificar um limite de flaps no host em sí, quando o flap atinge o limite estabelecido em <span style="color:#00CED1">high_flap_threshold</span>, considera-se que o host começou a flapar, ou seja, a alta porcentagem de flap no host está maior do que o limite estabelecido na opção <span style="color:#00CED1">high_flap_threshold</span>. Isso é útil para que os contatos não fiquem sendo notificados a cada alteração de estado do host (UP ou DOWN), sendo notificados apenas uma vez.</span>
+
+<span style="color:#696969">Nota: Essa variável é uma variável específica para esse serviço, já existe uma variável global para essa verificação de flap, denominada <span style="color:#00CED1">high_host_flap_threshold</span>, que fica no arquivo de configuração principal do Nagios.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Números, exemplo: 20.0 (20%)</span>
 
 
 
 #### <span style="color:#d86c00">**flap_detection_enabled**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar se a detecção de flap está ativada ou não para este host. Caso você defina  <span style="color:#00CED1">enable_flap_detection=1</span> no arquivo principal do Nagios, não será necessário definir novamente na sessão de Host/Service, a menos que você queira desativar essa opção para alguns Hosts/Serviços.</span>
+<span style="color:#696969">Esta opção é usada para determinar se este serviço terá a detecção de flap ativada ou não. Caso você defina  <span style="color:#00CED1">enable_flap_detection=1</span> no arquivo principal do Nagios, não será necessário definir novamente aqui, a menos que você queira desativar essa opção para este serviço.</span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
  

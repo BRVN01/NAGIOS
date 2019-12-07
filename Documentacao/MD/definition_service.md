@@ -43,7 +43,7 @@ define service {
 
 #### <span style="color:#d86c00">**parents**</span>
 
-<span style="color:#696969">Os serviços pai normalmente são outros serviços que precisam estar funcionando para que uma verificação do nosso serviço possa ocorrer. Por exemplo, se um serviço que verifica o status de um disco rígido através do SSH, esse serviço de verificação do disco rígido terá o serviço SSH como pai. Isso seria uma dependências simples para nosso serviço poder funcionar.</span>
+<span style="color:#696969">Os serviços pai normalmente são outros serviços que precisam estar funcionando para que uma verificação do nosso serviço possa ocorrer. Por exemplo, um serviço que verifica o status de um disco rígido através do SSH, nosso serviço de verificação do disco rígido terá o serviço SSH como pai. Isso seria uma dependências simples para nosso serviço poder funcionar.</span>
 
 
 
