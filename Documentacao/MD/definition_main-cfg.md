@@ -6,64 +6,103 @@
 
 
 
-#### <span style="color:#d86c00">**CFG_LOG **</span>
+#### <span style="color:#d86c00">**LOG_FILE **</span>
 
-<span style="color:#696969">Especifica onde o Nagios deve criar seu arquivo de log principal. Essa deve ser a primeira variável que você define no seu arquivo de configuração, pois o Nagios tentará gravar neste arquivo os erros que - encontrar nos demais dados de configuração.</span>
+<span style="color:#696969">Especifica onde o Nagios deve criar seu arquivo de log principal. Essa deve ser a primeira variável que você define no seu arquivo de configuração, pois o Nagios tentará gravar neste arquivo os erros que encontrar nos demais dados de configuração.</span>
 
 
 
 #### <span style="color:#d86c00">**LOG_ROTATION_METHOD **</span>
-<span style="color:#696969">É de quanto em quanto tempo o arquivo de log será sobrescrito (d= todo dia).</span>
+<span style="color:#696969">É de quanto em quanto tempo o arquivo de log será sobrescrito, as opções são:</span>
+
+- <span style="color:#696969"><span style="color:#C0C0C0">**n**</span> = Nenhum (não sobrescreva o log, esse é o padrão);</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**h**</span> = De hora em hora (sobrescreva o registro na parte superior de cada hora);</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**d**</span> = Diariamente (sobrescreva o registro à meia-noite, todos os dias) (<span style="color:#FFDAB9">padrão</span>);</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**w**</span> = Semanal (sobrescreva o registro à meia-noite de sábado);</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**m**</span> = mensalmente (sobrescreva o log à meia-noite no último dia do mês).</span>
 
 
 
 #### <span style="color:#d86c00">**LOG_ARCHIVE_PATH **</span>
+
 <span style="color:#696969">Diretório onde ficará os logs que foram rotacionados.</span>
 
 
 
 #### <span style="color:#d86c00">**USE_SYSLOG**</span>
-<span style="color:#696969">Determina se as mensagem vão ser registradas no SysLog (1 = SIM).</span>
+<span style="color:#696969">Determina se as mensagem vão ser registradas no SysLog, as opções são:</span>
+
+- <span style="color:#696969"><span style="color:#C0C0C0">**0**</span> = Não use o recurso syslog;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**1**</span> = Usar recurso syslog (<span style="color:#FFDAB9">padrão</span>).</span>
 
 
 
 #### <span style="color:#d86c00">**LOG_NOTIFICATIONS**</span>
-<span style="color:#696969">Informa se as mensagens de notificação serão registradas (1 = sim).</span>
+
+<span style="color:#696969">Informa se as mensagens de notificação serão registradas.</span>
+
+- <span style="color:#696969"><span style="color:#C0C0C0">**0**</span> = Não registrar notificações de log;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**1**</span> = Registrar notificações de log (<span style="color:#FFDAB9">padrão</span>).</span>
 
 
 
 #### <span style="color:#d86c00">**LOG_SERVICE_RETRIES**</span>
-<span style="color:#696969">Informa se as verificações 'softs' serão registradas para os serviços (1 = sim) .</span>
+
+<span style="color:#696969">Informa se as verificações 'SOFTS' serão registradas para os serviços.</span>
+
+- <span style="color:#696969"><span style="color:#C0C0C0">**0**</span> = Não registrar tentativas de verificação de serviço;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**1**</span> = Registrar tentativas de verificação de serviço (<span style="color:#FFDAB9">padrão</span>).</span>
 
 
 
 #### <span style="color:#d86c00">**LOG_HOST_RETRIES**</span>
-<span style="color:#696969">Informa se as verificações 'softs' serão registradas para os hosts (1 = sim).</span>
+
+<span style="color:#696969">Informa se as verificações 'SOFTS' serão registradas para os hosts.</span>
+
+- <span style="color:#696969"><span style="color:#C0C0C0">**0**</span> = Não registrar tentativas de verificação de host;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**1**</span> = Registrar tentativas de verificação de host (<span style="color:#FFDAB9">padrão</span>).</span>
 
 
 
 #### <span style="color:#d86c00">**LOG_EVENT_HANDLERS**</span>
+
 <span style="color:#696969">Determina se os manipuladores de eventos de serviço e host serão ou não registrados. Manipuladores de eventos são comandos opcionais que podem ser executados sempre que um serviço ou host muda de estado.</span>
+
+- <span style="color:#696969"><span style="color:#C0C0C0">**0**</span> = Não registra manipuladores de eventos;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**1**</span> = Registrar manipuladores de eventos (<span style="color:#FFDAB9">padrão</span>).</span>
 
 
 
 #### <span style="color:#d86c00">**LOG_CURRENT_STATES**</span>
-<span style="color:#696969">Faz com que o Nagios grave o estado atual dos dispositivos gerenciados após rotacionar um log.</span>
+
+<span style="color:#696969">Faz com que o Nagios grave o estado atual dos dispositivos gerenciados após sobrescrever um arquivo de log.</span>
+
+- <span style="color:#696969"><span style="color:#C0C0C0">**0**</span> = Desativar o estado atual do log após sobrescrever o log;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**1**</span> = Ativar o estado atual do log após a  sobrescrever o log (<span style="color:#FFDAB9">padrão</span>).</span>
 
 
 
 #### <span style="color:#d86c00">**LOG_EXTERNAL_COMMANDS**</span>
+
 <span style="color:#696969">Registra ou não comandos externos (através da CGI).</span>
+
+- <span style="color:#696969"><span style="color:#C0C0C0">**0**</span> = Não registrar comandos externos;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**1**</span> = Registrar comandos externos (<span style="color:#FFDAB9">padrão</span>).</span>
 
 
 
 #### <span style="color:#d86c00">**LOG_PASSIVE_CHECKS**</span>
-<span style="color:#696969">Após aplicar um comando externo, o check passivo irá registrar em log essa ação, só que, o Nagios não pode verificar checks passivos, isso porque esses checks são feitos por outros NMSs, o Nagios apenas recebe um informação do estado do check, portanto, não é interessante usar essa opção de registro, isso só encheria mais nosso arquivo de log sem necessidade (1 = padrão, 0 = desabilitado).</span>
+
+<span style="color:#696969">Após aplicar um comando externo, o check passivo irá registrar em log essa ação, só que, o Nagios não pode verificar checks passivos, isso porque esses checks são feitos por outros NMSs, o Nagios apenas recebe uma informação do estado do check, portanto, não é interessante usar essa opção de registro, isso só encheria mais nosso arquivo de log sem necessidade.</span>
+
+- <span style="color:#696969"><span style="color:#C0C0C0">**0**</span> = Não registra verificações passivas (<span style="color:red">interessante</span>);</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**1**</span> = Registra verificações passivas (<span style="color:#FFDAB9">padrão</span>).</span>
 
 
 
 #### <span style="color:#d86c00">**CFG_FILE**</span>
-<span style="color:#696969">É usada para especificar um arquivo de configuração de objeto contendo definições de objeto que o Nagios deve usar para monitorar. Os arquivos de configuração de objeto contêm definições para hosts, grupos de hosts, contatos, grupos de contatos, serviços, comandos etc.</span>
+
+<span style="color:#696969">É usada para especificar um arquivo de configuração de objeto, contendo definições de objetos que o Nagios deve usar para monitorar. Os arquivos de configuração de objeto contêm definições para hosts, grupos de hosts, contatos, grupos de contatos, serviços, comandos etc.</span>
 
 
 
@@ -225,9 +264,13 @@
 #### <span style="color:#d86c00">**RETAIN_STATE_INFORMATION**</span>
 <span style="color:#696969">Esta opção determina se o Nagios manterá ou não as informações de estado para hosts e serviços entre as reinicializações do programa. Se você habilitar essa opção, deverá fornecer um valor para a variável state_retention_file. Quando ativado, o Nagios salva todas as informações de estado dos hosts e serviços antes de serem desligadas (ou reiniciadas) e lê as informações de estado salvas anteriormente quando reiniciadas.</span>
 
+- <span style="color:#696969"><span style="color:#C0C0C0">**0**</span> = Não retém informações do estado;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**1**</span> = Retém informações do estado (<span style="color:#FFDAB9">padrão</span>).</span>
+
 
 
 #### <span style="color:#d86c00">**STATE_RETENTION_FILE**</span>
+
 <span style="color:#696969">Este é o arquivo que o Nagios usará para armazenar informações de status, tempo de inatividade e comentários antes de serem encerradas. Quando o Nagios é reiniciado, ele usa as informações armazenadas neste arquivo para definir os estados iniciais de serviços e hosts antes de começar a monitorar qualquer coisa. Para fazer com que o Nagios retenha as informações de estado entre as reinicializações do programa, você deve habilitar a opção reter_state_informações.</span>
 
 
@@ -295,11 +338,15 @@
 
 
 #### <span style="color:#d86c00">**BARE_UPDATE_CHECK**</span>
-<span style="color:#696969">Esta opção impede que dados o Nagios envie para o api.nagios.org quando procurar atualizações. Por padrão, o Nagios enviará informações sobre a versão atual do Nagios que você instalou, bem como um indicador sobre se essa foi uma nova instalação ou não. O Nagios Enterprises usa esses dados para determinar o número de usuários executando uma versão específica do Nagios. Habilite esta opção se não desejar que essas informações sejam enviadas.</span>
+<span style="color:#696969">Esta opção impede que dados do Nagios seja envido para o api.nagios.org quando procurar atualizações. Por padrão, o Nagios enviará informações sobre a versão atual do Nagios que você instalou, bem como um indicador sobre se essa foi uma nova instalação ou não. O Nagios Enterprises usa esses dados para determinar o número de usuários executando uma versão específica do Nagios. Habilite esta opção se não desejar que essas informações sejam enviadas.</span>
+
+- <span style="color:#696969"><span style="color:#C0C0C0">**0**</span> = Desativado;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**1**</span> = Ativado (<span style="color:#FFDAB9">padrão</span>).</span>
 
 
 
 #### <span style="color:#d86c00">**USE_AGGRESSIVE_HOST_CHECKING**</span>
+
 <span style="color:#696969">O Nagios tenta ser inteligente sobre como e quando verifica o status dos hosts. Em geral, desabilitar esta opção permitirá ao Nagios tomar algumas decisões mais inteligentes e verificar os hosts um pouco mais rápido. A ativação dessa opção aumentará a quantidade de tempo necessária para verificar os hosts, mas poderá melhorar um pouco a confiabilidade. A menos que você tenha problemas com o Nagios em não reconhecer que um host foi recuperado, sugiro não ativar esta opção.</span>
 
 

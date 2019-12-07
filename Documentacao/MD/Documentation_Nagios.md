@@ -69,14 +69,14 @@ Tudo isso é baseado em um sistema de definição de objetos (objetos são todos
 
 # <span style="color:#d86c00">**Capítulo 2: Entendendo o Nagios**</span>
 
-<span style="color:#696969">Nessa sessão vamos ver alguns dos principais arquivos de configuração do Nagios, para que eles servem e vamos configurar manualmente o arquivo de configurações principal do Nagios para que possamos ter um arquivo mais customizado.</span>
+<span style="color:#696969">Nessa sessão vamos ver alguns dos principais arquivos de configuração do Nagios, quais são suas funcionalidades e vamos configurar algumas funcionalidades para pegar prática com o métdodo de configuração da ferramenta.</span>
 
 
 
 ## <span style="color:#d86c00">**Arquivo de configuração principal**</span>
 
-<span style="color:#696969">O arquivo de configuração principal é chamado <span style="color:#008080">***nagios.cfg***</span>, é o arquivo principal carregado durante a inicialização do Nagios, ele contém várias diretivas que afetam como o daemon do Nagios Core opera. </span>
-<span style="color:#696969">Este arquivo de configuração é lido pelo daemon do Nagios Core e pelos CGIs (que fazem a comunicação com frontend do Nagios, em outras palavras, o "navegador" usado para visualizar eventos no dashboard do nagios).</span>
+<span style="color:#696969">O arquivo de configuração principal é chamado <span style="color:#008080">***nagios.cfg***</span>, é o arquivo principal carregado durante a inicialização do Nagios, ele contém várias diretivas que afetam como o daemon do Nagios opera. </span>
+<span style="color:#696969">Este arquivo de configuração é lido pelo daemon do Nagios e pelos CGIs (que fazem a comunicação com frontend do Nagios, em outras palavras, o "navegador" usado para visualizar eventos no dashboard do nagios).</span>
 
 <span style="color:#696969">Não precisamos necessariamente editar ou recriar esse arquivo, o arquivo original já vem com todas as funcionalidades prontas e funcionais, a edição seria mais passar um pente fino, melhorando a performance das verificações do Nagios, mas isso depende muito da infraestrutura de TI usada, portanto, vamos explicar algumas linha usada no arquivo<span style="color:#008080">***nagios.cf***</span>.</span>
 
@@ -87,8 +87,9 @@ Tudo isso é baseado em um sistema de definição de objetos (objetos são todos
 ```bash
 ### Sessão de logs, 
 # Mudar a pasta padrão dos logs necessita que seja aplicado as devidas permissões para a nova pasta, aplicando o comando para a nova pasta de log 'chown -R nagios. pasta', isso server somente para a variável LOG_FILE.
-# (opções padrões do Nagios).
 log_file=/var/log/nagios/nagios.log
+
+# (opções padrões do Nagios).
 log_rotation_method=d
 log_archive_path=/usr/local/nagios/var/archives
 use_syslog=1
