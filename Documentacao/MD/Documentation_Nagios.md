@@ -674,7 +674,6 @@ define host {
 <span style="color:#696969">Vamos abordar a criação de um objeto de definição cuja funcionalidade é criar um host, como as opções a serem utilizadas são vastas, estarei mostrando um exemplo completo do que o objeto `define host` pode receber e então falaremos sobre cada opção a ser usada.</span>
 
 ```bash
-
 define host {
 host_name						host_name
 alias							alias
