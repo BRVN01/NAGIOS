@@ -10,7 +10,7 @@
 
 #### <span style="color:#d86c00">**hostgroup_name**</span>
 
-<span style="color:#696969">Esta opção é usada para especificar o nome do(s) grupo(s) de [host(s)](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#hostgroup) ao qual este serviço está sendo executado ou está associado. Vários grupos de hosts devem ser separados por vírgulas. O <span style="color:#00CED1">hostgroup_name</span> pode ser usado no lugar da diretiva <span style="color:#00CED1">host_name.</span></span>
+<span style="color:#696969">Esta opção é usada para especificar o nome do(s) grupo(s) de [host(s)](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#hostgroup) ao qual este serviço está sendo executado ou está associado. Vários grupos de hosts devem ser separados por vírgulas. O <span style="color:#00CED1">hostgroup_name</span> pode ser usado no lugar da opção <span style="color:#00CED1">host_name.</span></span>
 
 
 
@@ -37,7 +37,7 @@ define service {
 
 #### <span style="color:#d86c00">**display_name**</span>
 
-<span style="color:#696969">Se não especificado, o valor será o valor da diretiva <span style="color:#00CED1">*service_description*</span>. Os CGIs atuais não usam mais essa opção, embora versões futuras da interface web os usem (funciona melhor no Icinga).</span>
+<span style="color:#696969">Se não especificado, o valor será o valor da opção <span style="color:#00CED1">*service_description*</span>. Os CGIs atuais não usam mais essa opção, embora versões futuras da interface web os usem (funciona melhor no Icinga).</span>
 
 
 
@@ -157,13 +157,13 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**freshness_threshold**</span>
 
-<span style="color:#696969">Esta opção é usada para especificar o limite de atualização (em segundos) para este serviço. Se você definir esta diretiva como um valor 0, o Nagios determinará um limite de atualização a ser usado automaticamente.</span>
+<span style="color:#696969">Esta opção é usada para especificar o limite de atualização (em segundos) para este serviço. Se você definir esta opção como um valor 0, o Nagios determinará um limite de atualização a ser usado automaticamente.</span>
 
 
 
 #### <span style="color:#d86c00">**event_handler**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o nome de um comando que deve ser executado sempre que uma alteração no estado do serviço for detectada, ou seja, sempre que for DOWN ou RECOVER. </span>
+<span style="color:#696969">Esta opção é usada para especificar o nome de um comando que deve ser executado sempre que uma alteração no estado do serviço for detectada, ou seja, sempre que for DOWN ou RECOVER. </span>
 <span style="color:#696969">Um uso para manipuladores de eventos é a capacidade do próprio Nagios Core de corrigir proativamente os problemas antes que alguém seja notificado.</span>
 
 <span style="color:#FFFF00">Para mais detalhes de como funciona o Event Handler, consulte [este link](Documentation_Nagios.html#span-stylecolord86c00definindo-servicespan)</span>
@@ -172,33 +172,33 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**event_handler_enabled**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar se o manipulador de eventos para este serviço está ativado ou não. </span>
+<span style="color:#696969">Esta opção é usada para determinar se o manipulador de eventos para este serviço está ativado ou não. </span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:#FFDAB9">**padrão**</span>).
 
 
 
 #### <span style="color:#d86c00">**low_flap_threshold**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o limite de alteração de baixas de estado (flaps), quando o limite de flap cai para um valor menor do que <span style="color:#00CED1">low_flap_threshold</span>, considera-se que o flap parou.</span>
+<span style="color:#696969">Esta opção é usada para especificar o limite de alteração de baixas de estado (flaps), quando o limite de flap cai para um valor menor do que <span style="color:#00CED1">low_flap_threshold</span>, considera-se que o flap parou.</span>
 
 
 
 #### <span style="color:#d86c00">**high_flap_threshold**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o limite alto de alteração de estado (flaps), quando o limite de flap ultrapassa o valor de <span style="color:#00CED1">high_flap_threshold</span>, considera-se um inicio de flap.</span>
+<span style="color:#696969">Esta opção é usada para especificar o limite alto de alteração de estado (flaps), quando o limite de flap ultrapassa o valor de <span style="color:#00CED1">high_flap_threshold</span>, considera-se um inicio de flap.</span>
 
 
 
 #### <span style="color:#d86c00">**flap_detection_enabled**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar se a detecção de flap está ativada ou não para este serviço. Caso você defina  <span style="color:#00CED1">enable_flap_detection=1</span> no arquivo principal do Nagios, não será necessário definir novamente na sessão de Host/Service, a menos que você queira desativar essa opção para alguns Hosts/Serviços.</span>
+<span style="color:#696969">Esta opção é usada para determinar se a detecção de flap está ativada ou não para este serviço. Caso você defina  <span style="color:#00CED1">enable_flap_detection=1</span> no arquivo principal do Nagios, não será necessário definir novamente na sessão de Host/Service, a menos que você queira desativar essa opção para alguns Hosts/Serviços.</span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
  
 
 #### <span style="color:#d86c00">**flap_detection_options**</span>
 
-<span style="color:#696969">Podemos excluir certos estados de host/serviço no uso da lógica de detecção de flap, evitando receber flap de alguns estados, esta diretiva permite especificar quais estados de host/serviço (UP, DOWN, OK, CRITICAL) você pode desejar usar para a detecção de flap. Se você não usar esta diretiva, todos os estados de host ou serviço serão usados na detecção de flap. </span>
+<span style="color:#696969">Podemos excluir certos estados de host/serviço no uso da lógica de detecção de flap, evitando receber flap de alguns estados, esta opção permite especificar quais estados de host/serviço (UP, DOWN, OK, CRITICAL) você pode desejar usar para a detecção de flap. Se você não usar esta opção, todos os estados de host ou serviço serão usados na detecção de flap. </span>
 <span style="color:#696969">As opções válidas são uma combinação de um ou mais dos seguintes itens: </span>
 
 <span style="color:#696969"><span style="color:#C0C0C0">**o**</span> = Ok</span>
@@ -210,40 +210,40 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**process_perf_data**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar se o processamento de dados de desempenho está ou não ativado para este serviço. Isso é importante para fazermos levantamento de desempenho com integração ao MRTG por exemplo.</span>
+<span style="color:#696969">Esta opção é usada para determinar se o processamento de dados de desempenho está ou não ativado para este serviço. Isso é importante para fazermos levantamento de desempenho com integração ao MRTG por exemplo.</span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
 
 
 #### <span style="color:#d86c00">**ret_status_information**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar se as informações relacionadas ao status do serviço são mantidas ou não durante a reinicialização do programa. Isso é útil apenas se você tiver ativado a retenção de estado usando a diretiva [reter_state_information](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information). </span>
+<span style="color:#696969">Esta opção é usada para determinar se as informações relacionadas ao status do serviço são mantidas ou não durante a reinicialização do programa. Isso é útil apenas se você tiver ativado a retenção de estado usando a opção [reter_state_information](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information). </span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
 
 
 #### <span style="color:#d86c00">**ret_nonstatus_information**</span>
 
-<span style="color:#696969">Essa diretiva é usada para determinar se as informações que não são de status sobre o serviço são mantidas ou não durante a reinicialização do programa. Isso é útil apenas se você tiver ativado a retenção de estado usando a diretiva [reter_state_information](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information). </span>
+<span style="color:#696969">Essa opção é usada para determinar se as informações que não são de status sobre o serviço são mantidas ou não durante a reinicialização do programa. Isso é útil apenas se você tiver ativado a retenção de estado usando a opção [reter_state_information](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information). </span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
 
 
 #### <span style="color:#d86c00">**notification_interval**</span>
 
-<span style="color:#696969">Esta diretiva é usada para definir quanto tempo Nagios deve aguardar antes de notificar novamente um contato que este *serviço*ainda está inativo ou inacessível. A menos que você tenha alterado a diretiva [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60 (minutos). Se você definir esse valor como 0, o Nagios *não* notificará novamente os contatos sobre problemas desse serviço, apenas uma única notificação de problema será enviada.</span>
+<span style="color:#696969">Esta opção é usada para definir quanto tempo Nagios deve aguardar antes de notificar novamente um contato que este *serviço*ainda está inativo ou inacessível. A menos que você tenha alterado a opção [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60 (minutos). Se você definir esse valor como 0, o Nagios *não* notificará novamente os contatos sobre problemas desse serviço, apenas uma única notificação de problema será enviada.</span>
 
 
 
 #### <span style="color:#d86c00">**first_notification_delay**</span>
 
-<span style="color:#696969">Esta diretiva é usada para definir quanto tempo Nagios deve aguardar antes de enviar a primeira notificação de problema quando este serviço entra em um estado não UP. A menos que você tenha alterado a diretiva [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60 (minutos). <span style="color:#FFFF00">Se você definir esse valor como 0, o Nagios começará a enviar notificações imediatamente.</span></span>
+<span style="color:#696969">Esta opção é usada para definir quanto tempo Nagios deve aguardar antes de enviar a primeira notificação de problema quando este serviço entra em um estado não UP. A menos que você tenha alterado a opção [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60 (minutos). <span style="color:#FFFF00">Se você definir esse valor como 0, o Nagios começará a enviar notificações imediatamente.</span></span>
 
 
 
 #### <span style="color:#d86c00">**notification_options**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar quando as notificações para o serviço devem ser enviadas. As opções válidas são uma combinação de um ou mais dos seguintes itens: </span>
+<span style="color:#696969">Esta opção é usada para determinar quando as notificações para o serviço devem ser enviadas. As opções válidas são uma combinação de um ou mais dos seguintes itens: </span>
 
 - <span style="color:#C0C0C0">**d**</span> <span style="color:#696969">= enviar notificações em um estado DOWN;</span>
 - <span style="color:#C0C0C0">**u**</span> <span style="color:#696969">= enviar notificações em um estado inacessível;</span>
@@ -256,20 +256,20 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**Notifications_enabled**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar se as notificações para este serviço estão ativadas ou não. </span>
+<span style="color:#696969">Esta opção é usada para determinar se as notificações para este serviço estão ativadas ou não. </span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
 
 
 #### <span style="color:#d86c00">**notification_period**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o nome abreviado do [período](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#timeperiod) durante o qual as notificações de eventos para este serviço podem ser enviadas aos contatos. Nenhuma notificação de serviço será enviada durante horários não cobertos pelo período.</span>
+<span style="color:#696969">Esta opção é usada para especificar o nome abreviado do [período](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#timeperiod) durante o qual as notificações de eventos para este serviço podem ser enviadas aos contatos. Nenhuma notificação de serviço será enviada durante horários não cobertos pelo período.</span>
 
 
 
 #### <span style="color:#d86c00">**stalking_options**</span>
 
-<span style="color:#696969">Esta diretiva determina para quais estados "monitorando" o serviço o está ativado. As opções válidas são uma combinação de um ou mais dos seguintes itens:</span>
+<span style="color:#696969">Esta opção determina para quais estados "monitorando" o serviço o está ativado. As opções válidas são uma combinação de um ou mais dos seguintes itens:</span>
 
 <span style="color:#696969"><span style="color:#C0C0C0">**o**</span> = Monitorar nos estados Ok.</span>
 <span style="color:#696969"><span style="color:#C0C0C0">**w**</span> = Monitorar nos estados Warning.</span>
@@ -288,7 +288,7 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**notes**</span>
 
-<span style="color:#696969">Esta diretiva é usada para definir uma descrição para o serviço. Se você especificar uma observação aqui, será exibida no CGI de informações estendidas (quando estiver visualizando informações sobre o serviço especificado).</span>
+<span style="color:#696969">Esta opção é usada para definir uma descrição para o serviço. Se você especificar uma observação aqui, será exibida no CGI de informações estendidas (quando estiver visualizando informações sobre o serviço especificado).</span>
 
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
@@ -303,7 +303,7 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**notes_url**</span>
 
-<span style="color:#696969">Essa diretiva é usada para definir uma URL que pode ser usado para fornecer mais informações sobre o serviço.</span>
+<span style="color:#696969">Essa opção é usada para definir uma URL que pode ser usado para fornecer mais informações sobre o serviço.</span>
 
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
@@ -323,7 +323,7 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**action_url**</span>
 
-<span style="color:#696969">Esta diretiva é usada para definir uma URL que pode ser usada para fornecer mais ações a serem executadas no serviço, o icone pode ser atribuido a informações de performance.</span>
+<span style="color:#696969">Esta opção é usada para definir uma URL que pode ser usada para fornecer mais ações a serem executadas no serviço, o icone pode ser atribuido a informações de performance.</span>
 
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
