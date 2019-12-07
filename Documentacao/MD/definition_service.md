@@ -17,8 +17,7 @@
 #### <span style="color:#d86c00">**service_description**</span>
 
 <span style="color:#696969">Esta diretiva é usada para especificar o nome do serviço, esse nome ficará aparente no Dashboard do Nagios</span>
-
-​			<span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
+<span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
 ```bash
 define service {
@@ -30,11 +29,7 @@ define service {
 }
 ```
 
-
-
-  <span style="color:#FFFF00">Segue imagem de como vai ficar o service_description aplicada ao serviço:</span>
-
-
+<span style="color:#FFFF00">Segue imagem de como vai ficar o service_description aplicada ao serviço:</span>
 
 [![896621024723724](https://github.com/BRVN01/NAGIOS/raw/master/IMG/896621024723724.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/896621024723724.png) 
 
