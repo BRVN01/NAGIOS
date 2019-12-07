@@ -173,7 +173,7 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**flap_detection_enabled**</span>
 
-<span style="color:#696969">Esta opção é usada para determinar se este host terá a detecção de flap ativada ou não. Caso você defina  <span style="color:#00CED1">enable_flap_detection=1</span> no arquivo principal do Nagios, não será necessário definir novamente aqui, a menos que você queira desativar essa opção para este serviço.</span>
+<span style="color:#696969">Esta opção é usada para determinar se este host terá a detecção de flap ativada ou não. Caso você defina  <span style="color:#00CED1">enable_flap_detection=1</span> no arquivo principal do Nagios, não será necessário definir novamente aqui, a menos que você queira desativar essa opção para este host.</span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
  
@@ -263,9 +263,9 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 - <span style="color:#C0C0C0">**d**</span> <span style="color:#696969">= enviar notificações em um estado DOWN;</span>
 - <span style="color:#C0C0C0">**u**</span> <span style="color:#696969">= enviar notificações em um estado inacessível;</span>
 - <span style="color:#C0C0C0">**r**</span> <span style="color:#696969">= enviar notificações em recuperações (estado OK);</span>
-- <span style="color:#C0C0C0">**f**</span> <span style="color:#696969">= enviar notificações quando o serviço iniciar e parar flapar;</span>
+- <span style="color:#C0C0C0">**f**</span> <span style="color:#696969">= enviar notificações quando o host iniciar e parar flapar;</span>
 - <span style="color:#C0C0C0">**s**</span> <span style="color:#696969">= notificações de envio quando [programados de inatividade](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/downtime.html) começa e termina. Se você especificar;</span>
-- <span style="color:#C0C0C0">**n**</span> <span style="color:#696969">= nenhuma notificação de serviço será enviada.
+- <span style="color:#C0C0C0">**n**</span> <span style="color:#696969">= nenhuma notificação do host será enviada.
   </span>
   <span style="color:#FFFF00">Se você não especificar nenhuma opção de notificação, o Nagios assumirá que você deseja que as notificações sejam enviadas para todos os estados possíveis.</span>
 
@@ -481,7 +481,7 @@ define host {
     check_period                 24x7 
 
 # Grupo de contatos que vão receber a notificação de problemas ou
-# de recuperação desse serviço.
+# de recuperação desse host.
     contact_groups               nagiosadmin
 
 # Tipos de notificações que serão enviadas 
@@ -496,13 +496,13 @@ define host {
 # Vai notificar 24 horas em 7 dias da semana.
     notification_period          24x7
 
-# Habilitar a notificação para este serviço.
+# Habilitar a notificação para este host.
     notifications_enabled        1
 
 # Habilitar Manipuladores de Eventos.
     event_handler_enabled	     1
 
-# Habilitar a detecção por flap, se o serviço passar a ficar muito
+# Habilitar a detecção por flap, se o host passar a ficar muito
 # instável, ele entra num estado de flap, isso vai impedir que
 # os contatos fiquem sendo notificados de estados OK para não OK,
 # até que o problema seja corrigido.
@@ -528,11 +528,24 @@ define host {
 # ele considera o host como não OK.
     max_check_attempts            5
 
-# Nome do período em que as verificações ativas serão feitas. 
+# Nome do período em que as verificações ativas serão feitas.
+# Serão verificados a todo momento (24 horas por 7 dias na semana).
     check_period                  24x7 
+
+# Contato que vai receber a notificação de problemas ou
+# de recuperação desse host.
     contacts			          nagiosadmin
+
+# Grupo de contatos que vão receber a notificação de problemas ou
+# de recuperação desse host.
     contact_groups                nagiosadmin # Grupo de contatos.
-    notification_interval         30 # Intervalo entre notificações (em minutos).
+
+# Intervalo entre notificações de problemas, a cada X minutos 
+# ele vai notificar novamente, caso o problema permaneça.
+    notification_interval         30
+
+# Período para efetuar as notificações.
+# Vai notificar 24 horas em 7 dias da semana.
     notification_period           24x7 # Período para notificações.
 }
 ```
