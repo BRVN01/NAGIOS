@@ -4,19 +4,19 @@
 
 #### <span style="color:#d86c00">**host_name**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o nome do [host](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#hostgroup) ao qual este serviço está sendo executado ou está associado.</span>
+<span style="color:#696969">Esta opção é usada para especificar o nome do [host](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#hostgroup) ao qual este serviço está sendo executado ou está associado.</span>
 
 
 
 #### <span style="color:#d86c00">**hostgroup_name**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o nome do(s) grupo(s) de [host(s)](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#hostgroup) ao qual este serviço está sendo executado ou está associado. Vários grupos de hosts devem ser separados por vírgulas. O <span style="color:#00CED1">hostgroup_name</span> pode ser usado no lugar da diretiva <span style="color:#00CED1">host_name.</span></span>
+<span style="color:#696969">Esta opção é usada para especificar o nome do(s) grupo(s) de [host(s)](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#hostgroup) ao qual este serviço está sendo executado ou está associado. Vários grupos de hosts devem ser separados por vírgulas. O <span style="color:#00CED1">hostgroup_name</span> pode ser usado no lugar da diretiva <span style="color:#00CED1">host_name.</span></span>
 
 
 
 #### <span style="color:#d86c00">**service_description**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o nome do serviço, esse nome ficará aparente no Dashboard do Nagios</span>
+<span style="color:#696969">Esta opção é usada para especificar o nome do serviço, esse nome ficará aparente no Dashboard do Nagios</span>
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
 ```bash
@@ -61,7 +61,7 @@ define service {
 
 
 #### <span style="color:#d86c00">**is_volatile**</span>
-<span style="color:#696969">Esta diretiva é usada para indicar se o serviço é "volátil". Os serviços normalmente<span style="color:#00CED1">*não são*</span>voláteis.</span>
+<span style="color:#696969">Esta opção é usada para indicar se o serviço é "volátil". Os serviços normalmente<span style="color:#00CED1">*não são*</span>voláteis.</span>
 
 <span style="color:#696969">Um serviço volátil seria um serviço que muda de estado sem que o Nagios faça a verificação do serviço, um exemplo para isso seria um <span style="color:#00CED1">Trap SNMP</span>, ou até mesmo algum serviço que precise enviar uma mensagem para o Nagios, para que ele possa tomar alguma providência.</span>
 
@@ -73,13 +73,15 @@ define service {
 
 #### <span style="color:#d86c00">**check_command**</span>
 
+<span style="color:#696969">É o nome do comando que será executado para validar esse serviço. Cada comando tem um certo tempo para ser executado, esse tempo é dada pela opção <span style="color:#00CED1">service_check_timeout</span> que fica no arquivo principal de configuração do Nagios.</span>
 
+<span style="color:#696969">Se após esse tempo, o comando não tiver sido bem sucedido, a execução do comando é eliminada e um estado CRÍTICO será retornado para esse serviço, um erro de tempo limite também será registrado.</span>
 
 
 
 #### <span style="color:#d86c00">**initial_state**</span>
 
-<span style="color:#696969">Por padrão, o Nagios assume que todos os serviço estão *UP* quando iniciados. Você pode substituir o estado inicial de um serviço usando esta diretiva. As opções válidas são: </span>
+<span style="color:#696969">Por padrão, após iniciar o Nagios, ele assume que todos os serviço estão *UP*. Você pode substituir esse padrão inicial, alternando para as opções abaixo: </span>
 
 <span style="color:#696969"><span style="color:#C0C0C0">**o**</span> = Ok</span>
 <span style="color:#696969"><span style="color:#C0C0C0">**w**</span> = Warning</span>
@@ -90,57 +92,72 @@ define service {
 
 #### <span style="color:#d86c00">**max_check_attempts**</span>
 
-<span style="color:#696969">Esta diretiva é usada para definir o número de vezes que o Nagios tentará novamente o comando de verificação de serviço se retornar qualquer estado diferente de OK. Definir esse valor como 1 fará com que o Nagios gere um alerta sem tentar novamente a verificação do serviço.</span>
+<span style="color:#696969">Esta opção é usada para definir um número de vezes em que o Nagios irá executar o comando de verificação (saber se o serviço está UP ou diferente de UP). Definir esse valor como 1 fará com que o Nagios gere um alerta sem tentar novamente a verificação do serviço, ou seja, após qualquer evento, mesmo que seja um evento falso ou passageiro, será gerado um estado HARD do serviço e você será notificado (se assim foi programado).</span>
 
-<span style="color:#696969">Nota: Se você não deseja verificar o status do serviço, ainda deve configurá-lo com um valor mínimo de 1. Para ignorar a verificação do serviço, deixe a opção <span style="color:#00CED1">*check_command*</span>em branco.</span>
+<span style="color:#696969">Nota: Para ignorar a verificação do serviço, deixe a opção <span style="color:#00CED1">*check_command*</span>em branco.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Tempo em minutos.</span>
 
 
 
 #### <span style="color:#d86c00">**check_interval**</span>
 
-<span style="color:#696969">Esta diretiva é usada para definir o número de "unidades de tempo" entre verificações agendadas regularmente do serviço. A menos que você tenha alterado a diretiva [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60, esse número significará minutos. Mais informações sobre esse valor podem ser encontradas na documentação de [agendamento de verificação](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/checkscheduling.html).</span>
+<span style="color:#696969">É a quantidade de tempo que vamos esperar até agendar uma nova verificação do serviço, caso este esteja UP ou não UP. É o intervalo entre as verificações do nosso serviço,
+mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_attempts</span> e nosso serviço esteja num estado HARD, ele vai esperar X minutos para poder agendar uma nova verificação.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Tempo em minutos.</span>
 
 
 
 #### <span style="color:#d86c00">**retry_interval**</span>
 
-<span style="color:#696969">Esta diretiva é usada para definir o número de "unidades de tempo" a aguardar antes de agendar uma nova verificação dos serviços. Os serviços são reagendados no intervalo de novas tentativas quando mudam para um estado não UP. </span>
+<span style="color:#696969">É a quantidade de tempo que vamos esperar até agendar uma nova verificação do serviço, somente se o serviço não estiver UP, os serviços são reagendados no intervalo de novas tentativas quando mudam para um estado não UP. </span>
 
-<span style="color:#696969">Depois que o serviço tiver sido verificado de novo pela quantidade de vezes estabelecidas pelo <span style="color:#00CED1">max_check_attempts</span> e nenhuma alteração tiver sido verificada, ele voltará a ser agendado na sua taxa "normal", conforme definido pelo valor <span style="color:#00CED1">check_interval</span>. A menos que você tenha alterado a diretiva [interval_length](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#interval_length) do valor padrão de 60, esse número significará minutos.</span>
+<span style="color:#696969">Depois que o serviço tiver sido verificado de novo pela quantidade de vezes estabelecidas pelo <span style="color:#00CED1">max_check_attempts</span> e nenhuma alteração tiver sido verificada, ele voltará a ser agendado na sua taxa "normal", conforme definido pelo valor <span style="color:#00CED1">check_interval</span>.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Tempo em minutos.</span>
 
 
 
 #### <span style="color:#d86c00">**active_checks_enabled**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar se as verificações ativas (agendadas regularmente ou sob demanda) deste serviço estão ativadas. </span>
+<span style="color:#696969">Esta opção é usada para determinar se as verificações ativas (agendadas regularmente ou sob demanda) deste serviço estão ativadas.</span>
 <span style="color:#696969">Valores: </span><span style="color:#4682B4">0 = desativar verificações de serviço ativo</span>, <span style="color:#4682B4">1 = ativar verificações de serviço ativo</span> (<span style="color:#FFDAB9">**padrão**</span>).
 
 
 
 #### <span style="color:#d86c00">**passive_checks_enabled**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar se as verificações passivas estão ou não ativadas para este serviço. </span>
+<span style="color:#696969">Esta opção é usada para determinar se as verificações passivas estão ou não ativadas para este serviço. </span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativar verificações passivas de serviço</span>, <span style="color:#4682B4">1 = ativar verificações passivas de serviço</span> (<span style="color:#FFDAB9">**padrão**</span>).
+
+
+
+#### <span style="color:#d86c00">**check_period**</span>
+
+<span style="color:#696969">Nome do período em que as verificações ativas serão feitas, por exemplo: as verificações podem ser feitas 24 horas por dia, durante os 7 dias da semana.</span>
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">Nome do periodo de verificação.</span>
 
 
 
 #### <span style="color:#d86c00">**obsess_over_service | obsess**</span>
 
-<span style="color:#696969">Essa diretiva determina se as verificações do serviço serão ou não "obcecadas" pelo uso do comando ochp_com. </span>
+<span style="color:#696969">Essa opção determina se as verificações do serviço serão feitas ou não pelo uso do comando <span style="color:#00CED1">ocsp_command</span>. </span><span style="color:#696969">Essa opção é muito usada em monitoramento distribuído, onde um Gerente recebe informações de outros Gerentes.</span>
+
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:#FFDAB9">**padrão**</span>).
 
 
 
 #### <span style="color:#d86c00">**check_freshness**</span>
 
-<span style="color:#696969">Esta diretiva é usada para determinar se as verificações de atualizações dos resultados do serviço estão ativadas ou não. </span>
+<span style="color:#696969">Esta opção é usada para determinar se o Nagios irá fazer verificações no serviço, para ver se ocorreu atualizações no resultado do serviço (algum evento).</span>
 <span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span> (<span style="color:#FFDAB9">**padrão**</span>).
 
 
 
 #### <span style="color:#d86c00">**freshness_threshold**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o limite de atualização (em segundos) para este serviço. Se você definir esta diretiva como um valor 0, o Nagios determinará um limite de atualização a ser usado automaticamente.</span>
+<span style="color:#696969">Esta opção é usada para especificar o limite de atualização (em segundos) para este serviço. Se você definir esta diretiva como um valor 0, o Nagios determinará um limite de atualização a ser usado automaticamente.</span>
 
 
 
