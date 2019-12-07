@@ -756,7 +756,7 @@ define hostgroup {
 
 ### <span style="color:#d86c00">**Definindo Service**</span>
 
-<span style="color:#696969">Um objeto do tipo service é usada para identificar um serviço, que será  executado num determinado host ou grupo de hosts, abaixo segue um exemplo de tudo que um objeto do tipo <span style="color:#00CED1">service</span> pode ter:</span>
+<span style="color:#696969">Um objeto do tipo service é usado para identificar um serviço que será  executado num determinado host ou grupo de hosts, abaixo segue um exemplo de todas as opções que um objeto do tipo <span style="color:#00CED1">service</span> pode ter:</span>
 
 ```bash
 define service {
@@ -804,7 +804,7 @@ define service {
    	}
 ```
 
-<span style="color:#FFFF00">Para as opções utilizadas acima que não tiverem uma descrição, por favor, verifique a descrição das opções existentes na definição de um objeto do tipo host, consultando</span> [este link](definition_service.html).
+<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span> [este link](definition_service.html).
 
 
 
