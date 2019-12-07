@@ -313,13 +313,13 @@
 
 #### <span style="color:#d86c00">**icon_image_alt**</span>
 
-<span style="color:#696969">Essa variável é usada para definir uma sequência opcional que é usada na tag ALT da imagem especificada pelo argumento <icon_image> .</span>
+<span style="color:#696969">Essa variável é usada para definir uma sequência opcional que é usada na tag ALT da imagem especificada pelo argumento <icon_image>, basicamente, adiciona um nome abaixo da imagem.</span>
 
 
 
 <span style="color:#696969">Exemplo colocado no `define service` do servidor do Nagios:</span>
 
-<span style="color:#FFDAB9">icon_image_alt                             debian.png</span>
+​			<span style="color:#FFDAB9">icon_image_alt                             debian.png</span>
 
 <span style="color:#FFFF00">Segue imagem de como vai ficar o icon_image_alt aplicada ao serviço:</span>
 
@@ -331,34 +331,69 @@
 
 ## <span style="color:#d86c00">**Opções mais usadas**</span>
 
-<span style="color:#696969">Abaixo segue as propriedades atribuídas para o localhost, incluindo as variáveis herdadas:</span>
+<span style="color:#696969">Abaixo segue as propriedades atribuídas para um serviço qualquer:</span>
 
 ```bash
 define service {
+# Nome do modelo que vamos importar algumas variáveis.
+    use                          local-service
+
+# Nome do Host que receberá esse serviço.
     host_name			         NOME
-    alias				         APELIDO
-    address                      IP
-    parents                      PAIS 
+
+# Descrição do serviço, é o nome que vai ficar no campo service
+# do Dashboard do Nagios.
+    service_description          DESCRICAO
+
+# Comando que será executado para validar esse serviço.
     check_command                check-host-alive # ping.
-# Intervalo entre is checks (em minutos).
+
+# Intervalo entre as verificações OK e não OK,
+# mesmo após ter passado da quantidade de 'max_check_attempts',
+# tudo em minutos (vai verificar de 1 em 1 minuto).
     check_interval               1
 
-# Tempo para agendar uma nova verificação (em minutos).
-    retry_interval               1 
-    max_check_attempts           5 # Tentativas para determinar o estado HARD.
+# Tempo que o Nagios vai aguardar para agendar uma 
+# nova verificação, em minutos, isso só ocorre quando
+# o serviço não está OK.
+    retry_interval               1
 
-# Nome do período em que as verificações ativas serão feitas. 
-    check_period                 24x7 
+# Tentativas para determinar o estado HARD, se todas tentativas falharem,
+# ele considera o serviço como não OK
+    max_check_attempts           5
+
+# Nome do período em que as verificações ativas serão feitas.
+# Serão verificados a todo momento (24 horas por 7 dias na semana).
+    check_period                 24x7
+
+# Grupo de contatos que vão receber a notificação de problemas ou
+# de recuperação desse serviço.
     contact_groups               nagiosadmin # Grupo de contatos.
-	
-# Notificações que serão enviadas (DOWN, Recover e Inacessível).
+
+# Tipos de notificações que serão enviadas 
+# sendo elas: DOWN, UNKNOWN e Recover).
     notification_options         d,u,r
-# Intervalo entre notificações (em minutos).
+
+# Intervalo entre notificações de problemas, a cada X minutos 
+# ele vai notificar novamente, caso o problema permaneça.
     notification_interval        30
-    notification_period          24x7 # Período para notificações.
-    notifications_enabled        1 # Habilitar a notificação.
-    event_handler_enabled	     1 # Habilitar event_handler.
-    flap_detection_enabled       1 # Habilitar a detecção por flap.
+
+# Período para efetuar as notificações.
+# Vai notificar 24 horas em 7 dias da semana.
+    notification_period          24x7
+
+# Habilitar a notificação para este serviço.
+    notifications_enabled        1
+
+# Habilitar Manipuladores de Eventos.
+    event_handler_enabled	     1
+
+# Habilitar a detecção por flap, se o serviço passar a ficar muito
+# instável, ele entra num estado de flap, isso vai impedir que
+# os contatos fiquem sendo notificados de estados OK para não OK,
+# até que o problema seja corrigido.
+    flap_detection_enabled       1
+
 # Habilitar o processamento de dados de desempenho.
     process_perf_data            1
 }
@@ -372,15 +407,31 @@ define service {
 
 ```shell
 define service {
+# Nome do Host que receberá esse serviço.
     host_name                     NOME
-    max_check_attempts            5 # Tentativas para determinar o estado HARD.
 
-# Nome do período em que as verificações ativas serão feitas. 
-    check_period                  24x7 
+# Tentativas para determinar o estado HARD, se todas tentativas falharem,
+# ele considera o serviço como não OK.
+    max_check_attempts            5
+
+# Nome do período em que as verificações ativas serão feitas.
+# Serão verificados a todo momento (24 horas por 7 dias na semana).
+    check_period                  24x7
+
+# Nome dos contatos que vão receber a notificação de problemas ou
+# de recuperação desse serviço.
     contacts			          nagiosadmin
-    contact_groups                nagiosadmin # Grupo de contatos.
-    notification_interval         30 # Intervalo entre notificações (em minutos).
-    notification_period           24x7 # Período para notificações.
+
+# Grupo de contatos que vão receber a notificação de problemas ou
+# de recuperação desse serviço.
+    contact_groups                nagiosadmin
+
+# Intervalo entre notificações de problemas, a cada X minutos 
+# ele vai notificar novamente, caso o problema permaneça.
+    notification_interval         30
+
+# Período para efetuar as notificações.
+    notification_period           24x7
 }
 ```
 

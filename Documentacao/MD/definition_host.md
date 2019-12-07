@@ -306,16 +306,7 @@
 
 <span style="color:#696969">O diretório padrão para as imagens é `/usr/local/nagios/share/images/logos`.</span>
 
-<span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
 
-​			<span style="color:#FFDAB9">vrml_image                             debian.png</span>
-
-
-  <span style="color:#FFFF00">Segue imagem de como vai ficar o vrml_image aplicada ao host:</span>
-
-  
-
-[![a4d1fe1g6r1gg5e](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a4d1fe1g6r1gg5e.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a4d1fe1g6r1gg5e.png)
 
 
 #### <span style="color:#d86c00">**statusmap_image**</span>
