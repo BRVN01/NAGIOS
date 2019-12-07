@@ -674,43 +674,44 @@ define host {
 <span style="color:#696969">Vamos abordar a criação de um objeto de definição cuja funcionalidade é criar um host, como as opções a serem utilizadas são vastas, estarei mostrando um exemplo completo do que o objeto `define host` pode receber e então falaremos sobre cada opção a ser usada.</span>
 
 ```bash
+
 define host {
-host_name						# Nome desse host.
-alias							# Apelido para esse host.
-display_name					# Nome que será exibido na interface web.
-address							# Endereço IP do host.
-parents							# Nome do host que será o pai.
-importance
-hostgroups						# Nome(s) de grupo de hosts.
-check_command					# Nome do comando a ser usado.
+host_name						host_name
+alias							alias
+display_name					display_name
+address							IP
+parents							host_names
+importance						#
+hostgroups						hostgroup_names
+check_command					command_name
 initial_state					[o,d,u]
-max_check_attempts
-check_interval
-retry_interval
+max_check_attempts				#
+check_interval					#
+retry_interval					#
 active_checks_enabled			[0/1]
 passive_checks_enabled			[0/1]
-check_period					# Nome do periodo que as verificações ativas serão  feitas.
+check_period					timeperiod_name
 obsess_over_host|obsess			[0/1]
 check_freshness					[0/1]
-freshness_threshold
+freshness_threshold				#
 event_handler					command_name
 event_handler_enabled			[0/1]
-low_flap_threshold
-high_flap_threshold
+low_flap_threshold				#
+high_flap_threshold				#
 flap_detection_enabled			[0/1]
 flap_detection_options			[o,d,u]
 process_perf_data				[0/1]
 retain_status_information		[0/1]
 retain_nonstatus_information	[0/1]
-contacts						# Contatos para notificações.
-contact_groups					# Grupo de contatos para notificações.
-notification_interval
-first_notification_delay
-notification_period				# Nome do período usado nas notificações.
+contacts						contacts
+contact_groups					contact_groups
+notification_interval			#
+first_notification_delay		#
+notification_period				timeperiod_name
 notification_options			[d,u,r,f,s]
 notifications_enabled			[0/1]
 stalking_options				[o,d,u,N]
-notes							# CAMPO COM INFORMAÇÕES.
+notes	                		note_string
 notes_url						url
 action_url						url
 icon_image						image_file
@@ -722,7 +723,7 @@ statusmap_image					image_file
 }    
 ```
 
-<span style="color:#FFFF00">Para as opções utilizadas acima que não tiverem uma descrição, por favor, verifique a descrição das opções existentes na definição de um objeto do tipo host, consultando</span> [este link](definition_host.html).
+<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span>[este link](definition_host.html).
 
 
 
