@@ -303,14 +303,20 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 #### <span style="color:#d86c00">**notes**</span>
 
 <span style="color:#696969">Esta opção é usada para definir uma descrição para o host. Se você especificar uma observação aqui, será exibida no CGI de informações estendidas (quando estiver visualizando informações sobre o host especificado).</span>
-
 <span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
 
-​			<span style="color:#FFDAB9">notes                             Servidor do Nagios</span>
+```bash
+define host {
 
+    use                         linux-server
+    host_name            		localhost
+    alias                   	localhost
+    address                 	127.0.0.1
+    notes                   	Servidor do Nagios
+}
+```
 
-
-  <span style="color:#FFFF00">Segue imagem de como vai ficar a descrição aplicada ao host:</span>
+<span style="color:#FFFF00">Segue imagem de como vai ficar a descrição aplicada ao host:</span>
 
 [![65466549864654](https://github.com/BRVN01/NAGIOS/raw/master/IMG/65466549864654.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/65466549864654.png)
 
@@ -319,36 +325,40 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 #### <span style="color:#d86c00">**notes_url**</span>
 
 <span style="color:#696969">Essa opção é usada para definir uma URL que pode ser usado para fornecer mais informações sobre o host.</span>
-
 <span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
 
-​			<span style="color:#FFDAB9">notes_url                            https://www.google.com.br</span>
+```bash
+define host {
 
+    use                         linux-server
+    host_name            		localhost
+    alias                   	localhost
+    address                 	127.0.0.1
+    notes_url              		https://www.google.com.br
+    }
+```
 
-
-  <span style="color:#FFFF00">Segue imagem de como vai ficar o notes_url aplicada ao host:</span>
-
-
+<span style="color:#FFFF00">Segue imagem de como vai ficar o notes_url aplicada ao host:</span>
 
 [![5454aas2s1d](https://github.com/BRVN01/NAGIOS/raw/master/IMG/5454aas2s1d.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/5454aas2s1d.png) 
-
-
 
 
 
 #### <span style="color:#d86c00">**action_url**</span>
 
 <span style="color:#696969">Esta opção é usada para definir uma URL que pode ser usada para fornecer mais ações a serem executadas no host, o icone pode ser atribuido a informações de performance.</span>
-
 <span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
+```bash
+define host {
 
-​			<span style="color:#FFDAB9">action_url                             https://www.google.com.br</span>
-
-
-
-  <span style="color:#FFFF00">Segue imagem de como vai ficar o action_url aplicada ao host:</span>
-
-
+    use                         linux-server
+    host_name            		localhost
+    alias                   	localhost
+    address                 	127.0.0.1
+    action_url             		https://www.google.com.br
+    }
+```
+<span style="color:#FFFF00">Segue imagem de como vai ficar o action_url aplicada ao host:</span>
 
 [![a5fr51s5fr8y42f](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a5fr51s5fr8y42f.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a5fr51s5fr8y42f.png) 
 
@@ -361,13 +371,18 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 <span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
 
-​			<span style="color:#FFDAB9">icon_image                             debian.png</span>
+```bash
+define host {
 
+    use                         linux-server
+    host_name            		localhost
+    alias                   	localhost
+    address                 	127.0.0.1
+    icon_image             		debian.png
+    }
+```
 
-
-  <span style="color:#FFFF00">Segue imagem de como vai ficar o icon_image aplicada ao host:</span>
-
-
+<span style="color:#FFFF00">Segue imagem de como vai ficar o icon_image aplicada ao host:</span>
 
 [![a21asd65sf2nhk](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a21asd65sf2nhk.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a21asd65sf2nhk.png) 
 
@@ -377,15 +392,21 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 <span style="color:#696969">Essa variável é usada para definir uma sequência opcional que é usada na tag ALT da imagem especificada pelo argumento <icon_image>, basicamente, adiciona um nome abaixo da imagem.</span>
 
-
-
 <span style="color:#696969">Exemplo colocado no `define host` do servidor do Nagios:</span>
 
-​			<span style="color:#FFDAB9">icon_image_alt                             debian.png</span>
+```bash
+define host {
+
+    use                         linux-server
+    host_name            		localhost
+    alias                   	localhost
+    address                 	127.0.0.1
+    icon_image             		debian.png
+    icon_image_alt				debian.png
+    }
+```
 
 <span style="color:#FFFF00">Segue imagem de como vai ficar o icon_image_alt aplicada ao host:</span>
-
-
 
 [![a782162sd1s6f](https://github.com/BRVN01/NAGIOS/raw/master/IMG/a782162sd1s6f.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/a782162sd1s6f.png)
 
@@ -393,7 +414,7 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**vrml_image**</span>
 
-<span style="color:#696969">Essa variável é usada para definir o nome de uma imagem GIF, PNG ou JPG que deve ser associada a este host. Esta imagem será usada como o mapa de textura para o host especificado no CGI statuswrl. Diferente da imagem usada para a variável <span style="color:#00CED1">icon_image</span>, esta provavelmente não deve ter nenhuma transparência. Se isso acontecer, o objeto host parecerá um pouco estranho. </span>
+<span style="color:#696969">Esta opção cria um modelo VRML 3D de todos os hosts que você definiu na sua rede. As coordenadas usadas ao desenhar os hosts (bem como os mapas de textura bonita) são obtidas das definições de [host](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#host) . Se você preferir permitir que o CGI gere automaticamente coordenadas de desenho para você, use a diretiva [default_statuswrl_layout](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configcgi.html#default_statuswrl_layout) para especificar um algoritmo de layout que deve ser usado. Você precisará de um navegador VRML (como [Cortona](http://www.parallelgraphics.com/cortona/) , [Cosmo Player](http://www.cosmosoftware.com/) ou [WorldView](http://www.intervista.com/) ) instalado em seu sistema antes de poder visualizar o modelo gerado. </span>
 
 <span style="color:#696969">O diretório padrão para as imagens é `/usr/local/nagios/share/images/logos`.</span>
 
@@ -421,34 +442,72 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 ## <span style="color:#d86c00">**Opções mais usadas**</span>
 
-<span style="color:#696969">Abaixo segue as propriedades atribuídas para o localhost, incluindo as variáveis herdadas:</span>
+<span style="color:#696969">Abaixo segue as propriedades atribuídas para um host qualquer:</span>
 
 ```bash
 define host {
+# Nome do Host que será monitorado:
     host_name			         NOME
+
+# Apelido do Host:
     alias				         APELIDO
+
+# Endereço IP do host:
     address                      IP
+
+# Pai(s) do nosso host.
     parents                      PAIS 
-    check_command                check-host-alive # ping.
-# Intervalo entre os checks (em minutos).
+
+# Comando que será usado para verificar se o host
+# está UP.
+    check_command                check-host-alive
+
+# Intervalo entre as verificações OK e não OK,
+# mesmo após ter passado da quantidade de 'max_check_attempts',
+# tudo em minutos (vai verificar de 1 em 1 minuto).
     check_interval               1
 
-# Tempo para agendar uma nova verificação (em minutos).
+# Tempo que o Nagios vai aguardar para agendar uma 
+# nova verificação, em minutos, isso só ocorre quando
+# o host não está OK.
     retry_interval               1 
-    max_check_attempts           5 # Tentativas para determinar o estado HARD.
 
-# Nome do período em que as verificações ativas serão feitas. 
+# Tentativas para determinar o estado HARD, se todas tentativas falharem,
+# ele considera o host como não OK.
+    max_check_attempts           5
+
+# Nome do período em que as verificações ativas serão feitas.
+# Serão verificados a todo momento (24 horas por 7 dias na semana).
     check_period                 24x7 
-    contact_groups               nagiosadmin # Grupo de contatos.
-	
-# Notificações que serão enviadas (DOWN, Recover e Inacessível).
+
+# Grupo de contatos que vão receber a notificação de problemas ou
+# de recuperação desse serviço.
+    contact_groups               nagiosadmin
+
+# Tipos de notificações que serão enviadas 
+# sendo elas: DOWN, UNKNOWN e Recover).
     notification_options         d,u,r
-# Intervalo entre notificações (em minutos).
+
+# Intervalo entre notificações de problemas, a cada X minutos 
+# ele vai notificar novamente, caso o problema permaneça.
     notification_interval        30
-    notification_period          24x7 # Período para notificações.
-    notifications_enabled        1 # Habilitar a notificação.
-    event_handler_enabled	     1 # Habilitar event_handler.
-    flap_detection_enabled       1 # Habilitar a detecção por flap.
+
+# Período para efetuar as notificações.
+# Vai notificar 24 horas em 7 dias da semana.
+    notification_period          24x7
+
+# Habilitar a notificação para este serviço.
+    notifications_enabled        1
+
+# Habilitar Manipuladores de Eventos.
+    event_handler_enabled	     1
+
+# Habilitar a detecção por flap, se o serviço passar a ficar muito
+# instável, ele entra num estado de flap, isso vai impedir que
+# os contatos fiquem sendo notificados de estados OK para não OK,
+# até que o problema seja corrigido.
+    flap_detection_enabled       1
+
 # Habilitar o processamento de dados de desempenho.
     process_perf_data            1
 }
@@ -458,12 +517,16 @@ define host {
 
 ## <span style="color:#d86c00">**Opções necessárias**</span>
 
-<span style="color:#696969">Abaixo segue as propriedades necessárias para criação de um objeto do tipo Host:</span>
+<span style="color:#696969">Abaixo segue as propriedades necessárias para criação de um objeto do tipo Host funcional e não apenas um modelo:</span>
 
 ```shell
 define host {
+# Nome do Host que será monitorado:
     host_name                     NOME
-    max_check_attempts            5 # Tentativas para determinar o estado HARD.
+
+# Tentativas para determinar o estado HARD, se todas tentativas falharem,
+# ele considera o host como não OK.
+    max_check_attempts            5
 
 # Nome do período em que as verificações ativas serão feitas. 
     check_period                  24x7 
