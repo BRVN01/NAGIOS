@@ -163,7 +163,7 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 
 #### <span style="color:#d86c00">**event_handler**</span>
 
-<span style="color:#696969">Esta diretiva é usada para especificar o *nome abreviado* de um comando que deve ser executado sempre que uma alteração no estado do serviço for detectada (ou seja, sempre que for down ou recovers). </span>
+<span style="color:#696969">Esta diretiva é usada para especificar o nome de um comando que deve ser executado sempre que uma alteração no estado do serviço for detectada, ou seja, sempre que for DOWN ou RECOVER. </span>
 <span style="color:#696969">Um uso para manipuladores de eventos é a capacidade do próprio Nagios Core de corrigir proativamente os problemas antes que alguém seja notificado.</span>
 
 
