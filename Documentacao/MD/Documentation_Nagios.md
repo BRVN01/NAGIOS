@@ -386,7 +386,7 @@ $USER1$=/usr/local/nagios/libexec
 
 ## <span style="color:#d86c00">**Arquivo de configuração CGI**</span>
 
-<span style="color:#696969">O arquivo de configuração CGI contém várias diretivas que afetam a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html). Ele também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas, esses scripts CGI alteram a funcionalidade do Nagios quando utilizada por navegadores (dashboard do Nagios), caso você não use CGI, a interação na monitoração será feita apenas por linha de comando.</span>
+<span style="color:#696969">Os arquivos de configuração CGI contém várias opções que afetam como a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html) trabalham. Esses arquivos também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas, esses scripts CGI alteram a funcionalidade do Nagios quando utilizada por navegadores (dashboard do Nagios), caso você não use CGI, a interação na monitoração será feita apenas por linha de comando.</span>
 
 <span style="color:#696969">A documentação para o arquivo de configuração CGI pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configcgi.html) .</span>
 
