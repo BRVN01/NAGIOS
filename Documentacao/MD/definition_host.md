@@ -455,6 +455,9 @@ define host {
 # Endereço IP do host:
     address                      IP
 
+# Nome do modelo que vamos importar as propriedades
+    use                          NOME
+
 # Pai(s) do nosso host.
     parents                      PAIS 
 
@@ -510,6 +513,9 @@ define host {
 
 # Habilitar o processamento de dados de desempenho.
     process_perf_data            1
+
+# Não queremos registar como um "modelo":
+    register                     0
 }
 ```
 
