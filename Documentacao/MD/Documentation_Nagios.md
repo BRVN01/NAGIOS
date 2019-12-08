@@ -78,7 +78,7 @@ Tudo isso é baseado em um sistema de definição de objetos (objetos são todos
 <span style="color:#696969">O arquivo de configuração principal é chamado <span style="color:#008080">***nagios.cfg***</span>, é o arquivo principal carregado durante a inicialização do Nagios, ele contém várias diretivas que afetam como o daemon do Nagios opera. </span>
 <span style="color:#696969">Este arquivo de configuração é lido pelo daemon do Nagios e pelos CGIs (que fazem a comunicação com frontend do Nagios, em outras palavras, o "navegador" usado para visualizar eventos no dashboard do nagios).</span>
 
-<span style="color:#696969">Não precisamos necessariamente editar ou recriar esse arquivo, o arquivo original já vem com todas as funcionalidades prontas e funcionais, a edição seria mais passar um pente fino, melhorando a performance das verificações do Nagios, mas isso depende muito da infraestrutura de TI usada, portanto, vamos explicar algumas linha usada no arquivo<span style="color:#008080">***nagios.cf***</span>.</span>
+<span style="color:#696969">Não precisamos necessariamente editar ou recriar esse arquivo, o arquivo original já vem com todas as funcionalidades prontas e funcionais, a edição seria mais passar um pente fino, melhorando a performance das verificações do Nagios, mas isso depende muito da infraestrutura de TI usada, portanto, vamos explicar algumas linha usada no arquivo<span style="color:#008080">***nagios.cfg***</span>.</span>
 
 <span style="color:#696969">Para acessar o link que leva a documentação oficial do arquivo de configuração principal do Nagios, basta clicar [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html).</span>
 
@@ -354,7 +354,7 @@ max_debug_file_size=1000000
 allow_empty_hostgroup_assignment=0
 ```
 
-<span style="color:#FFFF00">Para as opções utilizadas acima que não tiverem uma descrição, por favor, verifique a descrição das opções existentes na definição de um objeto do main do Nagios, consultando</span> [este link](definition_main-cfg.html).
+<span style="color:#FFFF00"><span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span></span> [este link](definition_main-cfg.html).
 
 
 
@@ -386,7 +386,38 @@ $USER1$=/usr/local/nagios/libexec
 
 ## <span style="color:#d86c00">**Arquivo de configuração CGI**</span>
 
-<span style="color:#696969">Os arquivos de configuração CGI contém várias opções que afetam como a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html) trabalham. Esses arquivos também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas, esses scripts CGI alteram a funcionalidade do Nagios quando utilizada por navegadores (dashboard do Nagios), caso você não use CGI, a interação na monitoração será feita apenas por linha de comando.</span>
+<span style="color:#696969">Os arquivos de configuração CGI contém várias opções que afetam como a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html) trabalham. Esses arquivos também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas, esses scripts CGI alteram a funcionalidade do Nagios quando utilizada por navegadores (dashboard do Nagios), caso você não use CGI, a interação na monitoração dos recursos será feita apenas por linha de comando.</span>
+
+<span style="color:#696969">Em uma instalação rápida do Nagios, o local padrão para *cgi.cfg* é o arquivo `/usr/local/nagios/etc/cgi.cfg`. Segue um exemplo do arquivo:</span>
+
+```bash
+main_config_file=/usr/local/nagios/etc/nagios.cfg
+physical_html_path=/usr/local/nagios/share
+url_html_path=/
+show_context_help=0
+use_pending_states=1
+use_authentication=1
+use_ssl_authentication=0
+authorized_for_system_information=nagiosadmin
+authorized_for_configuration_information=nagiosadmin
+authorized_for_system_commands=nagiosadmin
+authorized_for_all_services=nagiosadmin
+authorized_for_all_hosts=nagiosadmin
+authorized_for_all_service_commands=nagiosadmin
+authorized_for_all_host_commands=nagiosadmin
+default_statuswrl_layout=4
+ping_syntax=/bin/ping -n -U -c 5 $HOSTADDRESS$
+refresh_rate=90
+result_limit=100
+escape_html_tags=1
+action_url_target=_blank
+notes_url_target=_blank
+lock_author_names=1
+navbar_search_for_addresses=1
+navbar_search_for_aliases=1
+```
+
+<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span>[este link](definition_cgi.html).
 
 <span style="color:#696969">A documentação para o arquivo de configuração CGI pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configcgi.html) .</span>
 
