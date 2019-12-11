@@ -390,7 +390,7 @@ $USER1$=/usr/local/nagios/libexec
 
 <span style="color:#696969">Para pessoas que terão acesso a página do Nagios, você deve editar o arquivo de configuração do CGI para poder aplicar as devidas permissões a cada usuário ou grupo de usuário, dessa forma, poderá manter o controle do que cada usuário pode fazer no CGI.</span>
 
-<span style="color:#696969">Em uma instalação rápida do Nagios, o local padrão para *cgi.cfg* é o arquivo `/usr/local/nagios/etc/cgi.cfg`. Segue um exemplo do arquivo:</span>
+<span style="color:#696969">Em uma instalação rápida do Nagios, o local padrão para<span style="color:#C0C0C0">*cgi.cfg*</span>é o arquivo `/usr/local/nagios/etc/cgi.cfg`. Segue um exemplo do arquivo:</span>
 
 ```bash
 main_config_file=/usr/local/nagios/etc/nagios.cfg
