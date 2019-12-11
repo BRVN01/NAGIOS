@@ -388,12 +388,14 @@ $USER1$=/usr/local/nagios/libexec
 
 <span style="color:#696969">Os arquivos de configuração CGI contém várias opções que afetam como a operação dos [CGIs](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/cgis.html) trabalham. Esses arquivos também contém uma referência ao arquivo de configuração principal, para que os CGIs saibam como você configurou o Nagios e onde suas definições de objetos são armazenadas, esses scripts CGI alteram a funcionalidade do Nagios quando utilizada por navegadores (dashboard do Nagios), caso você não use CGI, a interação na monitoração dos recursos será feita apenas por linha de comando.</span>
 
+<span style="color:#696969">Para pessoas que terão acesso a página do Nagios, você deve editar o arquivo de configuração do CGI para poder aplicar as devidas permissões a cada usuário ou grupo de usuário, dessa forma, poderá manter o controle do que cada usuário pode fazer no CGI.</span>
+
 <span style="color:#696969">Em uma instalação rápida do Nagios, o local padrão para *cgi.cfg* é o arquivo `/usr/local/nagios/etc/cgi.cfg`. Segue um exemplo do arquivo:</span>
 
 ```bash
 main_config_file=/usr/local/nagios/etc/nagios.cfg
 physical_html_path=/usr/local/nagios/share
-url_html_path=/
+url_html_path=/nagios
 show_context_help=0
 use_pending_states=1
 use_authentication=1
