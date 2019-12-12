@@ -760,21 +760,33 @@ statusmap_image					image_file
 
 
 
-### <span style="color:#d86c00">**Definindo HostGroups**</span>
+### <span style="color:#d86c00">**Definindo Host Groups**</span>
 
 <span style="color:#696969">A definição de grupo de hosts é usada para agrupar um ou mais hosts juntos, isso simplifica uma configuração padrão para todos os Hosts participantes do grupo.</span>
 
 
 ```bash
 define hostgroup {
-    hostgroup_name	        hostgroup_name # Nome do grupo de hosts.
-    alias                   alias # Apelido para o grupo de hosts.
+# Nome do grupo de hosts.
+    hostgroup_name	        hostgroup_name
+
+# Apelido para o grupo de hosts.
+    alias                   alias
+
 # Nome dos membros, separados por vírgula.
     members	                hosts
-    hostgroup_members       hostgroups # Nome de outros hostgroups.
+
+# Nome de outros hostgroups.
+    hostgroup_members       hostgroups
+
 # Definir uma descrição para o host.
     notes	                DESCRICAO
+
+# Definir uma URL para uma anotação do host (informações).
     notes_url	            url
+
+# Definir uma URL para uma ação do host (procedimentos que podem
+# ser seguidos em caso de falha).
     action_url	            url
    	}
    	
@@ -841,6 +853,73 @@ define service {
 <span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span> [este link](definition_service.html).
 
 
+
+### <span style="color:#d86c00">**Definindo Service Groups**</span>
+
+<span style="color:#696969">A definição de grupo de serviços é usada para agrupar um ou mais serviços para simplificar a configuração de objetos (também conhecido como [Truques de economia de tempo](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objecttricks.html)).</span>
+
+```bash
+define servicegroup {
+# Nome do grupo de serviços.
+servicegroup_name		servicegroup_name
+
+# Apelido para o grupo de serviços.
+alias                   alias
+
+# Nome dos membros, separados por vírgula.
+members					services
+
+# Nome de outros service serviços.
+servicegroup_members	servicegroups
+
+# Definir uma descrição para o serviços.
+notes					note_string
+
+# Definir uma URL para uma anotação dos serviços (informações).
+notes_url				url
+
+# Definir uma URL para uma ação dos serviços (procedimentos que podem
+# ser seguidos em caso de falha).
+action_url				url
+   	}
+
+
+#### Opções necessárias para criação de um Service Group:
+define servicegroup {
+servicegroup_name		servicegroup_name
+alias                   alias
+}
+```
+
+
+
+### <span style="color:#d86c00">**Definindo Contatos**</span>
+
+Uma definição de contato é usada para identificar alguém que deve ser contatado no caso de um problema num Host ou Serviço, abaixo segue um exemplo de todas as opções que um objeto do tipo <span style="color:#00CED1">contact</span> pode ter:
+
+```bash
+define contact {
+contact_name					contact_name
+alias                   		alias
+contactgroups					contactgroup_names
+minimum_importance				#
+host_notifications_enabled		[0/1]
+service_notifications_enabled	[0/1]
+host_notification_period		timeperiod_name
+service_notification_period		timeperiod_name
+host_notification_options		[d,u,r,f,s,n]
+service_notification_options	[w,u,c,r,f,s,n]
+host_notification_commands		command_name
+service_notification_commands	command_name
+email							email_address
+addressx						additional_contact_address
+can_submit_commands				[0/1]
+retain_status_information		[0/1]
+retain_nonstatus_information	[0/1]
+   	}
+```
+
+<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span> [este link](definition_contact.html).
 
 ## <span style="color:#d86c00">**Event Handler - Manipuladores de Eventos**</span>
 
