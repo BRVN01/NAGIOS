@@ -20,7 +20,7 @@
 
 #### <span style="color:#d86c00">**alias**</span>
 
-
+<span style="color:#696969">É um apelido para nosso objeto.</span>
 
 
 
