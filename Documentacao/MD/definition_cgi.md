@@ -2,6 +2,16 @@
 
 [TOC]
 
+# <span style="color:#d86c00">**Introdução**</span>
+
+<span style="color:#696969">Para que possamos customizar uma instalação do Nagios, configurar permissões em usuário e grupos de usuários devemos ter conhecimento do arquivo de configuração do CGI, abaixo abordaremos as variáveis usadas no arquivo <span style="color:#00CED1">cgi.cfg</span> para que possamos ter um entendimento da maneira que o arquivo é formado e o que podemos fazer nesse arquivo.</span>
+
+
+
+<span style="color:#696969">Abaixo encontra-se cada uma das variáveis que podemos utilizar:</span>
+
+
+
 #### <span style="color:#d86c00">**main_config_file**</span>
 
 <span style="color:#696969">Isso especifica o local do seu [arquivo de configuração principal](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html) . Os CGIs precisam saber onde encontrar esse arquivo para obter informações sobre informações de configuração, status atual do host e serviço, etc.</span>
@@ -281,3 +291,47 @@
 #### <span style="color:#d86c00">**Statusmap CGI Color Transparency Indexes**</span>
 
 <span style="color:#696969">Essas opções definem os valores r, g, b da cor de plano de fundo e usam o CGI do mapa de status; portanto, navegadores normais que não podem mostrar transparência png real definem a cor desejada como cor de plano de fundo (para torná-la bonita). O padrão é branco: (R, G, B)=(255.255.255).</span>
+
+
+
+## <span style="color:#d86c00">**Permissões de usuário**</span>
+
+<span style="color:#696969">Para poder modificar as permissões de um usuário ou grupo de usuários, devemos ter conhecimento das variáveis abaixo, com isso podemos delimitar até onde um usuário pode ir (apenas através dos CGIs).</span>
+
+```bash
+use_authentication
+authorized_for_system_information
+authorized_contactgroup_for_system_information
+authorized_for_system_commands
+authorized_contactgroup_for_system_commands
+authorized_for_configuration_information
+authorized_contactgroup_for_configuration_information
+authorized_for_all_hosts
+authorized_contactgroup_for_all_hosts
+authorized_for_all_host_commands
+authorized_contactgroup_for_all_host_commands
+authorized_for_all_services
+authorized_contactgroup_for_all_services
+authorized_for_all_service_commands
+authorized_contactgroup_for_all_service_commands
+authorized_for_read_only
+authorized_contactgroup_for_read_only
+lock_author_names
+
+# Se você passar o valor 'all', as permissões se aplicarão para todos os usuários existentes.
+```
+
+
+
+<span style="color:#696969">Configuração padrão (após realizar o procedimento de instalação rápida) do Nagios:</span>
+
+```bash
+authorized_for_system_information=nagiosadmin
+authorized_for_configuration_information=nagiosadmin
+authorized_for_system_commands=nagiosadmin
+authorized_for_all_services=nagiosadmin
+authorized_for_all_hosts=nagiosadmin
+authorized_for_all_service_commands=nagiosadmin
+authorized_for_all_host_commands=nagiosadmin
+```
+

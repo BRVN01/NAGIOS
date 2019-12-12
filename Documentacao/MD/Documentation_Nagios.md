@@ -548,7 +548,7 @@ define host {
 
 ### <span style="color:#d86c00">**Encadeamento de herança**</span>
 
-<span style="color:#696969">Um *objeto X* pode herdar propriedades de um *objeto Y*, isso nós já vimos acima, mas um *objeto X* que herdou propriedades de um *objeto Y* pode dar essas propriedades para um outro *objeto Z* (um pouco confuso, não?), vamos aos exemplos:</span>
+<span style="color:#696969">Um *objeto X* pode herdar propriedades de um *objeto Y*, isso nós já vimos acima, mas um *objeto X* que herdou propriedades de um *objeto Y* pode dar essas propriedades para um outro *objeto* (um pouco confuso, não?), vamos aos exemplos:</span>
 
 ```bash
 # Vamos criar um objeto para uma máquina que será um servidor:

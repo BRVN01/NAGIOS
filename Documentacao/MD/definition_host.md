@@ -2,6 +2,16 @@
 
 [TOC]
 
+# <span style="color:#d86c00">**Introdução**</span>
+
+<span style="color:#696969">Para que possamos customizar a criação de um host, configurar variáveis personalizadas e subir equipamentos para serem monitorados, devemos ter conhecimento de como criar objetos do tipo host.</span>
+
+
+
+<span style="color:#696969">Abaixo encontra-se cada uma das variáveis que podemos utilizar:</span>
+
+
+
 #### <span style="color:#d86c00">**host_name**</span>
 
 <span style="color:#696969">É o nome do nosso host (dispositivo que será gerenciado).</span>
