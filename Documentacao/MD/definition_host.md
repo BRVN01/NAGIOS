@@ -273,8 +273,10 @@ mesmo que tenha passado da quantidade de <span style="color:#00CED1">max_check_a
 - <span style="color:#C0C0C0">**d**</span> <span style="color:#696969">= enviar notificações em um estado DOWN;</span>
 - <span style="color:#C0C0C0">**u**</span> <span style="color:#696969">= enviar notificações em um estado inacessível;</span>
 - <span style="color:#C0C0C0">**r**</span> <span style="color:#696969">= enviar notificações em recuperações (estado OK);</span>
-- <span style="color:#C0C0C0">**f**</span> <span style="color:#696969">= enviar notificações quando o host iniciar e parar flapar;</span>
-- <span style="color:#C0C0C0">**s**</span> <span style="color:#696969">= notificações de envio quando [programados de inatividade](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/downtime.html) começa e termina. Se você especificar;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**f**</span> = Enviar notificações quando o host inicia e para de flapar;</span>
+- <span style="color:#C0C0C0">**s**</span> <span style="color:#696969">= Enviar notificações de envio quando temos um [tempo de inatividade programado](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/downtime.html), enviando notificações assim que começar e terminar o período. Se você especificar;</span>
+- <span style="color:#C0C0C0">**n**</span> <span style="color:#696969">= Nenhuma notificação do host será enviada.
+  </span>
 - <span style="color:#C0C0C0">**n**</span> <span style="color:#696969">= nenhuma notificação do host será enviada.
   </span>
   <span style="color:#FFFF00">Se você não especificar nenhuma opção de notificação, o Nagios assumirá que você deseja que as notificações sejam enviadas para todos os estados possíveis.</span>

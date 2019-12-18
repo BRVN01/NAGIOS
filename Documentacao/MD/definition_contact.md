@@ -26,170 +26,177 @@
 
 #### <span style="color:#d86c00">**contactgroups**</span>
 
-
+<span style="color:#696969">Esta variável é usada para identificar o nome do(s) grupo(s) de contato aos quais o contato pertence.</span>
 
 
 
 #### <span style="color:#d86c00">**minimum_importance**</span>
 
+<span style="color:#696969">Essa variável é usada para definir o valor da importância mínima do host ou serviço, se o valor de importância do host mais os valores de importância de todos os serviços do host forem maiores ou iguais à importância mínima do contato, o contato será notificado.</span>
 
+<span style="color:#696969">No Nagios Core 4.0.0 a 4.0.3 esta variável era conhecido como *minimum_value* mas foi substituído por *minimum_importance*.</span>
 
 
 
 #### <span style="color:#d86c00">**host_notifications_enabled**</span>
 
+<span style="color:#696969">Essa variável é usada para determinar se o contato receberá ou não notificações de problemas e recuperações do host.</span>
 
+<span style="color:#696969">Valores: </span><span style="color:#4682B4">0 = não envia notificações</span>, <span style="color:#4682B4">1 = envia notificações</span> (<span style="color:#FFDAB9">**padrão**</span>).
 
 
 
 #### <span style="color:#d86c00">**service_notifications_enabled**</span>
 
+<span style="color:#696969">Esta variável é usada para determinar se o contato receberá ou não notificações sobre problemas e recuperações de serviço. </span>
 
+<span style="color:#696969">Valores: </span><span style="color:#4682B4">0 = não envia notificações</span>, <span style="color:#4682B4">1 = envia notificações</span> (<span style="color:#FFDAB9">**padrão**</span>).
 
 
 
 #### <span style="color:#d86c00">**host_notification_period**</span>
 
-
+<span style="color:#696969">Esta variável é usada para especificar o nome do [período](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#timeperiod) durante o qual o contato pode ser notificado sobre problemas ou recuperações do host. Você pode pensar nisso como um horário "de plantão" para notificações de host do contato.</span>
 
 
 
 #### <span style="color:#d86c00">**service_notification_period**</span>
 
-
+<span style="color:#696969">Esta variável é usada para especificar o nome abreviado do [período](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#timeperiod) durante o qual o contato pode ser notificado sobre problemas ou recuperações de serviço. Você pode pensar nisso como um horário "de plantão" para notificações de serviço do contato.</span>
 
 
 
 #### <span style="color:#d86c00">**host_notification_options**</span>
 
+<span style="color:#696969">Esta variável é usada para definir os estados do host para os quais as notificações podem ser enviadas para esse contato. As opções válidas são uma combinação de um ou mais dos seguintes itens: </span>
 
+- <span style="color:#696969"><span style="color:#C0C0C0">**d**</span> = Enviar notificações nos estados do host DOWN;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**u**</span> = Enviar notificações nos estados do host UNREACHABLE;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**r**</span> = Enviar notificações nas recuperações do host (estado UP);</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**f**</span> = Enviar notificações quando o host inicia e para de flapar;</span>
+- <span style="color:#C0C0C0">**s**</span> <span style="color:#696969">= Enviar notificações de envio quando temos um [tempo de inatividade programado](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/downtime.html), enviando notificações assim que começar e terminar o período. Se você especificar;</span>
+
+- <span style="color:#C0C0C0">**n**</span> <span style="color:#696969">= Nenhuma notificação do host será enviada.
+  </span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">[d,u,r,f,s].</span>
 
 
 
 #### <span style="color:#d86c00">**service_notification_options**</span>
 
+<span style="color:#696969">Esta variável é usada para definir os estados de serviço para os quais as notificações podem ser enviadas para esse contato. As opções válidas são uma combinação de um ou mais dos seguintes itens: </span>
 
+- <span style="color:#696969"><span style="color:#C0C0C0">**w**</span> = Enviar notificações sobre estados de serviço WARNING;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**u**</span> = Enviar notificações sobre estados DESCONHECIDOS;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**c**</span> = Enviar notificações sobre estados CRÍTICOS;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**r**</span> = Enviar notificações sobre recuperações de serviços (estados OK);</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**f**</span> = Enviar notificações quando o host inicia e para de flapar;</span>
+- <span style="color:#C0C0C0">**s**</span> <span style="color:#696969">= Enviar notificações de envio quando temos um [tempo de inatividade programado](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/downtime.html), enviando notificações assim que começar e terminar o período. Se você especificar;</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**n**</span> = Nenhuma notificação do host será enviada.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">[w,u,c,r,f,s].</span>
 
 
 
 #### <span style="color:#d86c00">**host_notification_commands**</span>
 
-
+<span style="color:#696969">Esta variável é usada para definir uma lista dos nomes dos [comandos](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#command) usados para notificar o contato de um problema ou recuperação do host. Vários comandos de notificação devem ser separados por vírgulas. Todos os comandos de notificação são executados quando o contato precisa ser notificado. A quantidade máxima de tempo que um comando de notificação pode executar é controlada pela opção [notification_timeout](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#notification_timeout).</span>
 
 
 
 #### <span style="color:#d86c00">**service_notification_commands**</span>
 
-
+<span style="color:#696969">Esta variável é usada para definir uma lista dos nomes dos [comandos](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#command) usados para notificar o contato de um problema ou recuperação de serviços. Vários comandos de notificação devem ser separados por vírgulas. Todos os comandos de notificação são executados quando o contato precisa ser notificado. A quantidade máxima de tempo que um comando de notificação pode executar é controlada pela opção [notification_timeout](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#notification_timeout).</span>
 
 
 
 #### <span style="color:#d86c00">**email**</span>
 
-
+<span style="color:#696969">Esta diretiva é usada para definir um endereço de email para o contato. Dependendo de como você configura seus comandos de notificação, ele pode ser usado para enviar um email de alerta ao contato. Nas circunstâncias corretas, a [macro](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/macros.html) <span style="color:#00CED1">$CONTACTEMAIL$</span> conterá esse valor.</span>
 
 
 
 #### <span style="color:#d86c00">**addressx**</span>
 
-
+<span style="color:#696969">Diretivas de endereço são usadas para definir "endereços" adicionais para o contato. Esses endereços podem ser qualquer coisa - números de telefone celular, endereços de mensagens instantâneas, etc. Dependendo de como você configura seus comandos de notificação, eles podem ser usados para enviar um alerta ao contato. Até seis endereços podem ser definidos usando estas directivas (Address1 até address6). </span>
+<span style="color:#696969">A [macro](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/macros.html) <span style="color:#00CED1">$CONTACTADDRESSx$</span> conterá esse(s) valor(es).</span>
 
 
 
 #### <span style="color:#d86c00">**can_submit_commands**</span>
 
+<span style="color:#696969">Essa diretiva é usada para determinar se o contato pode ou não enviar [comandos externos](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/extcommands.html) para o Nagios a partir das CGIs.</span>
 
+<span style="color:#696969">Valores: </span><span style="color:#4682B4">0 = não permite que o contato envie comandos</span>, <span style="color:#4682B4">1 = permite que o contato envie comandos</span> (<span style="color:#FFDAB9">**padrão**</span>).
 
 
 
 #### <span style="color:#d86c00">**retain_status_information**</span>
 
+<span style="color:#696969">Esta opção é usada para determinar se as informações relacionadas ao status do host são mantidas ou não durante a reinicialização do programa. Isso é útil apenas se você tiver ativado a retenção de estado usando a opção [retain_state_information](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information). </span>
 
+<span style="color:#696969">Essas informações são salvas no arquivo que fica especificado na opção <span style="color:#00CED1">state_retention_file</span> no arquivo principal do Nagios, aqui nós teremos informações como: status, tempo de inatividade e comentários antes de serem encerradas. Quando o Nagios é reiniciado, ele usa as informações armazenadas neste arquivo para definir os estados iniciais de serviços e hosts antes de começar a monitorar qualquer coisa.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
 
 
 #### <span style="color:#d86c00">**retain_nonstatus_information**</span>
 
+<span style="color:#696969">Essa opção é usada para determinar se as informações que não são de status sobre o host são mantidas ou não durante a reinicialização do programa. Isso é útil apenas se você tiver ativado a retenção de estado usando a opção [reter_state_information](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#retain_state_information). </span>
 
+<span style="color:#696969">Essas informações são salvas no arquivo que fica especificado na opção <span style="color:#00CED1">state_retention_file</span> no arquivo principal do Nagios, aqui nós teremos informações como: status, tempo de inatividade e comentários antes de serem encerradas. Quando o Nagios é reiniciado, ele usa as informações armazenadas neste arquivo para definir os estados iniciais de serviços e hosts antes de começar a monitorar qualquer coisa.</span>
+
+<span style="color:#696969">Valores:</span> <span style="color:#4682B4">0 = desativado</span>, <span style="color:#4682B4">1 = ativado</span>.
 
 
 
 ## <span style="color:#d86c00">**Opções mais usadas**</span>
 
-<span style="color:#696969">Abaixo segue as propriedades atribuídas para um host qualquer:</span>
+<span style="color:#696969">Abaixo segue as propriedades atribuídas para um contato qualquer:</span>
 
 ```bash
-define host {
-# Nome do Host que será monitorado:
-    host_name			         NOME
+define contact {
 
-# Apelido do Host:
-    alias				         APELIDO
+# Nome do contato
+    contact_name                    ADM
 
-# Endereço IP do host:
-    address                      IP
+# Apelido
+    alias							Equipe Admin
 
-# Nome do modelo que vamos importar as propriedades
-    use                          NOME
+# Habilitar notificações de host
+    host_notifications_enabled      1
 
-# Pai(s) do nosso host.
-    parents                      PAIS 
+# Habilitar notificações de serviço
+    service_notifications_enabled   1
 
-# Comando que será usado para verificar se o host
-# está UP.
-    check_command                check-host-alive
+# Nome do Período de notificação para serviços
+    service_notification_period     24x7
 
-# Intervalo entre as verificações OK e não OK,
-# mesmo após ter passado da quantidade de 'max_check_attempts',
-# tudo em minutos (vai verificar de 1 em 1 minuto).
-    check_interval               1
+# Nome do Período de notificação para host
+    host_notification_period        24x7
 
-# Tempo que o Nagios vai aguardar para agendar uma 
-# nova verificação, em minutos, isso só ocorre quando
-# o host não está OK.
-    retry_interval               1 
+# Estados do serviço que será notificado
+    service_notification_options    w,u,c,r,f
 
-# Tentativas para determinar o estado HARD, se todas tentativas falharem,
-# ele considera o host como não OK.
-    max_check_attempts           5
+# Estados do host que será notificado
+    host_notification_options       d,u,r,f,s
 
-# Nome do período em que as verificações ativas serão feitas.
-# Serão verificados a todo momento (24 horas por 7 dias na semana).
-    check_period                 24x7 
+# E-mail que será usado para enviar a notificação
+    email                           jdoe@localhost.localdomain
 
-# Grupo de contatos que vão receber a notificação de problemas ou
-# de recuperação desse host.
-    contact_groups               nagiosadmin
+# Comando que será usado para notificar (para serviços)
+    service_notification_commands   notify-service-by-email
 
-# Tipos de notificações que serão enviadas 
-# sendo elas: DOWN, UNKNOWN e Recover).
-    notification_options         d,u,r
+# Comando que será usado para notificar (para hosts)
+    host_notification_commands      notify-host-by-email
 
-# Intervalo entre notificações de problemas, a cada X minutos 
-# ele vai notificar novamente, caso o problema permaneça.
-    notification_interval        30
+# Não habilitar comandos externos para o contato
+    can_submit_commands             1
 
-# Período para efetuar as notificações.
-# Vai notificar 24 horas em 7 dias da semana.
-    notification_period          24x7
-
-# Habilitar a notificação para este host.
-    notifications_enabled        1
-
-# Habilitar Manipuladores de Eventos.
-    event_handler_enabled	     1
-
-# Habilitar a detecção por flap, se o host passar a ficar muito
-# instável, ele entra num estado de flap, isso vai impedir que
-# os contatos fiquem sendo notificados de estados OK para não OK,
-# até que o problema seja corrigido.
-    flap_detection_enabled       1
-
-# Habilitar o processamento de dados de desempenho.
-    process_perf_data            1
-
-# Não queremos registar como um "modelo":
-    register                     0
+# Vamos registrar, para contatos válidos é uma boa prática.
+    register                     	0
 }
 ```
 
@@ -197,36 +204,37 @@ define host {
 
 ## <span style="color:#d86c00">**Opções necessárias**</span>
 
-<span style="color:#696969">Abaixo segue as propriedades necessárias para criação de um objeto do tipo Host funcional e não apenas um modelo:</span>
+<span style="color:#696969">Abaixo segue as propriedades necessárias para criação de um objeto do tipo Contact funcional e não apenas um modelo:</span>
 
 ```shell
-define host {
-# Nome do Host que será monitorado:
-    host_name                     NOME
+define contact {
 
-# Tentativas para determinar o estado HARD, se todas tentativas falharem,
-# ele considera o host como não OK.
-    max_check_attempts            5
+# Nome do contato
+    contact_name                    NAME
 
-# Nome do período em que as verificações ativas serão feitas.
-# Serão verificados a todo momento (24 horas por 7 dias na semana).
-    check_period                  24x7 
+# Habilitar notificações de host
+    host_notifications_enabled      1
 
-# Contato que vai receber a notificação de problemas ou
-# de recuperação desse host.
-    contacts			          nagiosadmin
+# Habilitar notificações de serviço
+    service_notifications_enabled   1
 
-# Grupo de contatos que vão receber a notificação de problemas ou
-# de recuperação desse host.
-    contact_groups                nagiosadmin # Grupo de contatos.
+# Nome do Período de notificação para serviços
+    service_notification_period     24x7
 
-# Intervalo entre notificações de problemas, a cada X minutos 
-# ele vai notificar novamente, caso o problema permaneça.
-    notification_interval         30
+# Nome do Período de notificação para host
+    host_notification_period        24x7
 
-# Período para efetuar as notificações.
-# Vai notificar 24 horas em 7 dias da semana.
-    notification_period           24x7 # Período para notificações.
+# Estados do serviço que será notificado
+    service_notification_options    w,u,c,r,f
+
+# Estados do host que será notificado
+    host_notification_options       d,u,r,f,s
+
+# Comando que será usado para notificar (para serviços)
+    service_notification_commands   COMMAND
+
+# Comando que será usado para notificar (para hosts)
+    host_notification_commands      COMMAND
 }
 ```
 
