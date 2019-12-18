@@ -861,65 +861,131 @@ define service {
 ```bash
 define servicegroup {
 # Nome do grupo de serviços.
-servicegroup_name		servicegroup_name
+    servicegroup_name		servicegroup_name
 
 # Apelido para o grupo de serviços.
-alias                   alias
+    alias                   alias
 
 # Nome dos membros, separados por vírgula.
-members					services
+    members					services
 
 # Nome de outros service serviços.
-servicegroup_members	servicegroups
+    servicegroup_members	servicegroups
 
 # Definir uma descrição para o serviços.
-notes					note_string
+    notes					note_string
 
 # Definir uma URL para uma anotação dos serviços (informações).
-notes_url				url
+    notes_url				url
 
 # Definir uma URL para uma ação dos serviços (procedimentos que podem
 # ser seguidos em caso de falha).
-action_url				url
+    action_url				url
    	}
 
 
 #### Opções necessárias para criação de um Service Group:
-define servicegroup {
-servicegroup_name		servicegroup_name
-alias                   alias
+    define servicegroup {
+    servicegroup_name		servicegroup_name
+    alias                   alias
 }
 ```
 
 
 
-### <span style="color:#d86c00">**Definindo Contatos**</span>
+### <span style="color:#d86c00">**Definindo Contact**</span>
 
-Uma definição de contato é usada para identificar alguém que deve ser contatado no caso de um problema num Host ou Serviço, abaixo segue um exemplo de todas as opções que um objeto do tipo <span style="color:#00CED1">contact</span> pode ter:
+<span style="color:#696969">Uma definição de contato é usada para identificar alguém que deve ser contatado no caso de um problema num Host ou Serviço, abaixo segue um exemplo de todas as opções que um objeto do tipo <span style="color:#00CED1">contact</span> pode ter:</span>
 
 ```bash
 define contact {
-contact_name					contact_name
-alias                   		alias
-contactgroups					contactgroup_names
-minimum_importance				#
-host_notifications_enabled		[0/1]
-service_notifications_enabled	[0/1]
-host_notification_period		timeperiod_name
-service_notification_period		timeperiod_name
-host_notification_options		[d,u,r,f,s,n]
-service_notification_options	[w,u,c,r,f,s,n]
-host_notification_commands		command_name
-service_notification_commands	command_name
-email							email_address
-addressx						additional_contact_address
-can_submit_commands				[0/1]
-retain_status_information		[0/1]
-retain_nonstatus_information	[0/1]
+
+# Nome do contato
+    contact_name					contact_name
+
+# Apelido
+    alias                   		alias
+
+# Grupos de contatos
+    contactgroups					contactgroup_names
+
+# Importancia mínima para ocorrer notificação
+    minimum_importance				#
+
+# Nome do Período de notificação para host
+    host_notifications_enabled		[0/1]
+
+# Nome do Período de notificação para serviços
+    service_notifications_enabled	[0/1]
+
+# Nome do Período de notificação para host
+    host_notification_period		timeperiod_name
+
+# Nome do Período de notificação para serviços
+    service_notification_period		timeperiod_name
+
+# Estados do host que será notificado
+    host_notification_options		[d,u,r,f,s,n]
+
+# Estados do serviço que será notificado
+    service_notification_options	[w,u,c,r,f,s,n]
+
+# Comando que será usado para notificar (para hosts)
+    host_notification_commands		command_name
+
+# Comando que será usado para notificar (para serviços)
+    service_notification_commands	command_name
+
+# E-mail que será usado para enviar a notificação
+    email							email_address
+
+# Endereços adicionais
+    addressx						additional_contact_address
+
+# Habilitar comandos externos para o contato
+    can_submit_commands				[0/1]
+
+# Manter as informações relacionadas ao status do host 
+# durante a reinicialização do Nagios.
+    retain_status_information		[0/1]
+
+# Manter as informações que não são relacionadas ao status do host 
+# durante a reinicialização do Nagios.
+    retain_nonstatus_information	[0/1]
    	}
 ```
 
 <span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span> [este link](definition_contact.html).
+
+
+
+### <span style="color:#d86c00">**Definindo Contact Groups**</span>
+
+<span style="color:#696969">Uma definição de grupo de contatos é usada para agrupar um ou mais [contatos](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#contact) com o objetivo de enviar [notificações de](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/notifications.html) alerta/recuperação .</span>
+
+```bash
+define contactgroup {
+
+# Nome do grupo de contato
+    contactgroup_name			novell-admins
+
+# Apelido para este grupo de contatos
+    alias						Novell Administrators
+
+# Membros do grupo (são outros contatos)
+    members						jdoe,rtobert,tzach
+}
+```
+
+
+
+
+
+
+
+
+
+
 
 ## <span style="color:#d86c00">**Event Handler - Manipuladores de Eventos**</span>
 
