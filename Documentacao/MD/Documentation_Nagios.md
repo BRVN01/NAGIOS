@@ -967,13 +967,13 @@ define contact {
 define contactgroup {
 
 # Nome do grupo de contato
-    contactgroup_name			novell-admins
+    contactgroup_name			NAME
 
 # Apelido para este grupo de contatos
-    alias						Novell Administrators
+    alias						APELIDO
 
 # Membros do grupo (são outros contatos)
-    members						jdoe,rtobert,tzach
+    members						Membro1,Membro2,Membro3
 }
 ```
 
