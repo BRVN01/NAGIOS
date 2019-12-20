@@ -526,7 +526,7 @@ define host {
 # Habilitar o processamento de dados de desempenho.
     process_perf_data            1
 
-# Não queremos registar como um "modelo":
+# Não queremos registar como um host válido:
     register                     0
 }
 ```

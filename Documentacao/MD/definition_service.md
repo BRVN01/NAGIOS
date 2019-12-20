@@ -505,7 +505,7 @@ define service {
 # Habilitar o processamento de dados de desempenho.
     process_perf_data            1
 
-# Não queremos registar como um "modelo":
+# Não queremos registar como um  serviço válido:
     register                     0
 }
 ```
