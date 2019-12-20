@@ -467,7 +467,7 @@ resource_file=/usr/local/nagios/etc/resource.cfg
 <span style="color:#696969">Aqui vamos verificar como definir objetos no Nagios. Todo objeto terá 3 diretivas em comum, são elas:</span>
 
 - <span style="color:#C0C0C0">**name**</span>
-<span style="color:#696969">É o nome do objeto;</span>
+<span style="color:#696969">É o nome do objeto, geralmente usado quando criamos modelos;</span>
   
 
   
@@ -961,7 +961,7 @@ define contact {
 
 ### <span style="color:#d86c00">**Definindo Contact Groups**</span>
 
-<span style="color:#696969">Uma definição de grupo de contatos é usada para agrupar um ou mais [contatos](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#contact) com o objetivo de enviar [notificações de](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/notifications.html) alerta/recuperação .</span>
+<span style="color:#696969">Uma definição de grupo de contatos é usada para agrupar um ou mais [contatos](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#contact) com o objetivo de enviar [notificações](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/notifications.html) de alerta/recuperação .</span>
 
 ```bash
 define contactgroup {
@@ -979,11 +979,36 @@ define contactgroup {
 
 
 
+### <span style="color:#d86c00">**Definindo Time Period (Período de Tempo)**</span>
 
+<span style="color:#696969">O período de tempo, é o tempo em que o Nagios irá efetuar verificações de serviços/notificações de contatos, se não estiver dentro do período estabelecido, notificações e verificações não serão feitas.</span>
 
+<span style="color:#696969">Podemos criar períodos customizáveis, tanto para verificação como para notificação.</span>
 
+```bash
 
+define timeperiod {
 
+# Nome desse período
+    timeperiod_name				timeperiod_name
+
+# Apelido desse período
+    alias						alias
+
+# São os dias da semana
+    [weekday]					timeranges
+
+# Você pode adicionar muitas excessões em relação
+# ao dia da semana.
+    [exception]					timeranges
+    
+# Nomes de período de tempo, cujos intervalos de tempo 
+# devem ser excluídos desse período de tempo.
+    exclude						[timeperiod1,timeperiod2,...,timeperiodn]
+}
+```
+
+<span style="color:#FFFF00">Para exemplos práticos de modelos de período de tempo, consulte</span> [este link](definition_period.html).
 
 
 
