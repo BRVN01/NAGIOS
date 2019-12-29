@@ -10,7 +10,7 @@
 
 <span style="color:#696969">Nagios é uma ferramenta para monitoramento de rede/sistema, isso significa que o Nagios verifica computadores e/ou dispositivos na sua rede e garante que eles estejam funcionando como deveriam. </span>
 
-<span style="color:#696969">O Nagios verifica constantemente se as máquinas estão funcionando corretamente (através do ping),  ele também verifica se os serviços monitorados nessas máquinas estão funcionando bem.  O principal objetivo do monitoramento da infraestrutura de TI é detectar o mais rápido possível qualquer evento que tenha acontecido, para que se possa tomar uma ação antes que os usuários desse sistema relatem o problema. O monitoramento do sistema no Nagios é dividido em duas categorias de objetos: verificação de hosts e verificação de serviços.  Os hosts representam um dispositivo físico ou virtual em sua rede (servidores, roteadores, switchs, impressoras entre outros). </span>
+<span style="color:#696969">O Nagios verifica constantemente se as máquinas estão "vivas" (através do ping),  ele também verifica se os serviços monitorados nessas máquinas estão funcionando bem.  O principal objetivo do monitoramento da infraestrutura de TI é detectar o mais rápido possível qualquer evento que tenha acontecido, para que se possa tomar uma ação antes que os usuários desse sistema notem o problema. O monitoramento do sistema no Nagios é dividido em duas categorias de objetos: verificação de hosts e verificação de serviços.  Os hosts representam um dispositivo físico ou virtual em sua rede (servidores, roteadores, switchs, impressoras entre outros). </span>
 
 <span style="color:#696969">Os serviços são funcionalidades específicas, por exemplo, um servidor SSH (Secure Shell), consumo de memória, uso de HD, serviço de e-mail, entre outros serviços. Cada serviço está associado a um host no qual está sendo executado. Além disso, as máquinas podem ser agrupadas em grupos de hosts.</span>
 
@@ -52,18 +52,8 @@
 
 ## <span style="color:#d86c00">**Principais características**</span>
 
-<span style="color:#696969">O Nagios é uma ferramenta muito flexível, ele pode ser configurado para monitorar sua infraestrutura de TI da maneira que você deseja. Também possui um mecanismo para reagir automaticamente a problemas e possui um poderoso sistema de notificação. 
-Tudo isso é baseado em um sistema de definição de objetos (objetos são todos os elementos envolvidos na lógica de monitoramento e notificação do Nagios), como explicado a seguir:</span>
-
-- <span style="color:#696969"><span style="color:#C0C0C0">**Comandos**</span>: É a forma que o Nagios vai executar as verificações. Sendo uma parte importante da comunicação do Nagios com os plugins.</span>
-- <span style="color:#696969"><span style="color:#C0C0C0">**Períodos de tempo**</span>: São períodos de data e hora em que uma operação deve ou não ser executada. Por exemplo, de segunda a sexta-feira, das 09:00 às 17:00.</span>
-- <span style="color:#696969"><span style="color:#C0C0C0">**Hosts e grupos de hosts**</span>: São dispositivos (servidores, impressoras, roteadores, switchs etc), além da possibilidade de agrupar hosts. Um único host pode ser membro de mais de um grupo.</span>
-- <span style="color:#696969"><span style="color:#C0C0C0">**Serviços e grupo de serviços**</span>: São várias funcionalidades ou recursos para monitorar em um host específico. Por exemplo, uso da CPU, espaço de armazenamento ou servidor da Web e etc.</span>
-- <span style="color:#696969"><span style="color:#C0C0C0">**Contatos e grupos de contatos**</span>: São as pessoas que devem ser notificadas com informações sobre um evento no host ou serviço, os contatos podem ser agrupados, e um único contato pode ser membro de mais de um grupo.</span>
-- <span style="color:#696969"><span style="color:#C0C0C0">**Notificações**</span>: Definem quem deve ser notificado sobre o que, por exemplo, todos os erros do grupo de servidores Windows devem ir para o grupo de contatos do windows-administration durante o horário de trabalho e para o grupo de contatos da equipe nível 2 fora do horário de trabalho.</span>
-- <span style="color:#696969"><span style="color:#C0C0C0">**Escalações**</span>: São extensões de notificações; eles definem que depois que um objeto está no mesmo estado por um período específico de tempo, outras pessoas devem ser notificadas de determinados eventos, por exemplo, um servidor crítico que esteja inativo por mais de 4 horas deve alertar o gerenciamento de TI para que eles acompanhem o problema.</span>
-
-[Mais sobre objetos e como definir arquivos de objetos](#<span style="color:#d86c00">**Arquivos de definição de objeto**</span>)
+<span style="color:#696969">O Nagios é uma ferramenta muito flexível, ele pode ser configurado para monitorar sua infraestrutura de TI da maneira que você deseja. Possui um mecanismo para reagir automaticamente a problemas e possui um poderoso sistema de notificação. 
+Tudo isso é baseado em um sistema de definição de objetos (objetos são todos os elementos envolvidos na lógica de monitoramento e notificação do Nagios).</span>
 
 
 
@@ -504,6 +494,18 @@ define host {
 - <span style="color:#C0C0C0">**1**</span><span style="color:#696969">**= registra a definição do objeto** (<span style="color:#FFDAB9">**esse é o padrão**</span>). </span>
 
   <span style="color:#696969">Essa variável NÃO é herdada na opção<span style="color:#00CED1">***use***</span>, toda definição de objeto (que seja parcial) usada como modelo deve definir explicitamente a diretiva de *registro* como *0*, caso contrário ela será registrada.</span>
+
+
+
+<span style="color:#696969">Nós podemos criar objetos de alguns tipos, são eles:</span>
+
+- <span style="color:#696969"><span style="color:#C0C0C0">**Commands**</span>: É a forma que o Nagios vai executar as verificações. Sendo uma parte importante da comunicação do Nagios com os plugins.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Period**</span>: São períodos de data e hora em que uma operação deve ou não ser executada. Por exemplo, de segunda a sexta-feira, das 09:00 às 17:00.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Hosts e Host Group**</span>: São dispositivos (servidores, impressoras, roteadores, switchs etc), além da possibilidade de agrupar hosts. Um único host pode ser membro de mais de um grupo.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Service e Service Group**</span>: São várias funcionalidades ou recursos para monitorar em um host específico. Por exemplo, uso da CPU, espaço de armazenamento ou servidor da Web e etc.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Contact e Contact Group**</span>: São as pessoas que devem ser notificadas com informações sobre um evento no host ou serviço, os contatos podem ser agrupados, e um único contato pode ser membro de mais de um grupo.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Notifications**</span>: Definem quem deve ser notificado sobre o que, por exemplo, todos os erros do grupo de servidores Windows devem ir para o grupo de contatos do windows-administration durante o horário de trabalho e para o grupo de contatos da equipe nível 2 fora do horário de trabalho.</span>
+- <span style="color:#696969"><span style="color:#C0C0C0">**Escalações**</span>: São extensões de notificações; eles definem que depois que um objeto está no mesmo estado por um período específico de tempo, outras pessoas devem ser notificadas de determinados eventos, por exemplo, um servidor crítico que esteja inativo por mais de 4 horas deve alertar o gerenciamento de TI para que eles acompanhem o problema.</span>
 
 
 
