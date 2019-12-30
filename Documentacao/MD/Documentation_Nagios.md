@@ -344,7 +344,7 @@ max_debug_file_size=1000000
 allow_empty_hostgroup_assignment=0
 ```
 
-<span style="color:#FFFF00"><span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span></span> [este link](definition_main-cfg.html).
+<span style="color:#FFFF00"><span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span></span> [este link](Documentacao/HTML/definition_main-cfg.html).
 
 
 
@@ -409,7 +409,7 @@ navbar_search_for_addresses=1
 navbar_search_for_aliases=1
 ```
 
-<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span>[este link](definition_cgi.html).
+<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span>[este link](Documentacao/HTML/definition_cgi.html).
 
 <span style="color:#696969">A documentação para o arquivo de configuração CGI pode ser encontrada [aqui](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configcgi.html) .</span>
 
@@ -758,7 +758,7 @@ statusmap_image					image_file
 }    
 ```
 
-<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span>[este link](definition_host.html).
+<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span>[este link](Documentacao/HTML/definition_host.html).
 
 
 
@@ -852,7 +852,7 @@ define service {
    	}
 ```
 
-<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span> [este link](definition_service.html).
+<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span> [este link](Documentacao/HTML/definition_service.html).
 
 
 
@@ -957,7 +957,7 @@ define contact {
    	}
 ```
 
-<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span> [este link](definition_contact.html).
+<span style="color:#FFFF00">Verifique a descrição de cada opção acima, consultando</span> [este link](Documentacao/HTML/definition_contact.html).
 
 
 
@@ -1010,7 +1010,7 @@ define timeperiod {
 }
 ```
 
-<span style="color:#FFFF00">Para exemplos práticos de modelos de período de tempo, consulte</span> [este link](definition_period.html).
+<span style="color:#FFFF00">Para exemplos práticos de modelos de período de tempo, consulte</span> [este link](Documentacao/HTML/definition_period.html).
 
 
 
