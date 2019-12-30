@@ -1020,19 +1020,55 @@ define timeperiod {
 
 <span style="color:#696969">Na definição de comando, podemos utilizar macros para deixar a definição mais dinâmica, por exemplo, se precisarmos passar o endereço IP na definição de comando, não vamos setar o IP direto na definição do comando, se fossemos por essa linha de raciocínio, teríamos que criar um comando para cada host, ao invés disso, usamos a macro (ou variável) <span style="color:#00CED1">$HOSTADDRESS$</span>, que terá o IP do host.</span>
 
-Uma macro muito usada na criação de comandos é a <span style="color:#00CED1">$USER1$</span>, essa macro é definida no arquivo de recursos, que é mencionado no tópico [**Arquivo(s) de Recursos**](#<span-style="color:%23d86c00">**arquivo(s)-de-recursos**</span>>),  
+<span style="color:#696969">Uma macro muito usada na criação de comandos é a <span style="color:#00CED1">$USER1$</span>, essa macro é definida no arquivo de recursos, que é mencionado no tópico [**Arquivo(s) de Recursos**](Documentation_Nagios.html#<span-style="color:%23d86c00">**arquivo(s)-de-recursos**</span>>),  e tem como valor o diretório onde ficam os scripts (plugins) `$USER1$=/usr/local/nagios/libexec`. </span>
 
-Ao realizar um processo de instalação rápida do Nagios, o arquivo de definição de comandos é `cfg_file=/usr/local/nagios/etc/objects/commands.cfg`.
+<span style="color:#696969">Ao realizar um processo de instalação rápida do Nagios, o arquivo de definição de comandos é `cfg_file=/usr/local/nagios/etc/objects/commands.cfg`.</span>
 
 
 
-## <span style="color:#d86c00">**Criando Commands**</span>
+#### <span style="color:#d86c00">**Criando Commands**</span>
 
 <span style="color:#696969">Para criar comandos é necessário duas coisas fundamentais, um script (o Nagios chama eles de plugins) e um nome, o script pode ser desenvolvido em qualquer linguagem (Shell Script, Python, C, C#, Perl entre outras), basicamente, esse "plugin" será o script que vai ser executado para verificar algum serviço ou host, isso torna o Nagios uma ferramenta flexível, caso não exista um plugin para checar um serviço em específico, você mesmo pode criar, e pode criar na linguagem que achar melhor, o servidor do Nagios só tem que ter os compiladores dessa linguagem para poder interpretar o código.</span>
 
-Definindo um comando de ping simples:
+<span style="color:#696969">Definindo um comando de ping simples:</span>
 
+```yaml
+define command {
 
+# define o nome do comando:
+    command_name    check-host-alive
+
+# Command line define não só a localização do comando,
+# mas também, define seus parametros, para que tudo possa ser 
+# bem executado.
+    command_line    $USER1$/check_ping -H $HOSTADDRESS$ -w 3000.0,80% -c 5000.0,100% -p 5
+}
+
+# $USER1$ = Local onde ficam os plugins;
+# check_ping = Nome de script que fará os "pings";
+# -H = parametros que indica o Host;
+# $HOSTADDRESS$ = Variável que contém o IP do host;
+# -w = threshold que indica os parametros para WARNING;
+# -c = threshold que indica os parametros para CRITICAL;
+
+# tanto o '-w' como '-c' possuem dois parametros, vou explicar penas 1
+# e isso já irá servir para os dois:
+#	3000.0 é nomeado como <rta>;
+#	80 é nomeado como <pl>%.
+
+# RTA é round trip average (média de Ida e Volta), se você quiser entender mais sobre isso, 
+# pesquise sobre o protocolo RTT (Round Trip Time). Neste caso a média é de 3000 ms (3 segundos).
+
+# PL é a porcentagem de perda de pacote, ou seja, 80% de perda nesse caso.
+
+# Recapitulando, para Warning, se tivermos 80% de perda de pacote, 
+# teremos um Warning ou se tivermos um tempo de resposta de 3 segundos (demorar 3 segundos até 4 segundos).
+
+# Para CRITICAL, se tivermos 100% de perda de pacote, 
+# teremos um Critical ou se tivermos um tempo de resposta de 5 segundos (demorar 5 segundos ou mais).
+```
+
+<span style="color:#FFFF00">Para exemplos práticos de comandos, consulte</span> [este link](Documentacao/HTML/definition_commands.html).
 
 
 
