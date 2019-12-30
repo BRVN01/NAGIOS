@@ -1014,6 +1014,49 @@ define timeperiod {
 
 
 
+### <span style="color:#d86c00">**Definindo Commands**</span>
+
+<span style="color:#696969">Um comando é nada mais que um plugin que será executado para fazer as verificações de serviço, notificações de serviço, manipuladores de eventos de serviço, verificações de host, notificações de host e manipuladores de eventos de host. Sem a definição de comando não teriamos como fazer tudo isso.</span>
+
+<span style="color:#696969">Na definição de comando, podemos utilizar macros para deixar a definição mais dinâmica, por exemplo, se precisarmos passar o endereço IP na definição de comando, não vamos setar o IP direto na definição do comando, se fossemos por essa linha de raciocínio, teríamos que criar um comando para cada host, ao invés disso, usamos a macro (ou variável) <span style="color:#00CED1">$HOSTADDRESS$</span>, que terá o IP do host.</span>
+
+Uma macro muito usada na criação de comandos é a <span style="color:#00CED1">$USER1$</span>, essa macro é definida no arquivo de recursos, que é mencionado no tópico [**Arquivo(s) de Recursos**](#<span-style="color:%23d86c00">**arquivo(s)-de-recursos**</span>>),  
+
+Ao realizar um processo de instalação rápida do Nagios, o arquivo de definição de comandos é `cfg_file=/usr/local/nagios/etc/objects/commands.cfg`.
+
+
+
+## <span style="color:#d86c00">**Criando Commands**</span>
+
+<span style="color:#696969">Para criar comandos é necessário duas coisas fundamentais, um script (o Nagios chama eles de plugins) e um nome, o script pode ser desenvolvido em qualquer linguagem (Shell Script, Python, C, C#, Perl entre outras), basicamente, esse "plugin" será o script que vai ser executado para verificar algum serviço ou host, isso torna o Nagios uma ferramenta flexível, caso não exista um plugin para checar um serviço em específico, você mesmo pode criar, e pode criar na linguagem que achar melhor, o servidor do Nagios só tem que ter os compiladores dessa linguagem para poder interpretar o código.</span>
+
+Definindo um comando de ping simples:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## <span style="color:#d86c00">**Event Handler - Manipuladores de Eventos**</span>
 
 
