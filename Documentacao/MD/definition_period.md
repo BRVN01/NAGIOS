@@ -64,23 +64,23 @@
   <span style="color:#696969">Dias da semana:</span>
   
   ```
-  sunday		=	domingo
-  monday		=	Segunda-feira
-  tuesday		=	terça
+  sunday			=	domingo
+  monday			=	Segunda-feira
+  tuesday			=	terça
   wednesday		=	quarta-feira
   thursday		=	quinta-feira
-  friday		=	Sexta-feira
+  friday			=	Sexta-feira
   saturday		=	sábado
   ```
   <span style="color:#696969">Cada dia da semana recebe um período em horas, essas horas indicam o horário em que será verificado/notificado naquele dia, o mesmo vale para meses.</span>
   
   ```
-  sunday		00:00-24:00		; domingo de 00 h até 23h59.
-  monday		00:00-24:00		; Segunda-feira de 00 h até 23h59.
-  tuesday		08:00-17:30		; terça de 8 h até 17h30.
+  sunday			00:00-24:00		; domingo de 00 h até 23h59.
+  monday			00:00-24:00		; Segunda-feira de 00 h até 23h59.
+  tuesday			08:00-17:30		; terça de 8 h até 17h30.
   wednesday		08:00-17:30		; quarta-feira de 8 h até 17h30.
   thursday		08:00-17:30		; quinta-feira de 8 h até 17h30.
-  friday		09:00-16:00		; Sexta-feira de 9 h até 16 h.
+  friday			09:00-16:00		; Sexta-feira de 9 h até 16 h.
   saturday		00:00-24:00		; sábado de 00 h até 23h59.
   ```
   
@@ -88,25 +88,25 @@
   
   ```yaml
   # 2° dia de todos os meses, de 00 h até 23h59:
-  day 2			00:00-24:00
+  day 2				00:00-24:00
   
   # 10 de fevereiro de todos os anos, de 00 h até 23h59:
-  february 10	00:00-24:00
+  february 10		00:00-24:00
   
   # Dia 23 de Janeiro de 2019, de 8 h até 17h30:
-  2019-11-23	08:00-17:30
+  2019-11-23		08:00-17:30
   
   # 1° de janeiro de 2019 até 1° de janeiro de 2020, de 00 h até 23h59:
-  2019-01-01 - 2020-01-01	00:00-24:00
+  2019-01-01 - 2020-01-01		00:00-24:00
   
   # Dia 1 até dia 20 de todos os meses, de 8h até 17h30:
-  day 1 - 20	08:00-17:30
+  day 1 - 20		08:00-17:30
   
   # Do dia 9 ao dia 18 de Julio de todos os anos, de 9 h até 16 h:
-  july 9 - 18	09:00-16:00
+  july 9 - 18		09:00-16:00
   
   # A cada 6 dias, da 1ª terça-feira de abril à 2ª sexta-feira de maio de   cada ano.
-  tuesday 1 april - friday 2 may / 6  00:00-24:00        
+  tuesday 1 april - friday 2 may / 6		00:00-24:00        
   ```
 
 
@@ -121,8 +121,9 @@
   
   
   
+
 <span style="color:#696969">Para isso vamos criar um *timeperiod* em que João deva folgar:</span>
-  
+
   ```yaml
   define timeperiod {
     name                Folgas_Joao
@@ -133,11 +134,11 @@
     2019-10-01 - 2019-11-01           00:00-24:00
   }
   ```
-  
+
   
 
   <span style="color:#696969">Agora vamos criar um outro timeperiod especifico para João, onde ele irá "trabalhar" todos os dias e iremos excluir os dias que ele não trabalha:</span>
-  
+
   ```yaml
   define timeperiod {
       timeperiod_name Trabalho_Joao
@@ -149,7 +150,7 @@
       exclude         Folgas_Joao
 }
   ```
-  
+
   <span style="color:#696969">Dessa forma, a verificação ocorrerá "todos os dias", menos os dias que João irá estará fora do escritório (estabelecido pelo exclude, dentro do timeperiod Folgas_Joao) e João não será notificado enquanto estiver fora do escritório.</span>
 
 
