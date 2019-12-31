@@ -59,7 +59,7 @@ Tudo isso é baseado em um sistema de definição de objetos (objetos são todos
 
 # <span style="color:#d86c00">**Capítulo 2: Entendendo o Nagios**</span>
 
-<span style="color:#696969">Nessa sessão vamos ver alguns dos principais arquivos de configuração do Nagios, quais são suas funcionalidades e vamos configurar algumas funcionalidades para pegar prática com o métdodo de configuração da ferramenta.</span>
+<span style="color:#696969">Nessa sessão vamos ver alguns dos principais arquivos de configuração do Nagios, quais são suas funcionalidades e vamos configurar algumas funcionalidades para pegar prática com o método de configuração da ferramenta.</span>
 
 
 
@@ -352,7 +352,7 @@ allow_empty_hostgroup_assignment=0
 
 <span style="color:#696969">Os arquivos de recursos no geral, podem ser usados para armazenar macros definidas pelo usuário. O foco principal de usarmos arquivos de recursos, é poder armazenar informações confidenciais (como senhas), sem exibi-las aos CGIs.</span>
 
-<span style="color:#696969">Você pode especificar um ou mais arquivos de recursos opcionais usando a diretiva [resource_file](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#resource_file), que fica no arquivo de configuração princial. Em uma instalação rápida do Nagios, o padrão para *resource_file* é o arquivo `/usr/local/nagios/etc/resource.cfg`.</span>
+<span style="color:#696969">Você pode especificar um ou mais arquivos de recursos opcionais usando a diretiva [resource_file](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/configmain.html#resource_file), que fica no arquivo de configuração principal. Em uma instalação rápida do Nagios, o padrão para *resource_file* é o arquivo `/usr/local/nagios/etc/resource.cfg`.</span>
 
 <span style="color:#696969">Conteúdo de *resource.cfg*:</span>
 
@@ -370,7 +370,7 @@ $USER1$=/usr/local/nagios/libexec
 #$USER4$=somepassword
 ```
 
-<span style="color:#696969">Os arquivos de recursos geralmente contêm dados confidenciais, pois só podem ser usados em definições de objetos e não é possível ler seus valores na interface da web. Isso torna possível ocultar senhas para vários serviços confidenciais dos administradores do Nagios sem privilégios adequados. Podemos ter até 32 macros (variáveis), denominadas <span style="color:#00CED1">**$USER1$**</span>, <span style="color:#00CED1">**$USER2$**</span> ... <span style="color:#00CED1">**$USER32$**</span>.</span>
+<span style="color:#696969">Os arquivos de recursos geralmente contêm dados confidenciais, pois só podem ser usados em definições de objetos e não é possível ler seus valores na interface da web. Isso torna possível ocultar senhas para vários serviços confidenciais dos administradores do Nagios sem privilégios adequados. Podemos ter até 256 macros (variáveis), denominadas <span style="color:#00CED1">**$USER1$**</span>, <span style="color:#00CED1">**$USER2$**</span> ... <span style="color:#00CED1">**$USER256$**</span>.</span>
 
 
 
@@ -1070,9 +1070,7 @@ define command {
 
 <span style="color:#FFFF00">Para exemplos práticos de comandos, consulte</span> [este link](Documentacao/HTML/definition_commands.html).
 
-
-
-
+<span style="color:#696969">Basicamente, para criação de um comando, você só precisa saber como o plugin funciona, o `command_line` é exatamente a linha de comando que você rodaria no terminal do linux para poder executar o script.</span>
 
 
 

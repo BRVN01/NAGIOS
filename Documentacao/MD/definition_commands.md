@@ -61,3 +61,13 @@ define command {
 }
 ```
 
+
+
+## <span style="color:#d86c00">**Argumentos Dinâmicos**</span>
+
+<span style="color:#696969">Quando criamos um serviço, podemos passar argumentos específico, dessa forma teremos apenas 1 plugin que irá funcionar para muitos hosts, geralmente usamos os argumentos para definir limites de warning, critical, mas podemos usar os argumentos para passar qualquer informação ao script.</span>
+
+<span style="color:#696969">De acordo com o [site oficial](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/macrolist.html#arg), para argumentos denominados <span style="color:#00CED1">$ARGn$</span>, temos uma quantidade limitada para 32 argumentos.</span>
+
+![Seleção_015](/home/bruno/git/NAGIOS/IMG/Seleção_015.png)
+
