@@ -565,3 +565,67 @@ define service {
 
 
 
+## <span style="color:#d86c00">**Definindo Comandos**</span>
+
+<span style="color:#696969">Durante o processo de adição do comando que será usado, podemos passar argumentos específicos para o plugin que será usado. Para isso, você deve conhecer muito bem o plugin, saber os argumentos necessários e até mesmo os não necessário (você não precisa memorizar tudo, apesar que se você conseguir, isso será muito bom).</span>
+
+
+
+### <span style="color:#d86c00">**Argumentos Dinâmicos**</span>
+
+<span style="color:#696969">Quando criamos um serviço, podemos passar argumentos específicos, dessa forma, caso um plugin necessite do endereço IP do host, teremos apenas 1 plugin que irá funcionar para muitos hosts, isso porque o IP será passado quando fomos criar o serviço que usa o IP e não na definição do comando, usamos os argumentos para passar qualquer informação ao plugin.</span>
+
+<span style="color:#696969">A criação de comandos vem em tópicos mais adiante, mas você pode consultar eles clicando [aqui](../../Documentation_Nagios.html#<span-style="color:%23d86c00">**definindo-commands**</span>>).</span>
+
+<span style="color:#696969">Na definição do comando, usamos variável denominadas <span style="color:#00CED1">$ARGn$</span>, onde <span style="color:#00CED1">n</span> é um número que varia entre 1 e 32, nos permitindo ter 32 variáveis possíveis. Dessa forma, caso você precise passar informações ao script como: endereço IP, limite de Warning e Critical, nome de usuário, entre outras informações, poderá utilizar esse método criando as variáveis quando for criar o comando. </span>
+
+<span style="color:#696969">Lembrando que essas informações passadas, serão usadas apenas por esse host nesse único serviço, cada host/serviço irá informar seus dados, podendo ser os mesmos ou diferentes.</span>
+
+<span style="color:#696969">Definindo o valor de $ARGn$:</span>
+
+```yaml
+# Para definir o que cada variável vai receber, 
+# adicionamos os valores em ordem, por exemplo:
+
+define service {
+
+    use                     local-service
+    host_name               localhost
+    service_description     Root Partition
+    check_command           check_local_disk!20%!10%!/
+}
+
+# O comando acima define um serviço local que verifica a capacidade de 
+# armazenamento livre de um ponto de montagem. 
+
+# É um ponto montagem porque facilita a compreensão quando for criar o
+# serviço, você pode ter 2 ou mais discos compartilhando espaço para uma
+# ou mais pontos de montagem.
+
+# Vamos analizaro o a linha abaixo:
+    check_command           check_local_disk!20%!10%!/
+# Essa linha define o comando que será usado, nela podemos ver o nome
+# do comando 'check_local_disk', esse comando não é definido no arquivo
+# commands.cfg, ao invés disso, ele é definido no arquivo:
+# '/usr/local/nagios/var/objects.cache'
+define command {
+    command_name    	check_local_disk
+    command_line        $USER1$/check_disk -w $ARG1$ -c $ARG2$ -p $ARG3$
+    }
+# Aqui podemos notar o uso de $ARGn$, perceba que o próprio plugin
+# utilizar argumento como -w para Warning, -c para Critical e 
+# -p para informar a partição.
+
+# Se voce usar o comando '/usr/local/nagios/libexec/check_disk --help',
+# poderá ver todos os parametros possíveis para esse plugin.
+
+check_command           check_local_disk!20%!10%!/
+# Aqui definimos o comando, nome do comando que vamos utilizar,
+# Os parametros aqui são colocados após o sinal de exclamação !,
+# dessa forma, o primeiro argumento passado ao plugin é 20%, que se
+# trata do limite para Warning, como podemos ver em 'command_line'.
+
+# O segundo argumento é 10%, indicando que se sobrar 10% ou menos 
+# de espaço livre no disco, vamos receber um Critical e por fim
+# temos o ponto montagem onde será verificado o armazenamento.
+```

@@ -65,9 +65,24 @@ define command {
 
 ## <span style="color:#d86c00">**Argumentos Dinâmicos**</span>
 
-<span style="color:#696969">Quando criamos um serviço, podemos passar argumentos específico, dessa forma teremos apenas 1 plugin que irá funcionar para muitos hosts, geralmente usamos os argumentos para definir limites de warning, critical, mas podemos usar os argumentos para passar qualquer informação ao script.</span>
+<span style="color:#696969">Quando criamos um serviço, podemos passar argumentos específicos, dessa forma teremos apenas 1 plugin que irá funcionar para muitos hosts, geralmente usamos os argumentos para definir limites de warning, critical, mas podemos usar os argumentos para passar qualquer informação ao script.</span>
 
 <span style="color:#696969">De acordo com o [site oficial](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/macrolist.html#arg), para argumentos denominados <span style="color:#00CED1">$ARGn$</span>, temos uma quantidade limitada para 32 argumentos.</span>
 
-![Seleção_015](/home/bruno/git/NAGIOS/IMG/Seleção_015.png)
+[![Seleção_015](https://github.com/BRVN01/NAGIOS/raw/master/IMG/Seleção_015.png)](https://github.com/BRVN01/NAGIOS/blob/master/IMG/Seleção_015.png) 
+
+<span style="color:#696969">O valor que cada <span style="color:#00CED1">$ARGn$</span> irá receber é definido no `check_command` na definição do serviço e após o nome do serviço, separamos para argumento com o sinal de exclamação <span style="color:#00CED1">!</span>, para relembrar, clique [aqui](definition_service.html#<span-style="color:%23d86c00">**argumentos-dinâmicos**</span>>).</span>
+
+
+
+## <span style="color:#d86c00">**Argumentos especiais**</span>
+
+<span style="color:#696969">Como foi citado em Definition_Services, poderiamos declarar o endereço IP para <span style="color:#00CED1">$ARGn$</span>, isso funcionaria, mas não é necessário, isso é acontece porque algumas variáveis têm uma função espcial, dessa forma não precisa utilizar o <span style="color:#00CED1">$ARGn$</span> já que temos um número limite de variáveis desse tipo. Abaixo falaremos de algumas variáveis e sua função.</span>
+
+```yaml
+ $HOSTADDRESS$		# Possui o endereço IP do host.
+ $HOSTNAME$			# Nome do HOST, definido em 'host_name'.
+ $HOSTALIAS$		# Alias do host, definido em 'alias'.
+```
+<span style="color:#696969">Por enquanto vou deixar apenas estes que possuem uma ligação mais geral com plugins, as outras variáveis tem um papel mais importante na área de notificação e Event Handler.</span>
 
