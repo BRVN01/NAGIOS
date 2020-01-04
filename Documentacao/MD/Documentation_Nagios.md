@@ -1072,17 +1072,13 @@ define command {
 
 <span style="color:#696969">Basicamente, para criação de um comando, você só precisa saber como o plugin funciona, o `command_line` é exatamente a linha de comando que você rodaria no terminal do linux para poder executar o script.</span>
 
+### <span style="color:#d86c00">**Definindo Service Dependency**</span>
+
+As dependências de host/serviço é um recurso Nagios que permite controlar o comportamento de hosts/serviços com base no status de um ou mais hosts/serviços. 
 
 
 
-
-
-
-
-
-
-
-
+quando declaramos o parent, tudo atrás de um host é declarado como inacessivel e nao DOWN. Se você quiser se poupar de uma enxurrada de notificações inacessíveis durante interrupções na rede, poderá excluir a opção inacessível (u) da diretiva *notification_options* nas definições do [host](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#host) e / ou a diretiva *host_notification_options* nas definições de [contato](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#contact) .
 
 
 
